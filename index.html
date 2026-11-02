@@ -9,8 +9,8 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="RideStrong">
 <link rel="manifest" href="manifest.webmanifest">
-<link rel="apple-touch-icon" href="icons/icon-180.png">
-<link rel="icon" href="icons/logo.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icons/icon-180-v2.png">
+<link rel="icon" href="icons/logo-v2.svg" type="image/svg+xml">
 <title>RideStrong</title>
 <style>
 :root{--bg:#f4f3ef;--paper:#fff;--ink:#18201b;--ink2:#2b352e;--muted:#737b74;--line:#e7e6e0;--lime:#c6f06b;--lime2:#a9d84a;--deep:#3d6b1f;--mint:#e9f3dc;--peach:#fbe8dc;--lav:#ecebfa;--blue:#e3eef5;--sand:#f6efdc;--red:#c4533f;--shadow:0 6px 24px rgba(24,32,27,.06);--r:20px}
@@ -299,12 +299,18 @@ html,body,#guide,#session,.s-body{background:#000}
 .logo span{background:none;-webkit-background-clip:initial;background-clip:initial;color:#fff}
 .s-head{background:#0a0a0c}
 .modal{background:rgba(0,0,0,.75)}
+
+/* ===== home less red ===== */
+.hero .eyebrow{color:#8b8d98}.hero .pill.dark{background:#18181d;color:#c9cbd3}.hero:after{display:none}
+#heroSwap{color:#c9cbd3!important}
+.eyebrow{color:#8b8d98}.linkbtn{color:#c9cbd3}
+.ring circle+circle{stroke:#fff}
 </style>
 </head>
 <body>
 <header>
  <div class="top">
-  <div class="logo"><img src="icons/logo.svg" alt="" style="width:30px;height:30px;border-radius:8px">RIDE<span>STRONG</span></div>
+  <div class="logo"><img src="icons/logo-v2.svg" alt="" style="width:30px;height:30px;border-radius:8px">RIDE<span>STRONG</span></div>
   <button class="iconbtn" onclick="showPage('settings')" aria-label="Settings">⚙︎</button>
  </div>
  <div class="date" id="todayDate"></div><h1 class="greeting" id="greeting">Let's get stronger.</h1>
@@ -676,7 +682,7 @@ function renderHome(){
  $("greeting").textContent=(hr<12?"Good morning":hr<18?"Good afternoon":"Good evening")+nm+".";
  const wk=weekSessions(),str=wk.filter(s=>!isRide(s)),rides=wk.filter(isRide),slots=planProgress(),doneSlots=slots.filter(s=>s.done).length;
  const pct=slots.length?doneSlots/slots.length:0,C2=2*Math.PI*42;
- $("homeStats").innerHTML='<div class="card ringcard"><div class="ring"><svg viewBox="0 0 100 100"><defs><linearGradient id="rg" x1="0" x2="1"><stop offset="0" stop-color="#ff2d55"/><stop offset="1" stop-color="#ff5b3a"/></linearGradient></defs><circle cx="50" cy="50" r="42" fill="none" stroke="#262935" stroke-width="10"/>'+(pct?'<circle cx="50" cy="50" r="42" fill="none" stroke="url(#rg)" stroke-width="10" stroke-linecap="round" stroke-dasharray="'+(C2*pct).toFixed(1)+' '+C2.toFixed(1)+'"/>':'')+'</svg><b>'+doneSlots+'/'+slots.length+'</b></div><div class="ringstats"><div><b>'+streak()+'</b><small>Day streak</small></div>'+(settings.cycling?'<div><b>'+rides.length+'</b><small>Rides this week</small></div><div><b>'+(rides.reduce((a,s)=>a+(s.durationSec||0),0)/3600).toFixed(1)+'</b><small>Ride hours</small></div>':'<div><b>'+str.length+'</b><small>Workouts this week</small></div><div><b>'+Math.round(str.reduce((a,s)=>a+(s.durationSec||0),0)/60)+'</b><small>Minutes this week</small></div>')+'<div><b>'+(planWeekIndex()+1)+'</b><small>Plan week</small></div></div></div>';
+ $("homeStats").innerHTML='<div class="card ringcard"><div class="ring"><svg viewBox="0 0 100 100"><defs><linearGradient id="rg" x1="0" x2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#d9d9de"/></linearGradient></defs><circle cx="50" cy="50" r="42" fill="none" stroke="#262935" stroke-width="10"/>'+(pct?'<circle cx="50" cy="50" r="42" fill="none" stroke="url(#rg)" stroke-width="10" stroke-linecap="round" stroke-dasharray="'+(C2*pct).toFixed(1)+' '+C2.toFixed(1)+'"/>':'')+'</svg><b>'+doneSlots+'/'+slots.length+'</b></div><div class="ringstats"><div><b>'+streak()+'</b><small>Day streak</small></div>'+(settings.cycling?'<div><b>'+rides.length+'</b><small>Rides this week</small></div><div><b>'+(rides.reduce((a,s)=>a+(s.durationSec||0),0)/3600).toFixed(1)+'</b><small>Ride hours</small></div>':'<div><b>'+str.length+'</b><small>Workouts this week</small></div><div><b>'+Math.round(str.reduce((a,s)=>a+(s.durationSec||0),0)/60)+'</b><small>Minutes this week</small></div>')+'<div><b>'+(planWeekIndex()+1)+'</b><small>Plan week</small></div></div></div>';
  renderWeekStrip(slots);
  // hero
  $("heroFig").innerHTML="";if(active){const ci=active.items.find(i=>i.sets.some(s=>!s.done))||active.items[0];if(ci)$("heroFig").innerHTML=media(ci.id,"clear",true);$("heroTag").textContent="IN PROGRESS";$("heroPill").textContent=fmtTime((Date.now()-active.startedAt)/1000);$("heroTitle").textContent=active.name;$("heroDesc").textContent="You have a workout open. Pick up where you left off.";$("heroMeta").innerHTML="";$("heroBtn").textContent="Resume workout";$("heroBtn").onclick=()=>{openSession();if(settings.guided)openGuide()};$("heroAlt").style.display="none"}
