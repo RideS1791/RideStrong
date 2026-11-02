@@ -11,7 +11,7 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icons/icon-180.png">
 <link rel="icon" href="icons/logo.svg" type="image/svg+xml">
-<title>RideStrong · Strength for cyclists</title>
+<title>RideStrong</title>
 <style>
 :root{--bg:#f4f3ef;--paper:#fff;--ink:#18201b;--ink2:#2b352e;--muted:#737b74;--line:#e7e6e0;--lime:#c6f06b;--lime2:#a9d84a;--deep:#3d6b1f;--mint:#e9f3dc;--peach:#fbe8dc;--lav:#ecebfa;--blue:#e3eef5;--sand:#f6efdc;--red:#c4533f;--shadow:0 6px 24px rgba(24,32,27,.06);--r:20px}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
@@ -243,6 +243,29 @@ input,select,textarea{background:#1f2129;border-color:#2c2f3b;color:var(--ink)}
 .hist .detail{border-color:var(--line)}
 .pickrow{border-color:var(--line)}.pickrow .box{border-color:#3a3d4a}.pickrow.sel .box{background:var(--grad);border-color:transparent}
 .builder-item{border-color:var(--line)}
+
+/* ===== redder accent, completed days only ===== */
+:root{--lime:#ff3b4f;--lime2:#ff3b4f;--deep:#ff4d5e;--coral:#ff3b4f;--grad:linear-gradient(135deg,#ff2d55 0%,#ff5b3a 100%)}
+.eyebrow,.linkbtn{color:#ff5a68}.pill{background:#2d1a1f;color:#ff7d8a}.why{background:#2d1a1f;color:#ffc9cf}
+.tabs button.active,.tabs button.active svg{color:#ff4d5e}
+.day,.day.today{background:#1f2129;outline:none}.day .ic span{opacity:1;color:#fff;font-weight:900;font-size:14px}
+.day.done{background:var(--grad)}.day.done b,.day.done .dn{color:#fff}
+.planday .d,.planday.today .d{background:#20232c;color:var(--ink)}.planday.today .d{background:var(--grad);color:#fff}.planday.today .d small{color:#fff}
+.bars .s{background:#ff3b4f}
+.hero .btn.lime{color:#e0263f}
+
+.g-media.sm{flex:0 0 34vh}
+.g-panel{flex:1;display:flex;flex-direction:column;min-height:0;padding-top:14px}
+.g-name{font-size:22px}.g-sub{margin:2px 0 10px}
+.g-row{display:flex;gap:14px;align-items:center;justify-content:center;margin-bottom:10px}
+.g-clock{width:112px;height:112px;position:relative;flex:none;cursor:pointer}.g-clock svg{width:100%;height:100%;transform:rotate(-90deg)}.g-clock>div{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}.g-clock b{font-size:30px;font-weight:900;font-variant-numeric:tabular-nums}.g-clock small{font-size:8px;font-weight:900;letter-spacing:1px;color:var(--muted)}
+.g-steps2{display:flex;flex-direction:column;gap:8px}
+.stepper.sm{padding:6px}.stepper.sm button{width:34px;height:34px;font-size:18px}.stepper.sm div{min-width:52px}.stepper.sm b{font-size:20px}
+.g-hold{background:#20232c;border-radius:18px;padding:12px 18px;text-align:center}.g-hold b{display:block;font-size:24px}.g-hold small{font-size:10px;color:var(--muted);font-weight:900;letter-spacing:1px}
+.g-how{flex:1;min-height:60px;overflow:auto;background:#20232c;border-radius:16px;padding:10px 12px;margin-bottom:12px;font-size:13px;line-height:1.45;color:#d6d8e0}.g-how b{font-size:10px;letter-spacing:1.2px;color:#ff7d8a}.g-how ol{margin:6px 0 0;padding-left:18px}.g-how li{margin-bottom:5px}
+.g-main.pulse{animation:pulse 1s ease-in-out infinite}@keyframes pulse{50%{transform:scale(1.03);box-shadow:0 0 0 8px rgba(255,59,79,.25)}}
+.g-links{margin-top:4px}
+.g-media.sm{flex:0 0 26vh}.g-clock{width:96px;height:96px}.g-clock b{font-size:26px}.g-name{font-size:20px;margin-top:-4px}.g-sub{margin:0 0 8px}.g-row{margin-bottom:8px}.g-panel{padding-top:12px}.g-how{min-height:110px}.g-main{padding:15px}
 </style>
 </head>
 <body>
@@ -280,7 +303,7 @@ input,select,textarea{background:#1f2129;border-color:#2c2f3b;color:var(--ink)}
  <div class="section-head"><h2>This week</h2><span class="tiny" id="planCount"></span></div>
  <div class="card" style="padding:4px 14px" id="planWeek"></div>
  <div id="planTips"></div>
- <div class="card"><h3>Change your plan</h3><p class="tiny">Change your level, training days, equipment or cycling days at any time. Your history is kept.</p><button class="btn soft full" onclick="openSetup()">Edit plan settings</button><button class="btn soft full" style="margin-top:8px" onclick="restartPlan()">Restart from week 1</button></div>
+ <div class="card"><h3>Change your plan</h3><p class="tiny">Change your level, training days or equipment at any time. Your history is kept.</p><button class="btn soft full" onclick="openSetup()">Edit plan settings</button><button class="btn soft full" style="margin-top:8px" onclick="restartPlan()">Restart from week 1</button></div>
 </section>
 
 <!-- TRAIN -->
@@ -331,7 +354,7 @@ input,select,textarea{background:#1f2129;border-color:#2c2f3b;color:var(--ink)}
   <button class="btn soft full" style="margin-top:8px" onclick="$('importFile').click()">Restore from backup</button><input type="file" id="importFile" accept=".json,application/json" style="display:none" onchange="importData(this)">
   <button class="btn red full" style="margin-top:8px" onclick="wipeAll()">Delete all my data</button>
  </div>
- <div class="card"><h3>About RideStrong</h3><p class="tiny">Strength, core and mobility training for cyclists, built around dumbbells and bodyweight. Exercise photos and instructions come from the free, public domain Free Exercise DB.</p><p class="tiny">This is general fitness guidance, not medical advice. Stop any exercise that causes pain, dizziness or unusual discomfort, and speak to a GP or physiotherapist if you have an injury or health condition.</p><div class="tiny">Version 5.0</div></div>
+ <div class="card"><h3>About RideStrong</h3><p class="tiny">Strength, core and mobility training built around dumbbells and bodyweight. Exercise photos and instructions come from the free, public domain Free Exercise DB.</p><p class="tiny">This is general fitness guidance, not medical advice. Stop any exercise that causes pain, dizziness or unusual discomfort, and speak to a GP or physiotherapist if you have an injury or health condition.</p><div class="tiny">Version 5.0</div></div>
 </section>
 </main>
 
@@ -392,44 +415,44 @@ input,select,textarea{background:#1f2129;border-color:#2c2f3b;color:var(--ink)}
 const IMG_REMOTE="https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/";
 // names tidied for the app
 const NAMES={"Kettlebell_One-Legged_Deadlift":"Single Leg Romanian Deadlift","Vertical_Swing":"Dumbbell Swing","Freehand_Jump_Squat":"Jump Squat","Split_Squat_with_Dumbbells":"Rear Foot Elevated Split Squat","Split_Squats":"Split Squat","Butt_Lift_Bridge":"Glute Bridge","Bent-Arm_Dumbbell_Pullover":"Dumbbell Pullover","External_Rotation":"Side Lying External Rotation","Farmers_Walk":"Farmer's Carry","Reverse_Flyes":"Bent Over Reverse Fly","Side_Bridge":"Side Plank","Pushups":"Push Up","Incline_Push-Up":"Incline Push Up","Dumbbell_Step_Ups":"Dumbbell Step Up","Dumbbell_Rear_Lunge":"Dumbbell Reverse Lunge","Standing_Dumbbell_Calf_Raise":"Dumbbell Calf Raise","IT_Band_and_Glute_Stretch":"Glute and ITB Stretch","Worlds_Greatest_Stretch":"World's Greatest Stretch","Childs_Pose":"Child's Pose Reach","Kneeling_Hip_Flexor":"Kneeling Quad and Hip Flexor Stretch","Calf_Stretch_Hands_Against_Wall":"Wall Calf Stretch","Chest_And_Front_Of_Shoulder_Stretch":"Chest and Shoulder Stretch","Cat_Stretch":"Seated Spine Stretch","Standing_Hip_Circles":"Standing Hip Circles","Knee_Tuck_Jump":"Tuck Jump","Superman":"Superman Back Extension","Bodyweight_Squat":"Squat to Overhead Reach","Lateral_Bound":"Skater Hops","Side_Bridge":"Side Plank","Quad_Stretch":"Lying Side Quad Stretch","IT_Band_and_Glute_Stretch":"Seated Glute Stretch","Vertical_Swing":"Dumbbell Swing","Plank":"Plank","Bodyweight_Walking_Lunge":"Walking Lunge","One-Arm_Dumbbell_Row":"Single Arm Dumbbell Row","Stiff-Legged_Dumbbell_Deadlift":"Dumbbell Romanian Deadlift"};
-const CATS={legs:"Cycling legs",power:"Power",core:"Core and abs",upper:"Upper body",full:"Full body",mob:"Mobility"};
+const CATS={legs:"Legs",power:"Power",core:"Core and abs",upper:"Upper body",full:"Full body",mob:"Mobility"};
 /* item: id, t (weight|reps|time), b/i/a = [sets,target] for beginner/intermediate/advanced,
    lv:{b:id,a:id} swaps the exercise at that level, bw: swap when you only have bodyweight (bwt = its type), why: what it does for your riding */
 const W={
- w_legs:{name:"Cycling leg strength",cat:"legs",rest:90,desc:"The key session of the plan. Squat, hinge and single leg strength, finished with a core block. Changes each time you do it.",why:"Stronger legs mean every pedal stroke uses a smaller share of your maximum, so you hold power for longer and climb with more in reserve. The core finisher gives that power a stable base.",items:[
-  {id:"Goblet_Squat",alt:["edb_dumbbell_squat"],t:"weight",b:[2,10],i:[3,8],a:[4,6],bw:"Bodyweight_Squat",bwt:"reps",why:"Quads and glutes through a deeper range than pedalling: the main drivers of the downstroke."},
-  {id:"Split_Squat_with_Dumbbells",alt:["edb_dumbbell_forward_lunge"],t:"weight",b:[2,8],i:[3,8],a:[4,6],lv:{b:"Split_Squats"},bw:"Split_Squats",bwt:"reps",why:"One leg at a time, just like pedalling. Evens out left and right."},
-  {id:"Kettlebell_One-Legged_Deadlift",alt:["edb_dumbbell_romanian_deadlift"],t:"weight",b:[2,10],i:[3,8],a:[4,8],lv:{b:"Stiff-Legged_Dumbbell_Deadlift"},bw:"Kettlebell_One-Legged_Deadlift",bwt:"reps",why:"Hamstrings and glutes for the back of the pedal stroke, and a strong lower back for long rides."},
-  {id:"Dumbbell_Step_Ups",alt:["edb_curtsy_squat"],t:"weight",b:[2,8],i:[3,8],a:[3,10],bw:"Dumbbell_Step_Ups",bwt:"reps",why:"Drive through the front foot. Very close to the push you make out of the saddle."},
-  {id:"Standing_Dumbbell_Calf_Raise",t:"weight",b:[2,12],i:[3,15],a:[3,15],bw:"Standing_Dumbbell_Calf_Raise",bwt:"reps",why:"Calves and ankles carry force to the pedal. Pause at the top, lower slowly."},
-  {id:"Side_Bridge",alt:["edb_plank_with_twist"],t:"time",b:[2,20],i:[2,30],a:[3,40],core:1,why:"Core finisher: the side of the trunk that keeps your pelvis still on the saddle."},
+ w_legs:{name:"Leg Strength",cat:"legs",rest:90,desc:"Squats, lunges and deadlifts for strong legs and glutes, finished with core. Changes each time.",why:"Big compound moves build strength through the whole lower body, and the core finisher ties it together.",items:[
+  {id:"Goblet_Squat",alt:["edb_dumbbell_squat"],t:"weight",b:[2,10],i:[3,8],a:[4,6],bw:"Bodyweight_Squat",bwt:"reps"},
+  {id:"Split_Squat_with_Dumbbells",alt:["edb_dumbbell_forward_lunge"],t:"weight",b:[2,8],i:[3,8],a:[4,6],lv:{b:"Split_Squats"},bw:"Split_Squats",bwt:"reps"},
+  {id:"Kettlebell_One-Legged_Deadlift",alt:["edb_dumbbell_romanian_deadlift"],t:"weight",b:[2,10],i:[3,8],a:[4,8],lv:{b:"Stiff-Legged_Dumbbell_Deadlift"},bw:"Kettlebell_One-Legged_Deadlift",bwt:"reps"},
+  {id:"Dumbbell_Step_Ups",alt:["edb_curtsy_squat"],t:"weight",b:[2,8],i:[3,8],a:[3,10],bw:"Dumbbell_Step_Ups",bwt:"reps"},
+  {id:"Standing_Dumbbell_Calf_Raise",t:"weight",b:[2,12],i:[3,15],a:[3,15],bw:"Standing_Dumbbell_Calf_Raise",bwt:"reps"},
+  {id:"Side_Bridge",alt:["edb_plank_with_twist"],t:"time",b:[2,20],i:[2,30],a:[3,40],core:1},
   {id:"Dead_Bug",alt:["edb_heel_touches"],t:"reps",b:[2,8],i:[3,10],a:[3,12],core:1,why:"Core finisher: deep abs that stop you rocking when you push hard."}]},
- w_single:{name:"Single leg and core",cat:"legs",rest:75,desc:"Pedalling is one leg at a time. Strength and control on each side, then a GCN style core block.",why:"Fixes left and right imbalances and strengthens the small hip muscles that keep your knees tracking straight over the pedals.",items:[
+ w_single:{name:"Legs and Core",cat:"legs",rest:75,desc:"One leg at a time for strength and balance, then a core block.",why:"Single leg work fixes left and right imbalances and builds the hip muscles that protect your knees.",items:[
   {id:"Dumbbell_Step_Ups",t:"weight",b:[2,8],i:[3,10],a:[4,8],bw:"Dumbbell_Step_Ups",bwt:"reps",why:"Control the way down as well as the way up."},
   {id:"Dumbbell_Rear_Lunge",alt:["edb_dumbbell_forward_lunge"],t:"weight",b:[2,8],i:[3,8],a:[3,10],bw:"Dumbbell_Rear_Lunge",bwt:"reps",why:"Kind on the knees and great for glutes."},
   {id:"Kettlebell_One-Legged_Deadlift",t:"weight",b:[2,8],i:[3,8],a:[4,8],bw:"Kettlebell_One-Legged_Deadlift",bwt:"reps",why:"Hamstrings, glutes and balance."},
-  {id:"Split_Squat_with_Dumbbells",alt:["edb_curtsy_squat"],t:"weight",b:[2,8],i:[3,8],a:[3,10],lv:{b:"Split_Squats"},bw:"Split_Squats",bwt:"reps",why:"Keep the front knee in line with your toes, just like on the bike."},
+  {id:"Split_Squat_with_Dumbbells",alt:["edb_curtsy_squat"],t:"weight",b:[2,8],i:[3,8],a:[3,10],lv:{b:"Split_Squats"},bw:"Split_Squats",bwt:"reps"},
   {id:"Lateral_Bound",t:"reps",b:[2,10],i:[3,10],a:[3,12],lv:{b:"Bodyweight_Walking_Lunge"},why:"Side to side control for the hips. Land softly."},
-  {id:"Single_Leg_Glute_Bridge",alt:["edb_glute_bridge_march"],t:"reps",b:[2,10],i:[3,12],a:[3,15],core:1,why:"Core finisher: wakes up glutes that switch off after hours in the saddle."},
+  {id:"Single_Leg_Glute_Bridge",alt:["edb_glute_bridge_march"],t:"reps",b:[2,10],i:[3,12],a:[3,15],core:1},
   {id:"Superman",t:"reps",b:[2,8],i:[3,10],a:[3,12],core:1,why:"Core finisher: lower back strength for holding a low position."},
   {id:"Plank",alt:["edb_plank_shoulder_taps"],t:"time",b:[2,20],i:[3,30],a:[3,45],core:1}]},
- w_power:{name:"Sprint power and core",cat:"power",rest:120,desc:"Fast, explosive work for sprints, short climbs and attacks, with a core block to finish. Quality over quantity.",why:"Teaches your muscles to produce force quickly: jumps out of corners, sprint finishes and punchy climbs.",items:[
+ w_power:{name:"Power",cat:"power",rest:120,desc:"Fast, explosive moves with full rest, then core to finish.",why:"Training to move quickly builds power and keeps your legs springy.",items:[
   {id:"Freehand_Jump_Squat",t:"reps",b:[2,8],i:[3,6],a:[4,6],lv:{b:"Bodyweight_Squat"},why:"Jump high, land softly. Beginners squat and stand up fast."},
-  {id:"Vertical_Swing",t:"weight",b:[2,10],i:[3,12],a:[4,12],bw:"Butt_Lift_Bridge",bwt:"reps",why:"Snap the hips forward. The explosive hip drive used when sprinting."},
+  {id:"Vertical_Swing",t:"weight",b:[2,10],i:[3,12],a:[4,12],bw:"Butt_Lift_Bridge",bwt:"reps"},
   {id:"Dumbbell_Step_Ups",t:"weight",b:[2,6],i:[3,6],a:[3,8],bw:"Dumbbell_Step_Ups",bwt:"reps",why:"Light weight, drive up fast, lower slowly."},
   {id:"Lateral_Bound",t:"reps",b:[2,8],i:[3,8],a:[4,10],lv:{b:"Bodyweight_Walking_Lunge"},why:"Spring from one leg to the other and stick each landing."},
-  {id:"edb_jump_lunge",t:"reps",b:[2,20],i:[3,20],a:[3,8],lv:{b:"Mountain_Climbers",i:"Mountain_Climbers"},why:"Advanced riders do jump lunges. Everyone else does fast mountain climbers."},
+  {id:"edb_jump_lunge",t:"reps",b:[2,20],i:[3,20],a:[3,8],lv:{b:"Mountain_Climbers",i:"Mountain_Climbers"}},
   {id:"edb_plank_with_twist",t:"reps",b:[2,8],i:[3,10],a:[3,12],core:1},
   {id:"Russian_Twist",t:"reps",b:[2,12],i:[3,16],a:[3,20],core:1}]},
- w_core:{name:"Core for cycling, GCN style",cat:"core",rest:40,desc:"Based on the moves GCN recommends for riders: bridge, superman, boat, plank and side plank, plus single leg glute work.",why:"A strong trunk keeps you still on the saddle, helps you climb out of the saddle and protects your lower back on long rides.",items:[
+ w_core:{name:"Core Strength",cat:"core",rest:40,desc:"Bridge, superman, boat, plank and side plank: a complete core session.",why:"A strong core protects your lower back and makes every other exercise stronger.",items:[
   {id:"Butt_Lift_Bridge",alt:["edb_glute_bridge_march"],t:"reps",b:[2,10],i:[3,12],a:[3,15],why:"Bridge: glutes and lower back."},
-  {id:"Superman",t:"reps",b:[2,8],i:[3,10],a:[3,12],why:"Superman: the back muscles that hold you over the bars."},
+  {id:"Superman",t:"reps",b:[2,8],i:[3,10],a:[3,12]},
   {id:"edb_jackknife_sit_up",alt:["Reverse_Crunch"],t:"reps",b:[2,8],i:[3,10],a:[3,12],lv:{b:"Reverse_Crunch"},why:"Boat style: lower and upper abs together."},
-  {id:"Plank",alt:["edb_plank_shoulder_taps"],t:"time",b:[2,20],i:[3,30],a:[3,45],why:"Plank: the same braced position as riding in the drops."},
+  {id:"Plank",alt:["edb_plank_shoulder_taps"],t:"time",b:[2,20],i:[3,30],a:[3,45]},
   {id:"Side_Bridge",alt:["edb_push_up_to_side_plank"],t:"time",b:[2,15],i:[3,25],a:[3,35],why:"Side plank: obliques and hips that steady the pelvis. Do both sides."},
   {id:"Single_Leg_Glute_Bridge",t:"reps",b:[2,8],i:[3,10],a:[3,12],why:"Single leg bridge: hamstrings and glutes, one side at a time."},
   {id:"Dead_Bug",t:"reps",b:[2,8],i:[3,10],a:[3,12]}]},
- w_abs:{name:"Six pack abs",cat:"core",rest:30,desc:"A proper abs session: upper abs, lower abs and obliques with short rests. Rotates between versions so it never gets stale.",why:"Builds the front abs and obliques. You will only see them clearly once body fat is low, which comes from your riding and what you eat as much as from crunches.",items:[
+ w_abs:{name:"Six Pack Abs",cat:"core",rest:30,desc:"Upper abs, lower abs and obliques with short rests.",why:"Builds the front abs and obliques. You'll see them clearly once body fat is low, which comes from what you eat as much as from crunches.",items:[
   {id:"edb_crunch",alt:["edb_tuck_crunch"],t:"reps",b:[2,12],i:[3,15],a:[3,20]},
   {id:"edb_bicycle_crunch",t:"reps",b:[2,16],i:[3,20],a:[3,30]},
   {id:"Reverse_Crunch",alt:["edb_jackknife_sit_up"],t:"reps",b:[2,10],i:[3,12],a:[3,15]},
@@ -438,36 +461,36 @@ const W={
   {id:"Flutter_Kicks",t:"time",b:[2,20],i:[3,30],a:[3,40]},
   {id:"Plank",alt:["edb_plank_with_twist"],t:"time",b:[2,20],i:[3,30],a:[3,45]},
   {id:"Mountain_Climbers",t:"time",b:[2,20],i:[3,30],a:[3,40]}]},
- w_obliques:{name:"Abs and obliques, 15 minutes",cat:"core",rest:25,desc:"Short, hard and focused on the sides of the waist. Good after a ride.",why:"Strong obliques resist the bike rocking under you and give the waist a tighter look.",items:[
+ w_obliques:{name:"Obliques",cat:"core",rest:25,desc:"Short and hard, aimed at the sides of the waist.",why:"Strong obliques give a tighter waist and protect the spine when you twist.",items:[
   {id:"edb_cross_body_crunch",t:"reps",b:[2,12],i:[3,16],a:[3,20]},
   {id:"edb_oblique_crunch",t:"reps",b:[2,10],i:[3,12],a:[3,15]},
   {id:"Side_Bridge",t:"time",b:[2,15],i:[2,25],a:[3,30]},
   {id:"edb_hip_twist_lift",t:"reps",b:[2,8],i:[3,10],a:[3,12]},
   {id:"Dumbbell_Side_Bend",t:"weight",b:[2,12],i:[3,12],a:[3,15],bw:"edb_oblique_crunch",bwt:"reps"},
   {id:"edb_push_up_to_side_plank",t:"reps",b:[2,6],i:[3,8],a:[3,10],lv:{b:"Side_Bridge"}}]},
- w_core10:{name:"Quick core, 10 minutes",cat:"core",rest:20,desc:"Short and sharp. Do it after a ride or on a busy day.",why:"Little and often works well for core strength.",items:[
+ w_core10:{name:"Quick Core",cat:"core",rest:20,desc:"Ten minutes, short and sharp.",why:"Little and often works well for core strength.",items:[
   {id:"Plank",alt:["edb_plank_shoulder_taps"],t:"time",b:[2,20],i:[2,30],a:[3,40]},
   {id:"Dead_Bug",alt:["edb_bicycle_crunch"],t:"reps",b:[2,8],i:[2,10],a:[3,12]},
   {id:"Side_Bridge",t:"time",b:[2,15],i:[2,20],a:[3,30]},
   {id:"Flutter_Kicks",alt:["edb_heel_touches"],t:"time",b:[2,20],i:[2,30],a:[3,30]},
   {id:"Superman",t:"reps",b:[2,8],i:[2,10],a:[3,12]}]},
- w_lean:{name:"Lean upper body",cat:"upper",rest:40,lean:1,desc:"Tone and strength without the bulk: moderate weights, 12 to 15 reps and short rests, finished with core.",why:"Higher reps and short rests build muscular endurance and definition rather than size, so you look fitter without carrying extra weight up the hills.",items:[
-  {id:"edb_dumbbell_bent_over_row",alt:["One-Arm_Dumbbell_Row"],t:"weight",b:[2,12],i:[3,12],a:[3,15],bw:"Superman",bwt:"reps",why:"Upper back for posture on and off the bike."},
+ w_lean:{name:"Lean Upper Body",cat:"upper",rest:40,lean:1,desc:"12 to 15 reps, short rests, moderate weights. Tone without bulk.",why:"Higher reps and short rests build definition and endurance rather than size.",items:[
+  {id:"edb_dumbbell_bent_over_row",alt:["One-Arm_Dumbbell_Row"],t:"weight",b:[2,12],i:[3,12],a:[3,15],bw:"Superman",bwt:"reps"},
   {id:"Pushups",alt:["edb_diamond_push_up"],t:"reps",b:[2,8],i:[3,12],a:[3,15],lv:{b:"edb_kneeling_push_up"},why:"Chest, shoulders and arms using your own bodyweight."},
   {id:"edb_dumbbell_lateral_raise",alt:["edb_dumbbell_front_raise"],t:"weight",b:[2,12],i:[3,15],a:[3,15],bw:"edb_plank_shoulder_taps",bwt:"reps",why:"Light weights. Shoulders that look defined, not big."},
   {id:"edb_dumbbell_arnold_press",alt:["Dumbbell_Shoulder_Press"],t:"weight",b:[2,10],i:[3,12],a:[3,12],bw:"Pushups",bwt:"reps"},
   {id:"edb_dumbbell_hammer_curl",t:"weight",b:[2,12],i:[3,12],a:[3,15],bw:"edb_chair_dip",bwt:"reps"},
   {id:"edb_dumbbell_triceps_kickback",alt:["edb_chair_dip"],t:"weight",b:[2,12],i:[3,12],a:[3,15],bw:"edb_chair_dip",bwt:"reps"},
   {id:"edb_plank_shoulder_taps",t:"reps",b:[2,12],i:[3,16],a:[3,20],core:1}]},
- w_upcore:{name:"Upper body and core for cyclists",cat:"upper",rest:60,desc:"GCN's idea for skinny climbers: a bit more upper body and core strength to hold your position, stand to climb and sprint.",why:"Stronger arms, shoulders and core make you faster out of the saddle and help prevent injury.",items:[
-  {id:"One-Arm_Dumbbell_Row",alt:["edb_dumbbell_bent_over_row"],t:"weight",b:[2,10],i:[3,10],a:[4,8],bw:"Superman",bwt:"reps",why:"Upper back to counter the hunched riding position."},
-  {id:"Pushups",alt:["edb_decline_push_up"],t:"reps",b:[2,8],i:[3,10],a:[4,12],lv:{b:"Incline_Push-Up"},why:"Beginners use a worktop. Supports you on the bars."},
-  {id:"Dumbbell_Shoulder_Press",alt:["edb_dumbbell_arnold_press"],t:"weight",b:[2,10],i:[3,10],a:[3,8],bw:"Pushups",bwt:"reps",why:"Shoulder strength for standing climbs."},
+ w_upcore:{name:"Upper Body and Core",cat:"upper",rest:60,desc:"Back, chest, shoulders and arms, finished with core.",why:"A balanced upper body session for strength and better posture.",items:[
+  {id:"One-Arm_Dumbbell_Row",alt:["edb_dumbbell_bent_over_row"],t:"weight",b:[2,10],i:[3,10],a:[4,8],bw:"Superman",bwt:"reps"},
+  {id:"Pushups",alt:["edb_decline_push_up"],t:"reps",b:[2,8],i:[3,10],a:[4,12],lv:{b:"Incline_Push-Up"}},
+  {id:"Dumbbell_Shoulder_Press",alt:["edb_dumbbell_arnold_press"],t:"weight",b:[2,10],i:[3,10],a:[3,8],bw:"Pushups",bwt:"reps"},
   {id:"Bent-Arm_Dumbbell_Pullover",t:"weight",b:[2,10],i:[3,10],a:[3,12],bw:"Superman",bwt:"reps",why:"Lats and an open chest."},
   {id:"Reverse_Flyes",t:"weight",b:[2,12],i:[3,12],a:[3,15],bw:"Superman",bwt:"reps",why:"Rear shoulders and upper back for posture."},
   {id:"edb_plank_shoulder_taps",alt:["Dead_Bug"],t:"reps",b:[2,12],i:[3,16],a:[3,20],core:1},
   {id:"Side_Bridge",t:"time",b:[2,15],i:[2,25],a:[3,35],core:1}]},
- w_upper:{name:"Upper body and posture",cat:"upper",rest:45,lean:1,desc:"Light weights and good form for the muscles that hold you upright. Undoes the cyclist's hunch.",why:"Long hours on the bike pull the shoulders forward. This strengthens the muscles that hold you tall.",items:[
+ w_upper:{name:"Posture",cat:"upper",rest:45,lean:1,desc:"Light weights for the upper back and shoulders. Stand taller.",why:"Hours at a desk or on a phone pull the shoulders forward. This strengthens the muscles that hold you upright.",items:[
   {id:"edb_dumbbell_bent_over_row",t:"weight",b:[2,12],i:[3,12],a:[3,15],bw:"Superman",bwt:"reps"},
   {id:"Reverse_Flyes",t:"weight",b:[2,12],i:[3,15],a:[3,15],bw:"Superman",bwt:"reps"},
   {id:"External_Rotation",alt:["edb_dumbbell_shoulder_external_rotation"],t:"weight",b:[2,12],i:[2,12],a:[3,12],bw:"Pushups",bwt:"reps",why:"Very light. Keeps the shoulders healthy."},
@@ -475,7 +498,7 @@ const W={
   {id:"Bent-Arm_Dumbbell_Pullover",t:"weight",b:[2,10],i:[3,10],a:[3,12],bw:"Superman",bwt:"reps"},
   {id:"Superman",t:"reps",b:[2,8],i:[3,10],a:[3,12]},
   {id:"Farmers_Walk",t:"time",b:[2,30],i:[3,40],a:[3,45],bw:"Plank",why:"Walk tall holding heavy dumbbells."}]},
- w_full:{name:"Full body strength",cat:"full",rest:75,desc:"Everything in one session, with core to finish. Good when you only have time for two sessions.",why:"Legs, back, shoulders and core in about 40 minutes.",items:[
+ w_full:{name:"Full Body",cat:"full",rest:75,desc:"Everything in one session, with core to finish.",why:"Legs, back, shoulders and core in about 40 minutes.",items:[
   {id:"Goblet_Squat",alt:["edb_dumbbell_squat"],t:"weight",b:[2,10],i:[3,8],a:[4,6],bw:"Bodyweight_Squat",bwt:"reps"},
   {id:"Pushups",t:"reps",b:[2,8],i:[3,10],a:[3,12],lv:{b:"Incline_Push-Up"}},
   {id:"Kettlebell_One-Legged_Deadlift",alt:["edb_dumbbell_romanian_deadlift"],t:"weight",b:[2,8],i:[3,8],a:[3,10],lv:{b:"Stiff-Legged_Dumbbell_Deadlift"},bw:"Kettlebell_One-Legged_Deadlift",bwt:"reps"},
@@ -484,7 +507,7 @@ const W={
   {id:"Dumbbell_Shoulder_Press",t:"weight",b:[2,10],i:[3,10],a:[3,8],bw:"Pushups",bwt:"reps"},
   {id:"Plank",alt:["edb_plank_with_twist"],t:"time",b:[2,20],i:[3,30],a:[3,45],core:1},
   {id:"edb_bicycle_crunch",t:"reps",b:[2,16],i:[3,20],a:[3,24],core:1}]},
- w_circuit:{name:"Lean full body circuit",cat:"full",rest:30,lean:1,desc:"Fast moving circuit with short rests. Gets your heart rate up and works everything. Great for staying lean.",why:"High reps and short rests keep it aerobic, so you build endurance and burn energy without adding bulk.",items:[
+ w_circuit:{name:"Fat Burn Circuit",cat:"full",rest:30,lean:1,desc:"Fast circuit with short rests. Gets your heart rate up.",why:"High reps and short rests keep your heart rate up, so you burn energy and stay lean.",items:[
   {id:"edb_dumbbell_squat",t:"weight",b:[2,12],i:[3,15],a:[3,15],bw:"Bodyweight_Squat",bwt:"reps"},
   {id:"Pushups",t:"reps",b:[2,8],i:[3,12],a:[3,15],lv:{b:"edb_kneeling_push_up"}},
   {id:"Vertical_Swing",t:"weight",b:[2,12],i:[3,15],a:[3,20],bw:"Freehand_Jump_Squat",bwt:"reps"},
@@ -493,7 +516,7 @@ const W={
   {id:"Mountain_Climbers",t:"time",b:[2,20],i:[3,30],a:[3,40]},
   {id:"Lateral_Bound",t:"reps",b:[2,12],i:[3,16],a:[3,20]},
   {id:"Plank",t:"time",b:[2,20],i:[3,30],a:[3,45]}]},
- w_bw:{name:"No equipment, anywhere",cat:"full",rest:45,desc:"Bodyweight only. For travel, hotel rooms or days away from your dumbbells.",why:"Keeps your strength ticking over when you can't get to your weights.",items:[
+ w_bw:{name:"No Equipment",cat:"full",rest:45,desc:"Bodyweight only, for anywhere.",why:"Keeps your strength ticking over when you can't get to your weights.",items:[
   {id:"Bodyweight_Squat",t:"reps",b:[2,12],i:[3,15],a:[3,20]},
   {id:"Pushups",alt:["edb_diamond_push_up"],t:"reps",b:[2,8],i:[3,10],a:[3,15],lv:{b:"edb_kneeling_push_up"}},
   {id:"Split_Squats",alt:["edb_curtsy_squat"],t:"reps",b:[2,8],i:[3,10],a:[3,12]},
@@ -502,9 +525,9 @@ const W={
   {id:"Bodyweight_Walking_Lunge",t:"reps",b:[2,10],i:[3,12],a:[3,16]},
   {id:"Plank",alt:["edb_plank_shoulder_taps"],t:"time",b:[2,20],i:[3,30],a:[3,45]},
   {id:"edb_bicycle_crunch",t:"reps",b:[2,16],i:[3,20],a:[3,24]}]},
- w_mob:{name:"Mobility for cyclists",cat:"mob",rest:10,desc:"Opens up what cycling tightens: hips, hamstrings, quads, calves, chest and back.",why:"Better hip and back mobility makes a lower, more comfortable position easier to hold.",items:[
+ w_mob:{name:"Mobility",cat:"mob",rest:10,desc:"Hips, hamstrings, quads, calves, chest and back.",why:"Better mobility makes you move more freely and helps prevent aches and stiffness.",items:[
   {id:"Worlds_Greatest_Stretch",t:"time",b:[2,30],i:[2,30],a:[2,40]},
-  {id:"Kneeling_Hip_Flexor",t:"time",b:[2,30],i:[2,40],a:[2,45],why:"Each side. Hip flexors get short and tight in the saddle."},
+  {id:"Kneeling_Hip_Flexor",t:"time",b:[2,30],i:[2,40],a:[2,45]},
   {id:"Hamstring_Stretch",t:"time",b:[2,30],i:[2,40],a:[2,45]},
   {id:"IT_Band_and_Glute_Stretch",t:"time",b:[2,30],i:[2,40],a:[2,45]},
   {id:"Quad_Stretch",t:"time",b:[2,30],i:[2,30],a:[2,40]},
@@ -512,7 +535,7 @@ const W={
   {id:"Cat_Stretch",t:"time",b:[2,30],i:[2,30],a:[2,40]},
   {id:"Chest_And_Front_Of_Shoulder_Stretch",t:"time",b:[2,30],i:[2,30],a:[2,40]},
   {id:"Childs_Pose",t:"time",b:[1,45],i:[1,60],a:[1,60]}]},
- w_post:{name:"Post ride stretch",cat:"mob",rest:5,desc:"Ten minutes straight after a ride, while you're still warm.",why:"Eases off the muscles you've just worked hardest.",items:[
+ w_post:{name:"Stretch",cat:"mob",rest:5,desc:"Ten minutes of easy stretching to wind down.",why:"Eases off tight muscles after a workout or a long day.",items:[
   {id:"Kneeling_Hip_Flexor",t:"time",b:[1,40],i:[1,45],a:[1,60]},
   {id:"Quad_Stretch",t:"time",b:[1,40],i:[1,45],a:[1,60]},
   {id:"Hamstring_Stretch",t:"time",b:[1,40],i:[1,45],a:[1,60]},
@@ -535,7 +558,7 @@ const esc=s=>String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;"
 const store={get(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){toast("Could not save on this phone")}}};
 let sessions=store.get("rs2Sessions",[]),custom=store.get("rs2Custom",[]),active=store.get("rs2Active",null);
 let settings=Object.assign({name:"",unit:"kg",rest:"auto",sound:true,voice:true,guided:true,warmup:true,level:"i",equip:"db",days:[0,2,4],cycling:true,rideDays:[1,3,5,6],planStart:null,setupDone:false},store.get("rs2Settings",{}));
-if(typeof settings.rest==="number")settings.rest=settings.rest===60?"auto":String(settings.rest);
+settings.cycling=false;if(typeof settings.rest==="number")settings.rest=settings.rest===60?"auto":String(settings.rest);
 const saveSessions=()=>store.set("rs2Sessions",sessions),saveCustom=()=>store.set("rs2Custom",custom),saveActive=()=>store.set("rs2Active",active),saveSet=()=>store.set("rs2Settings",settings);
 const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,7);
 
@@ -610,7 +633,7 @@ function renderHome(){
  $("greeting").textContent=(hr<12?"Good morning":hr<18?"Good afternoon":"Good evening")+nm+".";
  const wk=weekSessions(),str=wk.filter(s=>!isRide(s)),rides=wk.filter(isRide),slots=planProgress(),doneSlots=slots.filter(s=>s.done).length;
  const pct=slots.length?doneSlots/slots.length:0,C2=2*Math.PI*42;
- $("homeStats").innerHTML='<div class="card ringcard"><div class="ring"><svg viewBox="0 0 100 100"><defs><linearGradient id="rg" x1="0" x2="1"><stop offset="0" stop-color="#ff5f6d"/><stop offset="1" stop-color="#ff9a4d"/></linearGradient></defs><circle cx="50" cy="50" r="42" fill="none" stroke="#262935" stroke-width="10"/>'+(pct?'<circle cx="50" cy="50" r="42" fill="none" stroke="url(#rg)" stroke-width="10" stroke-linecap="round" stroke-dasharray="'+(C2*pct).toFixed(1)+' '+C2.toFixed(1)+'"/>':'')+'</svg><b>'+doneSlots+'/'+slots.length+'</b></div><div class="ringstats"><div><b>'+streak()+'</b><small>Day streak</small></div>'+(settings.cycling?'<div><b>'+rides.length+'</b><small>Rides this week</small></div><div><b>'+(rides.reduce((a,s)=>a+(s.durationSec||0),0)/3600).toFixed(1)+'</b><small>Ride hours</small></div>':'<div><b>'+str.length+'</b><small>Workouts this week</small></div><div><b>'+Math.round(str.reduce((a,s)=>a+(s.durationSec||0),0)/60)+'</b><small>Minutes this week</small></div>')+'<div><b>'+(planWeekIndex()+1)+'</b><small>Plan week</small></div></div></div>';
+ $("homeStats").innerHTML='<div class="card ringcard"><div class="ring"><svg viewBox="0 0 100 100"><defs><linearGradient id="rg" x1="0" x2="1"><stop offset="0" stop-color="#ff2d55"/><stop offset="1" stop-color="#ff5b3a"/></linearGradient></defs><circle cx="50" cy="50" r="42" fill="none" stroke="#262935" stroke-width="10"/>'+(pct?'<circle cx="50" cy="50" r="42" fill="none" stroke="url(#rg)" stroke-width="10" stroke-linecap="round" stroke-dasharray="'+(C2*pct).toFixed(1)+' '+C2.toFixed(1)+'"/>':'')+'</svg><b>'+doneSlots+'/'+slots.length+'</b></div><div class="ringstats"><div><b>'+streak()+'</b><small>Day streak</small></div>'+(settings.cycling?'<div><b>'+rides.length+'</b><small>Rides this week</small></div><div><b>'+(rides.reduce((a,s)=>a+(s.durationSec||0),0)/3600).toFixed(1)+'</b><small>Ride hours</small></div>':'<div><b>'+str.length+'</b><small>Workouts this week</small></div><div><b>'+Math.round(str.reduce((a,s)=>a+(s.durationSec||0),0)/60)+'</b><small>Minutes this week</small></div>')+'<div><b>'+(planWeekIndex()+1)+'</b><small>Plan week</small></div></div></div>';
  renderWeekStrip(slots);
  // hero
  $("heroFig").innerHTML="";if(active){const ci=active.items.find(i=>i.sets.some(s=>!s.done))||active.items[0];if(ci)$("heroFig").innerHTML=media(ci.id,"clear",true);$("heroTag").textContent="IN PROGRESS";$("heroPill").textContent=fmtTime((Date.now()-active.startedAt)/1000);$("heroTitle").textContent=active.name;$("heroDesc").textContent="You have a workout open. Pick up where you left off.";$("heroMeta").innerHTML="";$("heroBtn").textContent="Resume workout";$("heroBtn").onclick=()=>{openSession();if(settings.guided)openGuide()};$("heroAlt").style.display="none"}
@@ -618,7 +641,7 @@ function renderHome(){
   if(sl){const w=W[sl.wid],items=resolve(sl.wid),today=sl.day===dow(now);$("heroTag").textContent=today?"TODAY'S SESSION":"NEXT SESSION · "+DAYS[sl.day].toUpperCase();$("heroPill").textContent="WEEK "+(planWeekIndex()+1)+" · "+PHASES[phaseIndex()].name.toUpperCase();$("heroTitle").textContent=w.name;$("heroDesc").textContent=w.desc;
    $("heroMeta").innerHTML='<span><b>'+estMins(items.concat(settings.warmup&&w.cat!=="mob"?warmupItems():[]))+'</b> min</span><span><b>'+items.length+'</b> exercises</span><span><b>'+LEVELS[settings.level]+'</b></span>';
    $("heroBtn").textContent="Start session";$("heroFig").innerHTML=media(items[0].id,"clear",true);$("heroBtn").onclick=()=>startWorkout({wid:sl.wid,plan:true});$("heroAlt").onclick=()=>previewWorkout(sl.wid,true)}
-  else{$("heroTag").textContent="WEEK COMPLETE";$("heroPill").textContent="✓ "+slots.length+" OF "+slots.length;$("heroTitle").textContent="Plan done for this week";$("heroFig").innerHTML=media("Childs_Pose","clear",true);$("heroDesc").textContent="Great work. Recovery is when you get stronger. A mobility session or a post ride stretch is plenty if you want to do something.";$("heroMeta").innerHTML="";$("heroBtn").textContent="Mobility session";$("heroBtn").onclick=()=>previewWorkout("w_mob");$("heroAlt").textContent="Post ride stretch";$("heroAlt").onclick=()=>previewWorkout("w_post")}
+  else{$("heroTag").textContent="WEEK COMPLETE";$("heroPill").textContent="✓ "+slots.length+" OF "+slots.length;$("heroTitle").textContent="Plan done for this week";$("heroFig").innerHTML=media("Childs_Pose","clear",true);$("heroDesc").textContent="Great work. Recovery is when you get stronger. A mobility or stretch session is plenty if you want to do something.";$("heroMeta").innerHTML="";$("heroBtn").textContent="Mobility session";$("heroBtn").onclick=()=>previewWorkout("w_mob");$("heroAlt").textContent="Stretch";$("heroAlt").onclick=()=>previewWorkout("w_post")}
   if(sl)$("heroAlt").textContent="Details"}
  $("rideCta").innerHTML=settings.cycling?'<div class="card"><div class="row"><div><h3>'+(settings.rideDays.includes(dow(now))?"Riding today?":"Been out on the bike?")+'</h3><p class="tiny" style="margin:0">Log it so your week shows the full picture.</p></div><button class="btn small" style="background:linear-gradient(135deg,#4fa3ff,#6a7dff)" onclick="openRide()">Log ride</button></div></div>':"";
  $("homeGoals").innerHTML=Object.keys(W).map(id=>{const w=W[id];return'<div class="mini" onclick="previewWorkout(\''+id+'\')"><div class="tile bg-'+w.cat+'">'+media(heroEx(id),"clear",true)+'</div><div class="tx"><b>'+esc(w.name)+'</b><small>'+CATS[w.cat]+' · '+estMins(resolve(id))+' min</small></div></div>'}).join("");
@@ -626,8 +649,8 @@ function renderHome(){
  renderBanner()}
 function renderWeekStrip(slots){const now=new Date(),mon=monday(now),wk=weekSessions();
  $("weekTitle").textContent="Week "+(planWeekIndex()+1)+" · "+PHASES[phaseIndex()].name;
- $("homeWeek").innerHTML=DAYS.map((d,i)=>{const dt=new Date(mon);dt.setDate(mon.getDate()+i);const k=dayKey(dt),sDone=wk.some(s=>!isRide(s)&&dayKey(s.date)===k),rDone=wk.some(s=>isRide(s)&&dayKey(s.date)===k),planned=slots.some(s=>s.day===i),ride=settings.cycling&&settings.rideDays.includes(i);let ic="";if(planned||sDone)ic+='<span class="'+(sDone?"on":"")+'">'+(sDone?"✅":"💪")+'</span>';if(ride||rDone)ic+='<span class="'+(rDone?"on":"")+'">🚴</span>';return'<div class="day'+(k===dayKey(now)?" today":"")+'"><b>'+d+'</b><span class="dn">'+dt.getDate()+'</span><div class="ic">'+ic+'</div></div>'}).join("");
- $("weekLegend").innerHTML='<span>💪 Strength</span>'+(settings.cycling?'<span>🚴 Ride</span>':"")+'<span>✅ Done</span>'}
+ $("homeWeek").innerHTML=DAYS.map((d,i)=>{const dt=new Date(mon);dt.setDate(mon.getDate()+i);const k=dayKey(dt),sDone=wk.some(s=>!isRide(s)&&dayKey(s.date)===k),rDone=wk.some(s=>isRide(s)&&dayKey(s.date)===k),planned=slots.some(s=>s.day===i),ride=settings.cycling&&settings.rideDays.includes(i);const done=sDone||rDone;return'<div class="day'+(done?" done":"")+'"><b>'+d+'</b><span class="dn">'+dt.getDate()+'</span><div class="ic">'+(done?'<span class="on">✓</span>':'')+'</div></div>'}).join("");
+ $("weekLegend").innerHTML=''}
 function renderBanner(){const b=$("banner");if(active&&!$("session").classList.contains("open")){b.classList.add("show");$("bannerTitle").textContent=active.name;$("bannerTime").textContent=fmtTime((Date.now()-active.startedAt)/1000)+" · tap to resume"}else b.classList.remove("show")}
 
 /* ============ PLAN PAGE ============ */
@@ -637,8 +660,8 @@ function renderPlan(){const ph=phaseIndex(),wi=planWeekIndex(),slots=planProgres
  $("phaseBar").innerHTML=PHASES.map((p,i)=>'<div class="'+(i===ph?"on":"")+'"><b>'+p.name.split(" ")[0]+'</b><small>'+p.weeks.replace("Weeks ","").replace("Week ","").replace(" onwards","+")+'</small></div>').join("");
  $("planCount").textContent=slots.filter(s=>s.done).length+" of "+slots.length+" done";
  const rows=[];for(let d=0;d<7;d++){const sl=slots.find(s=>s.day===d),ride=settings.cycling&&settings.rideDays.includes(d);if(!sl&&!ride)continue;
-  if(sl){const w=W[sl.wid];rows.push('<div class="planday'+(d===today?" today":"")+'" onclick="previewWorkout(\''+sl.wid+'\',true)" style="cursor:pointer"><div class="d"><b>'+DAYS[d]+'</b><small>💪</small></div><div class="copy"><b>'+esc(w.name)+'</b><small>'+CATS[w.cat]+' · about '+estMins(resolve(sl.wid))+' min'+(ride?" · ride day too":"")+'</small></div>'+(sl.done?'<span class="done-mark">DONE</span>':'<button class="chev">›</button>')+'</div>')}
-  else rows.push('<div class="planday'+(d===today?" today":"")+'"><div class="d"><b>'+DAYS[d]+'</b><small>🚴</small></div><div class="copy"><b>Ride</b><small>Your cycling. Log it when you\'re back.</small></div><button class="chev" onclick="openRide()">+</button></div>')}
+  if(sl){const w=W[sl.wid];rows.push('<div class="planday'+(sl&&sl.done?" today":"")+'" onclick="previewWorkout(\''+sl.wid+'\',true)" style="cursor:pointer"><div class="d"><b>'+DAYS[d]+'</b><small>💪</small></div><div class="copy"><b>'+esc(w.name)+'</b><small>'+CATS[w.cat]+' · about '+estMins(resolve(sl.wid))+' min'+(ride?" · ride day too":"")+'</small></div>'+(sl.done?'<span class="done-mark">DONE</span>':'<button class="chev">›</button>')+'</div>')}
+  else rows.push('<div class="planday'+'"><div class="d"><b>'+DAYS[d]+'</b><small>🚴</small></div><div class="copy"><b>Ride</b><small>Your cycling. Log it when you\'re back.</small></div><button class="chev" onclick="openRide()">+</button></div>')}
  $("planWeek").innerHTML=rows.join("")||'<div class="empty">No days chosen yet.</div>';
  const tips=[];if(settings.cycling){const legDays=slots.filter(s=>W[s.wid].cat==="legs"||W[s.wid].cat==="power").map(s=>s.day);const clash=legDays.filter(d=>settings.rideDays.includes((d+1)%7));
   tips.push('<div class="tip"><span>🚴</span><div><b>Fitting it around your riding.</b> Keep the hardest leg sessions away from the day before a long or hard ride, and do strength after an easy ride rather than before a hard one. If your legs feel heavy for a key ride, swap that day for core or upper body.'+(clash.length?" Your leg sessions currently fall the day before a ride on "+clash.map(d=>DAYS[d]).join(" and ")+", so keep those rides easy or move a day in plan settings.":"")+'</div></div>')}
@@ -650,12 +673,11 @@ function restartPlan(){if(!confirm("Restart the plan from week 1? Your history i
 function openSetup(first){setupDraft=JSON.parse(JSON.stringify({level:settings.level,equip:settings.equip,days:settings.days,cycling:settings.cycling,rideDays:settings.rideDays,first:!!first}));renderSetup();openModal("setupModal")}
 function renderSetup(){const d=setupDraft;const seg=(key,opts)=>'<div class="seg">'+opts.map(o=>'<button class="'+(d[key]===o[0]?"active":"")+'" onclick="setupDraft.'+key+'='+JSON.stringify(o[0]).replace(/"/g,"'")+';renderSetup()">'+o[1]+'</button>').join("")+'</div>';
  const dp=(key,cls)=>'<div class="daypick '+cls+'">'+DAYS.map((n,i)=>'<button class="'+(d[key].includes(i)?"active":"")+'" onclick="toggleDay(\''+key+'\','+i+')">'+n.slice(0,2)+'</button>').join("")+'</div>';
- $("setupBody").innerHTML=(d.first?'<div style="text-align:center;margin:4px 0 6px"><div class="eyebrow">WELCOME TO RIDESTRONG</div><h2 style="margin:8px 0 6px">Let\'s build your plan</h2><p class="tiny" style="margin:0 0 6px">Strength, core and mobility for cyclists. A few questions and you\'re ready.</p></div>':'<div class="sheet-top"><span class="eyebrow">PLAN SETTINGS</span><button class="close" onclick="closeModal(\'setupModal\')">×</button></div>')+
+ $("setupBody").innerHTML=(d.first?'<div style="text-align:center;margin:4px 0 6px"><div class="eyebrow">WELCOME TO RIDESTRONG</div><h2 style="margin:8px 0 6px">Let\'s build your plan</h2><p class="tiny" style="margin:0 0 6px">Strength, core and mobility. A few questions and you\'re ready.</p></div>':'<div class="sheet-top"><span class="eyebrow">PLAN SETTINGS</span><button class="close" onclick="closeModal(\'setupModal\')">×</button></div>')+
  '<label>Your level</label>'+seg("level",[["b","Beginner"],["i","Intermediate"],["a","Advanced"]])+'<p class="tiny" style="margin:6px 2px 0">'+({b:"New to strength training or coming back after a long break. Fewer sets and simpler versions.",i:"Trained before and comfortable with squats, lunges and rows.",a:"Train regularly and confident with heavier, more explosive work."})[d.level]+'</p>'+
  '<label>Equipment</label>'+seg("equip",[["db","Dumbbells and bodyweight"],["bw","Bodyweight only"]])+
- '<label>Strength days ('+d.days.length+' a week)</label>'+dp("days","")+'<p class="tiny" style="margin:6px 2px 0">Most cyclists do 2 to 3. Choose up to 6.</p>'+
- '<label>Do you also cycle?</label>'+seg("cycling",[[true,"Yes, add my rides"],[false,"No, strength only"]])+
- (d.cycling?'<label>Usual ride days</label>'+dp("rideDays","ride")+'<p class="tiny" style="margin:6px 2px 0">Rides show on your week so you can plan around them. You can still log rides on any day.</p>':"")+
+ '<label>Strength days ('+d.days.length+' a week)</label>'+dp("days","")+'<p class="tiny" style="margin:6px 2px 0">Most people do 3 or 4. Choose up to 6.</p>'+
+ 
  '<button class="btn lime full" style="margin-top:18px" onclick="saveSetup()">'+(d.first?"Build my plan":"Save plan")+'</button>'}
 function toggleDay(key,i){const a=setupDraft[key],k=a.indexOf(i);if(k>=0)a.splice(k,1);else{if(key==="days"&&a.length>=6){toast("Up to 6 strength days");return}a.push(i)}a.sort((x,y)=>x-y);renderSetup()}
 function saveSetup(){const d=setupDraft;if(!d.days.length){toast("Choose at least one strength day");return}const first=d.first;["level","equip","days","cycling","rideDays"].forEach(k=>settings[k]=d[k]);if(!settings.planStart||first)settings.planStart=monday(new Date()).toISOString();settings.setupDone=true;saveSet();closeModal("setupModal");renderHome();renderSettings();if($("plan").classList.contains("active"))renderPlan();toast(first?"Your plan is ready":"Plan updated")}
@@ -669,7 +691,7 @@ function tileCard(id){const w=W[id],items=resolve(id);return'<div class="tilecar
 function wcard(id){const w=W[id],items=resolve(id);return'<div class="wcard" onclick="previewWorkout(\''+id+'\')"><div class="band cat-'+w.cat+'"></div><div class="in"><div class="row"><h3>'+esc(w.name)+'</h3><span class="pill">'+CATS[w.cat]+'</span></div><p class="tiny" style="margin:4px 0 0">'+esc(w.desc)+'</p><div class="facts"><span>⏱ '+estMins(items)+' min</span><span>'+items.length+' exercises</span><span>'+LEVELS[settings.level]+'</span></div><div class="thumbs">'+items.slice(0,4).map(i=>media(i.id,"wthumb")).join("")+'</div></div></div>'}
 function previewWorkout(wid,plan,lv){previewState={wid:wid,plan:!!plan,lv:lv||settings.level,ver:verOf(wid)};renderPreview();openModal("previewModal");$("previewModal").querySelector(".sheet").scrollTop=0}
 function renderPreview(){const p=previewState,w=W[p.wid],items=resolve(p.wid,p.lv,{ver:p.ver}),nv=nVersions(p.wid),warm=settings.warmup&&w.cat!=="mob";$("previewTag").textContent=CATS[w.cat]+(p.plan?" · YOUR PLAN":"");
- $("previewBody").innerHTML='<h2 style="margin-bottom:6px">'+esc(w.name)+'</h2><p class="tiny" style="margin:0 0 10px">'+esc(w.desc)+'</p><div class="why"><b>Why it helps your riding.</b> '+esc(w.why)+'</div>'+
+ $("previewBody").innerHTML='<h2 style="margin-bottom:6px">'+esc(w.name)+'</h2><p class="tiny" style="margin:0 0 10px">'+esc(w.desc)+'</p><div class="why"><b>Why it works.</b> '+esc(w.why)+'</div>'+
  (nv>1?'<div class="seg" style="margin-bottom:8px">'+[...Array(nv)].map((_,v)=>'<button class="'+(p.ver===v?"active":"")+'" onclick="previewState.ver='+v+';renderPreview()">Version '+"ABC"[v]+(v===verOf(p.wid)?" · next":"")+'</button>').join("")+'</div>':"")+'<div class="seg" style="margin-bottom:10px">'+Object.entries(LEVELS).map(([k,n])=>'<button class="'+(p.lv===k?"active":"")+'" onclick="previewState.lv=\''+k+'\';renderPreview()">'+n+'</button>').join("")+'</div>'+
  '<div class="row tiny" style="margin:4px 2px"><span>⏱ About '+estMins(items.concat(warm?warmupItems():[]))+' min'+(warm?" incl. warm up":"")+'</span><span>'+(settings.equip==="bw"?"Bodyweight only":"Dumbbells and bodyweight")+'</span></div>'+
  (warm?'<div class="blocklbl">WARM UP · ABOUT 4 MIN</div><p class="tiny" style="margin:0 4px 6px">'+WARMUP.map(x=>exName(x.id)).join(", ")+'</p>':"")+
@@ -695,7 +717,7 @@ function demoHTML(id){const e=ex(id),anim=GIF(id)&&!detailPhotos;return(anim?'<d
 function swapDemo(id){$("demoWrap").innerHTML=demoHTML(id);startDemo(id)}
 function startDemo(id){const e=ex(id);clearInterval(demoInt);if($("demo")&&e.img>1){let f=false;demoInt=setInterval(()=>{f=!f;const d=$("demo");if(!d){clearInterval(demoInt);return}d.classList.toggle("flip",f);$("demoTag").textContent=f?"FINISH":"START"},1200)}}
 function openDetail(id,noActions){detailPhotos=false;const e=ex(id),b=bestOf(id),why=whyFor(id);let html='<div id="demoWrap">'+demoHTML(id)+'</div><h2 style="margin-bottom:4px">'+esc(exName(id))+'</h2><div class="tags">'+e.pm.map(m=>'<span class="pill">'+esc(m)+'</span>').join("")+e.sm.slice(0,3).map(m=>'<span class="pill" style="background:#f1f2ed;color:#666">'+esc(m)+'</span>').join("")+'<span class="pill" style="background:var(--blue);color:#33505e">'+esc(e.eq==="none"?"no equipment":e.eq==="kettlebells"?"dumbbell or kettlebell":e.eq)+'</span>'+(e.lv?'<span class="pill" style="background:var(--peach);color:#7a4b2e">'+esc(e.lv)+'</span>':"")+'</div>';
- if(why)html+='<div class="why"><b>For your riding.</b> '+esc(why)+'</div>';
+ if(why)html+='<div class="why"><b>Why it works.</b> '+esc(why)+'</div>';
  if(b.sets)html+='<div class="card" style="background:#f6f7f2;border:0;box-shadow:none"><div class="row"><div><div class="tiny">YOUR BEST</div><b style="font-size:20px">'+bestText(b)+'</b></div><div style="text-align:right"><div class="tiny">'+b.sets+(b.sets===1?' set':' sets')+' logged</div><div class="tiny">Last: '+new Date(b.last).toLocaleDateString("en-GB",{day:"numeric",month:"short"})+'</div></div></div></div>';
  html+='<h3 style="margin:6px 0 8px">How to do it</h3><ol class="steps">'+(insOf(id).length?insOf(id).map(s=>'<li>'+esc(s)+'</li>').join(""):'<li>Follow the photos and move with control.</li>')+'</ol><p class="tiny">Move with control and stay in a comfortable range. Stop if you feel pain, dizziness or unusual discomfort.</p>';
  if(!noActions){html+=active?'<button class="btn lime full" onclick="addToSession([\''+id+'\']);closeModal(\'detailModal\');toast(\'Added to your workout\')">Add to current workout</button>':'<button class="btn lime full" onclick="closeModal(\'detailModal\');startWorkout({free:true,ids:[\''+id+'\']})">Start a workout with this</button>';
@@ -773,7 +795,7 @@ let G={open:false,phase:"work",ri:null,rleft:0,rtotal:0,rend:0,hold:null,tick:nu
 function pos(){if(!active)return null;for(let ei=0;ei<active.items.length;ei++){const si=active.items[ei].sets.findIndex(s=>!s.done);if(si>=0)return{ei,si}}return null}
 function say(t){if(!settings.voice||!window.speechSynthesis)return;try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang="en-GB";const v=speechSynthesis.getVoices().find(v=>/en-GB/i.test(v.lang));if(v)u.voice=v;u.rate=1.02;speechSynthesis.speak(u)}catch(e){}}
 function openGuide(){if(!active)return;G.open=true;G.phase="work";stopRest();$("guide").classList.add("open");renderGuide(true);clearInterval(G.tick);G.tick=setInterval(guideTick,250)}
-function closeGuide(){G.open=false;clearInterval(G.tick);if(G.hold){clearInterval(G.hold.int);G.hold=null}$("guide").classList.remove("open");if(active)renderSession()}
+function closeGuide(){G.open=false;if(G.w&&G.w.int)clearInterval(G.w.int);G.w=null;clearInterval(G.tick);if(G.hold){clearInterval(G.hold.int);G.hold=null}$("guide").classList.remove("open");if(active)renderSession()}
 function guideTick(){if(!active){closeGuide();return}const t=$("gTime");if(t)t.textContent=fmtTime((Date.now()-active.startedAt)/1000);
  if(G.phase==="rest"){G.rleft=Math.max(0,Math.round((G.rend-Date.now())/1000));const b=$("gRest");if(b)b.textContent=fmtTime(G.rleft);if(G.rleft<=3&&G.rleft>0&&G._last!==G.rleft){beep(660,.06)}G._last=G.rleft;if(G.rleft<=0){G.phase="work";beep(880,.3);renderGuide(true)}}}
 function segsHTML(){return active.items.map(it=>{const d=it.sets.filter(s=>s.done).length/it.sets.length;return'<span><i style="width:'+(d*100)+'%"></i></span>'}).join("")}
@@ -782,26 +804,34 @@ function renderGuide(announce){const p=pos();const B=$("guideBody");
  if(!p){B.innerHTML='<div class="g-top"><button class="g-x" onclick="closeGuide()">✕</button><div class="g-segs">'+segsHTML()+'</div></div><div class="g-rest"><div style="font-size:64px">🎉</div><h2>WORKOUT COMPLETE</h2><p style="opacity:.85;margin:0 0 20px">Every set ticked off. Brilliant work.</p><button class="g-main" style="background:#fff;color:var(--deep)" onclick="closeGuide();finishSession()">Save and finish</button></div>';say("Workout complete. Brilliant work.");return}
  const it=active.items[p.ei],t=it.type,nm=exName(it.id),top='<div class="g-top"><button class="g-x" onclick="closeGuide()" aria-label="List view">☰</button><div class="g-segs">'+segsHTML()+'</div><span class="g-time" id="gTime">'+fmtTime((Date.now()-active.startedAt)/1000)+'</span><button class="g-x" onclick="closeGuide();finishSession()" aria-label="Finish">✓</button></div>';
  if(G.phase==="rest"){const n=it,nsi=p.si;B.innerHTML=top+'<div class="g-rest"><h2>REST</h2><div class="big" id="gRest">'+fmtTime(G.rleft)+'</div><div class="row2"><button onclick="G.rend-=15000">−15 s</button><button onclick="G.rend+=15000">+15 s</button><button onclick="G.phase=\'work\';renderGuide(true)">Skip</button></div><div class="g-next">'+media(n.id,"",true)+'<div><small>UP NEXT</small><b>'+esc(exName(n.id))+'</b><span class="tiny">Set '+(nsi+1)+' of '+n.sets.length+' · '+(t==="time"?n.target+" seconds":(t==="weight"&&stepVal(n,nsi,"kg")?stepVal(n,nsi,"kg")+" "+settings.unit+" × ":"")+stepVal(n,nsi,"reps")+" reps")+'</span></div></div></div>';return}
- const prev=it.warm?null:prevSets(it.id),pv=prev&&prev[p.si]?"Last time: "+setText(t,prev[p.si]):"";
- let ctrl="";
- if(t==="weight")ctrl='<div class="steppers"><div class="stepper"><button onclick="gStep(\'kg\','+(settings.unit==="kg"?-1:-2)+')">−</button><div><b id="gkg">'+stepVal(it,p.si,"kg")+'</b><small>'+settings.unit.toUpperCase()+'</small></div><button onclick="gStep(\'kg\','+(settings.unit==="kg"?1:2)+')">+</button></div><div class="stepper"><button onclick="gStep(\'reps\',-1)">−</button><div><b id="greps">'+stepVal(it,p.si,"reps")+'</b><small>REPS</small></div><button onclick="gStep(\'reps\',1)">+</button></div></div><button class="g-main" onclick="gDone()">Done ✓</button>';
- else if(t==="reps")ctrl='<div class="g-target" id="greps">'+stepVal(it,p.si,"reps")+' <small>reps</small></div><div class="steppers"><div class="stepper"><button onclick="gStep(\'reps\',-1)">−</button><div><small>ADJUST</small></div><button onclick="gStep(\'reps\',1)">+</button></div></div><button class="g-main" onclick="gDone()">Done ✓</button>';
- else{const secs=stepVal(it,p.si,"secs"),C2=2*Math.PI*44;ctrl='<div class="g-ring"><svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="44" fill="none" stroke="#262935" stroke-width="8"/><circle id="gArc" cx="50" cy="50" r="44" fill="none" stroke="#ff6a5c" stroke-width="8" stroke-linecap="round" stroke-dasharray="'+C2.toFixed(1)+' '+C2.toFixed(1)+'"/></svg><b id="gHold">'+fmtTime(G.hold?G.hold.left:secs)+'</b></div><button class="g-main" id="gHoldBtn" onclick="gHold()">'+(G.hold?"Pause":"Start "+secs+" s")+'</button>'}
- B.innerHTML=top+'<div class="g-media"><span class="lbl">'+(it.warm?"WARM UP":(it.core?"CORE · ":"")+"EXERCISE "+(active.items.filter(i=>!i.warm).indexOf(it)+1)+" OF "+active.items.filter(i=>!i.warm).length)+'</span>'+media(it.id,"",true)+'<button class="how" onclick="openDetail(\''+it.id+'\',true)">How to ⓘ</button></div><div class="g-panel"><p class="g-name">'+esc(nm)+'</p><div class="g-sub">Set '+(p.si+1)+' of '+it.sets.length+(pv?" · "+esc(pv):"")+'</div>'+ctrl+'<div class="g-links"><button onclick="gBack()">‹ Previous</button><button onclick="gSkip()">Skip set ›</button></div></div>';
+ const prev=it.warm?null:prevSets(it.id),pv=prev&&prev[p.si]?"Last time "+setText(t,prev[p.si]):"";
+ const key=p.ei+"-"+p.si,total=workSecs(it,p.si);if(!G.w||G.w.key!==key)setupWork(key,total,t==="time");
+ const C2=2*Math.PI*44,w=G.w,shown=w.ready>0?w.ready:w.left;
+ let tgt="";
+ if(t==="weight")tgt='<div class="g-steps2"><div class="stepper sm"><button onclick="gStep(\'kg\','+(settings.unit==="kg"?-1:-2)+')">−</button><div><b id="gkg">'+stepVal(it,p.si,"kg")+'</b><small>'+settings.unit.toUpperCase()+'</small></div><button onclick="gStep(\'kg\','+(settings.unit==="kg"?1:2)+')">+</button></div><div class="stepper sm"><button onclick="gStep(\'reps\',-1)">−</button><div><b id="greps">'+stepVal(it,p.si,"reps")+'</b><small>REPS</small></div><button onclick="gStep(\'reps\',1)">+</button></div></div>';
+ else if(t==="reps")tgt='<div class="g-steps2"><div class="stepper sm"><button onclick="gStep(\'reps\',-1)">−</button><div><b id="greps">'+stepVal(it,p.si,"reps")+'</b><small>REPS</small></div><button onclick="gStep(\'reps\',1)">+</button></div></div>';
+ else tgt='<div class="g-steps2"><div class="g-hold"><b>'+total+' s</b><small>HOLD</small></div></div>';
+ const steps=insOf(it.id);
+ const clock='<div class="g-clock" onclick="gToggle()"><svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="44" fill="none" stroke="#262935" stroke-width="9"/><circle id="gArc" cx="50" cy="50" r="44" fill="none" stroke="#ff3b4f" stroke-width="9" stroke-linecap="round" stroke-dasharray="'+(C2*(w.ready>0?1:w.left/w.total)).toFixed(1)+' '+C2.toFixed(1)+'"/></svg><div><b id="gClock">'+(w.ready>0?w.ready:fmtTime(shown))+'</b><small id="gClockLbl">'+(w.ready>0?"GET READY":w.paused?"PAUSED":w.left<=0?"TIME":"TIME LEFT")+'</small></div></div>';
+ B.innerHTML=top+'<div class="g-media sm"><span class="lbl">'+(it.warm?"WARM UP":(it.core?"CORE · ":"")+"EXERCISE "+(active.items.filter(i=>!i.warm).indexOf(it)+1)+" OF "+active.items.filter(i=>!i.warm).length)+'</span>'+media(it.id,"",true)+'</div><div class="g-panel"><p class="g-name">'+esc(nm)+'</p><div class="g-sub">Set '+(p.si+1)+' of '+it.sets.length+(pv?" · "+esc(pv):"")+'</div><div class="g-row">'+clock+tgt+'</div><div class="g-how"><b>HOW TO DO IT</b><ol>'+steps.map(s=>'<li>'+esc(s)+'</li>').join("")+'</ol></div><button class="g-main'+(w.left<=0&&t!=="time"?" pulse":"")+'" id="gDoneBtn" onclick="gDone()">Done ✓</button><div class="g-links"><button onclick="gBack()">‹ Previous</button><button onclick="gSkip()">Skip set ›</button></div></div>';
  if(announce)say(nm+". "+(t==="time"?stepVal(it,p.si,"secs")+" seconds.":(t==="weight"&&stepVal(it,p.si,"kg")?stepVal(it,p.si,"kg")+" "+(settings.unit==="kg"?"kilos":"pounds")+", ":"")+stepVal(it,p.si,"reps")+" reps."))}
-function gStep(f,d){const p=pos(),it=active.items[p.ei],s=it.sets[p.si];let v=stepVal(it,p.si,f)+d;v=Math.max(0,Math.round(v*10)/10);s[f]=String(v);saveActive();const el=$("g"+f);if(el)el.innerHTML=f==="reps"&&it.type==="reps"?v+" <small>reps</small>":v}
-function gDone(){const p=pos(),it=active.items[p.ei],s=it.sets[p.si];["kg","reps","secs"].forEach(f=>{if(s[f]===""){const v=stepVal(it,p.si,f);if(v!==""&&!(f==="kg"&&!v))s[f]=String(v)}});fillDefaults(it,p.si);s.done=true;saveActive();beep(1046,.08);const np=pos();
+function gStep(f,d){const p=pos(),it=active.items[p.ei],s=it.sets[p.si];let v=stepVal(it,p.si,f)+d;v=Math.max(0,Math.round(v*10)/10);s[f]=String(v);saveActive();const el=$("g"+f);if(el)el.textContent=v;if(f==="reps"&&G.w&&G.w.ready>0){G.w.total=G.w.left=workSecs(it,p.si)}}
+function gDone(){if(G.w&&G.w.int)clearInterval(G.w.int);G.w=null;const p=pos(),it=active.items[p.ei],s=it.sets[p.si];["kg","reps","secs"].forEach(f=>{if(s[f]===""){const v=stepVal(it,p.si,f);if(v!==""&&!(f==="kg"&&!v))s[f]=String(v)}});fillDefaults(it,p.si);s.done=true;saveActive();beep(1046,.08);const np=pos();
  if(!np){renderGuide();return}
  const rs=it.warm?0:(settings.rest==="auto"?it.rest:+settings.rest);
  if(rs>0){G.phase="rest";G.rend=Date.now()+rs*1000;G.rleft=rs;const n=active.items[np.ei];say("Rest. Up next, "+exName(n.id)+".")}else G.phase="work";renderGuide(G.phase==="work")}
-function gSkip(){const p=pos();if(!p)return;const it=active.items[p.ei];it.sets.splice(p.si,1);if(!it.sets.length)active.items.splice(p.ei,1);saveActive();G.phase="work";renderGuide(true)}
-function gBack(){if(!active)return;let last=null;active.items.forEach((it,ei)=>it.sets.forEach((s,si)=>{if(s.done)last={ei,si}}));if(!last)return;active.items[last.ei].sets[last.si].done=false;saveActive();G.phase="work";if(G.hold){clearInterval(G.hold.int);G.hold=null}renderGuide(true)}
-function gHold(){const p=pos(),it=active.items[p.ei];if(G.hold){clearInterval(G.hold.int);G.hold=null;$("gHoldBtn").textContent="Resume";return}
- const total=stepVal(it,p.si,"secs");let left=G._resume&&G._resume.key===p.ei+"-"+p.si?G._resume.left:total;const C2=2*Math.PI*44;beep(660,.1);say("Go");
- G.hold={left:left,int:setInterval(()=>{G.hold.left--;left=G.hold.left;G._resume={key:p.ei+"-"+p.si,left:left};const b=$("gHold");if(b)b.textContent=fmtTime(left);const a=$("gArc");if(a)a.setAttribute("stroke-dasharray",(C2*left/total).toFixed(1)+" "+C2.toFixed(1));if(left<=3&&left>0)beep(660,.06);if(left<=0){clearInterval(G.hold.int);G.hold=null;G._resume=null;beep(1046,.4);it.sets[p.si].secs=String(total);gDone()}},1000)};$("gHoldBtn").textContent="Pause"}
+function gSkip(){if(G.w&&G.w.int)clearInterval(G.w.int);G.w=null;const p=pos();if(!p)return;const it=active.items[p.ei];it.sets.splice(p.si,1);if(!it.sets.length)active.items.splice(p.ei,1);saveActive();G.phase="work";renderGuide(true)}
+function gBack(){if(!active)return;if(G.w&&G.w.int)clearInterval(G.w.int);G.w=null;let last=null;active.items.forEach((it,ei)=>it.sets.forEach((s,si)=>{if(s.done)last={ei,si}}));if(!last)return;active.items[last.ei].sets[last.si].done=false;saveActive();G.phase="work";if(G.hold){clearInterval(G.hold.int);G.hold=null}renderGuide(true)}
+function workSecs(it,si){const t=it.type;if(t==="time")return Math.max(5,+stepVal(it,si,"secs")||30);return Math.max(20,Math.round((+stepVal(it,si,"reps")||10)*3.5))}
+function setupWork(key,total,auto){if(G.w&&G.w.int)clearInterval(G.w.int);G.w={key:key,total:total,left:total,ready:3,paused:false,auto:auto,int:null};G.w.int=setInterval(workTick,1000)}
+function workTick(){const w=G.w;if(!w||w.paused||G.phase!=="work"||!G.open)return;const C2=2*Math.PI*44;
+ if(w.ready>0){w.ready--;if(w.ready>0)beep(660,.06);else{beep(1046,.2);say("Go")}}
+ else if(w.left>0){w.left--;if(w.left<=3&&w.left>0)beep(660,.06);if(w.left===0){beep(1046,.4);if(w.auto){gDone();return}say("Time. Tap done when you've finished.");const d=$("gDoneBtn");if(d)d.classList.add("pulse")}}
+ const c=$("gClock"),l=$("gClockLbl"),a=$("gArc");if(c)c.textContent=w.ready>0?w.ready:fmtTime(w.left);if(l)l.textContent=w.ready>0?"GET READY":w.left<=0?"TIME":"TIME LEFT";if(a)a.setAttribute("stroke-dasharray",(C2*(w.ready>0?1:w.left/w.total)).toFixed(1)+" "+C2.toFixed(1))}
+function gToggle(){const w=G.w;if(!w)return;w.paused=!w.paused;const l=$("gClockLbl");if(l)l.textContent=w.paused?"PAUSED":"TIME LEFT"}
 
 /* ============ RIDES ============ */
-function openRide(){if(!settings.cycling){settings.cycling=true;saveSet()}rideType="endurance";renderRideTypes();$("rDur").value="";$("rKm").value="";$("rRpe").value="";$("rNote").value="";$("rDate").value=new Date().toISOString().slice(0,10);openModal("rideModal")}
+function openRide(){rideType="endurance";renderRideTypes();$("rDur").value="";$("rKm").value="";$("rRpe").value="";$("rNote").value="";$("rDate").value=new Date().toISOString().slice(0,10);openModal("rideModal")}
 function renderRideTypes(){$("rideTypes").innerHTML=RIDETYPES.map(r=>'<button class="'+(rideType===r.k?"active":"")+'" onclick="rideType=\''+r.k+'\';renderRideTypes()">'+r.n+'<small>'+r.d+'</small></button>').join("")}
 function saveRide(){const mins=parseInt($("rDur").value);if(!mins||mins<1){toast("Add how long you rode for");return}const d=$("rDate").value?new Date($("rDate").value+"T"+new Date().toTimeString().slice(0,8)):new Date();const rt=RIDETYPES.find(r=>r.k===rideType);
  sessions.push({id:"r_"+uid(),kind:"ride",name:rt.n,rideType:rideType,date:d.toISOString(),durationSec:mins*60,km:parseFloat(($("rKm").value||"").replace(",","."))||0,rpe:+$("rRpe").value||0,notes:$("rNote").value.trim().slice(0,120),items:[]});
