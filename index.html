@@ -3,173 +3,157 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#101714">
+<meta name="theme-color" content="#f7f5f1">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="RideStrong">
 <link rel="manifest" href="manifest.webmanifest">
-<title>RideStrong — Cycling Strength Coach</title>
+<title>RideStrong — Your cycling strength coach</title>
 <style>
-:root{--bg:#101714;--panel:#19231e;--panel2:#202d26;--line:#304137;--text:#f2f6f2;--muted:#a6b5aa;--lime:#c7f36b;--green:#77c58b;--orange:#ffbd69;--red:#ff8585}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:15px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;padding-bottom:90px}
-header{padding:calc(env(safe-area-inset-top) + 18px) 20px 16px;background:linear-gradient(145deg,#1c2a22,#101714)}
-.brand{font-size:12px;letter-spacing:2px;color:var(--lime);font-weight:800}.top{display:flex;justify-content:space-between;align-items:center}.top small{color:var(--muted)}
-h1{font-size:29px;line-height:1.08;margin:12px 0 7px;letter-spacing:-.7px}h2{font-size:20px;margin:0 0 13px}h3{font-size:16px;margin:0 0 6px}.sub{color:var(--muted);line-height:1.45}
-main{max-width:680px;margin:auto;padding:16px 16px 30px}.page{display:none}.page.active{display:block}
-.card{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:16px;margin:0 0 14px}
-.hero{background:linear-gradient(135deg,#293d2d,#19271e);border:1px solid #466144}
-.row{display:flex;align-items:center;justify-content:space-between;gap:12px}.pill{font-size:11px;padding:6px 10px;border-radius:30px;background:#34472f;color:var(--lime);font-weight:700}
-.btn{border:0;border-radius:13px;padding:13px 16px;background:var(--lime);color:#142014;font-weight:800;font-size:14px;cursor:pointer}.btn.secondary{background:var(--panel2);color:var(--text);border:1px solid var(--line)}.btn.full{width:100%}.btn:disabled{opacity:.45}
-.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.stat{background:var(--panel2);border-radius:14px;padding:13px}.stat b{display:block;font-size:24px}.stat small{color:var(--muted)}
-.progress{height:8px;background:#334137;border-radius:20px;overflow:hidden;margin:10px 0}.progress span{display:block;height:100%;background:var(--lime);width:0}
-.exercise{display:flex;align-items:center;gap:11px;padding:12px 0;border-bottom:1px solid var(--line)}.exercise:last-child{border:0}.num{width:30px;height:30px;border-radius:10px;background:#314334;color:var(--lime);display:grid;place-items:center;font-weight:800;flex:none}.exercise .info{flex:1;min-width:0}.exercise small{color:var(--muted)}.exercise button{border:1px solid var(--line);background:var(--panel2);color:var(--text);border-radius:10px;padding:8px 10px}
-.tabs{position:fixed;bottom:0;left:0;right:0;background:#141d18;border-top:1px solid var(--line);display:flex;justify-content:space-around;padding:9px 4px calc(env(safe-area-inset-bottom) + 8px);z-index:10}.tabs button{background:none;border:0;color:var(--muted);font-size:11px;display:flex;flex-direction:column;align-items:center;gap:4px;min-width:60px}.tabs button strong{font-size:19px}.tabs button.active{color:var(--lime)}
-.segment{display:flex;background:#101714;border-radius:12px;padding:4px;margin-bottom:14px}.segment button{flex:1;background:none;border:0;color:var(--muted);padding:10px;border-radius:9px;font-weight:700}.segment button.active{background:#354a37;color:var(--lime)}
-.timer{text-align:center;padding:22px}.clock{font-size:60px;font-weight:800;letter-spacing:-2px;font-variant-numeric:tabular-nums;margin:10px}
-.week{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}.day{background:var(--panel2);border-radius:11px;text-align:center;padding:9px 2px;min-height:74px}.day b{display:block;font-size:12px}.day small{display:block;font-size:9px;color:var(--muted);margin-top:7px}.day.strength{outline:1px solid #87b95d}.day.ride{background:#263d42;outline:1px solid #568d9a}.day.rest{opacity:.55}
-input,select{background:#101714;border:1px solid var(--line);border-radius:10px;padding:11px;color:var(--text);width:100%;font:inherit}label{display:block;color:var(--muted);font-size:12px;margin:12px 0 6px}
-.check{display:flex;align-items:center;gap:9px;margin:9px 0;color:var(--text)}.check input{width:19px;height:19px;accent-color:var(--lime)}
-a{color:var(--lime)}.muted{color:var(--muted)}.tiny{font-size:12px;color:var(--muted);line-height:1.5}
-footer{text-align:center;color:var(--muted);font-size:11px;padding:15px}
-@media(min-width:600px){main{padding-top:24px}.grid{grid-template-columns:repeat(4,1fr)}}
+:root{--bg:#f7f5f1;--paper:#fff;--ink:#222923;--muted:#788078;--line:#e9e8e2;--green:#c8ed76;--green-dark:#38552c;--mint:#eaf3df;--peach:#f9e7dc;--lav:#ece9f8;--blue:#e6eff4;--shadow:0 8px 28px rgba(36,44,35,.06)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font:15px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;padding-bottom:92px;-webkit-font-smoothing:antialiased}
+button,input,select{font:inherit}button{cursor:pointer}header{padding:calc(env(safe-area-inset-top) + 16px) 20px 12px;max-width:720px;margin:auto}.top{display:flex;justify-content:space-between;align-items:center}.brand{font-size:12px;letter-spacing:2px;font-weight:900}.brand span{color:#729c39}.avatar{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:var(--green);font-weight:900}.date{font-size:12px;color:var(--muted);margin-top:20px}.greeting{font-size:29px;line-height:1.12;letter-spacing:-1px;margin:5px 0 7px}.intro{color:var(--muted);line-height:1.5;margin:0}
+main{max-width:720px;margin:auto;padding:8px 16px 28px}.page{display:none}.page.active{display:block;animation:appear .22s ease}@keyframes appear{from{opacity:.5;transform:translateY(4px)}to{opacity:1;transform:none}}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:22px;padding:17px;margin-bottom:13px;box-shadow:var(--shadow)}.hero{background:var(--green);border:0;padding:20px;position:relative;overflow:hidden;box-shadow:none}.hero:after{content:"";position:absolute;width:170px;height:170px;border:28px solid rgba(255,255,255,.22);border-radius:50%;right:-60px;top:-60px}.eyebrow{font-size:10px;letter-spacing:1.6px;font-weight:900;color:#4d6537}.hero h2{font-size:26px;line-height:1.1;letter-spacing:-.7px;margin:9px 0 7px;max-width:280px}.hero p{color:#405239;line-height:1.45;margin:0 0 17px;max-width:290px;font-size:13px}.hero .pill{background:rgba(255,255,255,.56);color:#3b5530}
+.row{display:flex;align-items:center;justify-content:space-between;gap:12px}.row.start{align-items:flex-start}.pill{font-size:10px;font-weight:900;letter-spacing:.6px;padding:7px 10px;border-radius:30px;background:var(--mint);color:var(--green-dark);white-space:nowrap}.btn{border:0;border-radius:14px;padding:13px 17px;background:var(--ink);color:white;font-weight:800;font-size:13px}.btn.light{background:#fff;color:var(--ink)}.btn.soft{background:#f1f2ed;color:var(--ink)}.btn.green{background:var(--green);color:#25331e}.btn.full{width:100%}.btn:disabled{opacity:.4}.section-head{display:flex;align-items:center;justify-content:space-between;margin:22px 2px 11px}.section-head h2{font-size:18px;letter-spacing:-.3px;margin:0}.linkbtn{border:0;background:none;color:#668b39;font-weight:800;font-size:12px;padding:6px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin:13px 0}.stat{background:#fff;border:1px solid var(--line);border-radius:17px;padding:13px 11px}.stat b{display:block;font-size:22px;letter-spacing:-.5px}.stat small{display:block;color:var(--muted);font-size:10px;margin-top:4px;line-height:1.3}
+.progress{height:8px;border-radius:20px;background:#edf0e9;overflow:hidden;margin:11px 0}.progress span{display:block;height:100%;width:0;background:#8dbb50;border-radius:20px;transition:width .3s}
+.week{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}.day{border-radius:13px;background:#f6f6f2;text-align:center;padding:9px 2px 8px;min-height:72px}.day b{font-size:11px;display:block}.day small{display:block;font-size:9px;color:var(--muted);margin-top:8px;line-height:1.2}.day.strength{background:var(--mint)}.day.ride{outline:1px solid #9eb8c3;background:var(--blue)}.day.rest{opacity:.68}
+.workout-card{display:flex;gap:13px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}.workout-card:last-child{border:0;padding-bottom:0}.exercise-art{width:58px;height:58px;flex:none;border-radius:17px;display:grid;place-items:center;font-size:25px;background:var(--mint)}.exercise-art.peach{background:var(--peach)}.exercise-art.lav{background:var(--lav)}.exercise-art.blue{background:var(--blue)}.exercise-copy{flex:1;min-width:0}.exercise-copy b{font-size:13px}.exercise-copy small{display:block;color:var(--muted);font-size:11px;margin-top:4px}.arrow{border:0;background:#f4f4ef;border-radius:50%;width:34px;height:34px;font-size:18px}
+.tabs{position:fixed;bottom:0;left:0;right:0;z-index:10;background:rgba(255,255,255,.96);backdrop-filter:blur(15px);border-top:1px solid var(--line);display:flex;justify-content:space-around;padding:8px 4px calc(env(safe-area-inset-bottom) + 7px)}.tabs button{border:0;background:none;color:#929990;font-size:10px;display:flex;flex-direction:column;align-items:center;gap:4px;min-width:55px;font-weight:700}.tabs button strong{font-size:20px;line-height:22px}.tabs button.active{color:#567c2e}
+h2{font-size:21px;letter-spacing:-.5px;margin:0 0 12px}h3{font-size:15px;margin:0 0 5px}.muted{color:var(--muted)}.tiny{font-size:11px;color:var(--muted);line-height:1.5}.big-number{font-size:46px;font-weight:900;letter-spacing:-2px;font-variant-numeric:tabular-nums}.timer{text-align:center;padding:22px}.timer-face{width:190px;height:190px;border-radius:50%;border:10px solid var(--mint);display:flex;flex-direction:column;align-items:center;justify-content:center;margin:14px auto}.timer-face .big-number{font-size:48px}.timer-actions{display:flex;justify-content:center;gap:8px;flex-wrap:wrap}.segment{display:flex;padding:4px;border-radius:14px;background:#f1f2ed;margin:13px 0}.segment button{flex:1;border:0;background:none;border-radius:11px;padding:10px;color:var(--muted);font-weight:800}.segment button.active{background:#fff;color:var(--ink);box-shadow:0 2px 8px #0000000c}
+label{display:block;color:var(--muted);font-size:11px;font-weight:700;margin:12px 0 6px}input,select{background:#fafaf7;border:1px solid var(--line);border-radius:12px;padding:12px;color:var(--ink);width:100%;outline:none}input:focus,select:focus{border-color:#9cbd6a}.checkline{display:flex;align-items:center;gap:10px;padding:10px 0;color:var(--ink);font-size:13px}.checkline input{width:19px;height:19px;accent-color:#83ae49}.log-row{display:flex;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid var(--line);font-size:12px}.log-row:last-child{border:0}.empty{text-align:center;padding:22px 10px;color:var(--muted);font-size:12px}.badge-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#8cb64d;margin-right:5px}.modal{position:fixed;inset:0;background:#17201980;z-index:30;display:none;align-items:flex-end;justify-content:center;padding:14px}.modal.open{display:flex}.sheet{background:var(--paper);border-radius:25px 25px 18px 18px;padding:21px;width:100%;max-width:600px;max-height:85vh;overflow:auto}.sheet-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:15px}.close{border:0;background:#f1f2ed;border-radius:50%;width:34px;height:34px;font-size:20px}.toast{position:fixed;bottom:100px;left:50%;transform:translateX(-50%);background:#263329;color:white;padding:11px 16px;border-radius:30px;font-size:12px;z-index:50;display:none;white-space:nowrap}
+@media(min-width:600px){header{padding-left:24px;padding-right:24px}main{padding:8px 24px 35px}.hero{padding:26px}.hero h2{font-size:30px}.tabs{max-width:720px;left:50%;transform:translateX(-50%);border:1px solid var(--line);border-bottom:0;border-radius:18px 18px 0 0}}
 </style>
 </head>
 <body>
 <header>
- <div class="top"><div class="brand">RIDESTRONG / CYCLING STRENGTH</div><small id="today"></small></div>
- <h1>Stronger off<br>the bike. Faster on it.</h1>
- <div class="sub">Your dumbbell strength plan, Zwift rhythm and recovery — together.</div>
+ <div class="top"><div class="brand">RIDE<span>STRONG</span></div><div class="avatar">R</div></div>
+ <div class="date" id="todayDate"></div><h1 class="greeting" id="greeting">Let's get stronger.</h1><p class="intro">Small steps. Stronger rides. A plan that fits your life.</p>
 </header>
 <main>
 <section class="page active" id="home">
  <div class="card hero">
-  <div class="row"><span class="pill" id="todayTag">TODAY'S PLAN</span><span class="tiny">15 MIN STRENGTH</span></div>
-  <h2 id="todayTitle" style="font-size:25px;margin-top:15px">Workout A · Legs & core</h2>
-  <p class="sub" id="todayDesc">Build glute, leg and trunk strength for more stable, powerful riding.</p>
-  <button class="btn full" onclick="startWorkout()">START WORKOUT →</button>
+  <div class="row"><span class="pill" id="todayTag">YOUR PLAN TODAY</span><span class="eyebrow">RIDESTRONG COACH</span></div>
+  <h2 id="todayTitle">Ready for Workout A?</h2><p id="todayDesc">Build strength that carries over to every ride.</p>
+  <button class="btn light" onclick="startTodaysWorkout()">Let's get started&nbsp; →</button>
  </div>
- <div class="grid">
-  <div class="stat"><b id="streak">0</b><small>Strength sessions logged</small></div>
-  <div class="stat"><b id="rides">0</b><small>Zwift rides logged</small></div>
-  <div class="stat"><b>2 + 1</b><small>Strength / rest rhythm</small></div>
-  <div class="stat"><b>15 min</b><small>Each strength session</small></div>
+ <div class="stats">
+  <div class="stat"><b id="statStrength">0</b><small>Strength sessions</small></div>
+  <div class="stat"><b id="statRides">0</b><small>Rides logged</small></div>
+  <div class="stat"><b id="statMinutes">0</b><small>Training minutes</small></div>
  </div>
- <div class="card" style="margin-top:14px">
-  <div class="row"><h2>This week's rhythm</h2><span class="tiny">Edit rides in Plan</span></div>
-  <div class="week" id="miniWeek"></div>
- </div>
+ <div class="section-head"><h2>Your week at a glance</h2><button class="linkbtn" onclick="showPage('plan')">See plan</button></div>
+ <div class="card"><div class="week" id="homeWeek"></div><div class="row" style="margin-top:13px"><span class="tiny"><span class="badge-dot"></span>Strength</span><span class="tiny">Blue outline · Ride</span><span class="tiny">Rest · Recovery</span></div></div>
+ <div class="section-head"><h2>Your next step</h2><span class="pill" id="nextPill">15 MIN</span></div>
  <div class="card">
-  <h2>How the strength cycle works</h2>
-  <p class="sub">Two consecutive strength days, then one rest day. It rolls continuously rather than resetting each Monday.</p>
-  <div class="row"><span>Day 1 · Legs & core</span><span class="pill">A</span></div><div class="row" style="margin-top:9px"><span>Day 2 · Upper body & core</span><span class="pill">B</span></div><div class="row" style="margin-top:9px"><span>Day 3 · Recovery</span><span class="pill">REST</span></div>
+  <div class="row start"><div class="exercise-art peach">🚴</div><div style="flex:1"><h3 id="nextTitle">Keep your rhythm</h3><p class="tiny" id="nextText">Consistency beats perfection. Follow the plan and adapt when you need to.</p></div></div>
  </div>
+ <div class="section-head"><h2>Today's workout</h2><button class="linkbtn" onclick="showPage('workout')">View workout</button></div>
+ <div class="card" id="homeWorkoutPreview"></div>
 </section>
 <section class="page" id="workout">
- <h2>Guided strength session</h2>
- <div class="segment"><button id="tabA" class="active" onclick="chooseWorkout('A')">A · Legs</button><button id="tabB" onclick="chooseWorkout('B')">B · Upper body</button></div>
+ <div class="row"><div><div class="eyebrow">YOUR STRENGTH SESSION</div><h2 style="margin-top:5px">Move with purpose</h2></div><span class="pill">15–20 MIN</span></div>
+ <div class="segment"><button id="tabA" class="active" onclick="chooseWorkout('A')">A · Legs & core</button><button id="tabB" onclick="chooseWorkout('B')">B · Upper body</button></div>
  <div class="card">
-  <div class="row"><div><span class="pill" id="workTag">WORKOUT A</span><h2 id="workTitle" style="margin-top:10px">Legs, glutes & core</h2></div><b style="font-size:25px">15′</b></div>
-  <p class="tiny">2-minute warm-up, then 6 exercises. Work for 40 seconds, rest for 20 seconds, and repeat the circuit twice. Keep the weights controlled and leave a couple of good reps in reserve.</p>
+  <div class="row"><div><h3 id="workTitle">Legs, glutes & core</h3><p class="tiny" id="workSub">Build a stronger foundation for the bike.</p></div><span class="pill" id="workCount">6 MOVES</span></div>
+  <div class="progress"><span id="exerciseProgress"></span></div><div class="tiny" id="exerciseProgressText">0 of 6 exercises completed</div>
   <div id="exerciseList"></div>
-  <div class="progress"><span id="workProgress"></span></div>
-  <div class="row"><small class="muted" id="workCount">0 of 6 exercises checked</small><button class="btn secondary" onclick="resetChecks()">Reset</button></div>
  </div>
  <div class="card timer">
-  <span class="pill">INTERVAL TIMER</span><div class="clock" id="clock">00:40</div><div id="timerLabel" class="muted">Work interval</div>
-  <div class="row" style="justify-content:center;margin-top:15px"><button class="btn" onclick="timerStart()">START</button><button class="btn secondary" onclick="timerPause()">PAUSE</button><button class="btn secondary" onclick="timerReset()">RESET</button></div>
-  <p class="tiny">Timer runs one interval at a time. Tap REST for a 20-second recovery between efforts.</p>
-  <button class="btn secondary" onclick="setRest()">REST · 20 SEC</button>
+  <div class="eyebrow">GUIDED INTERVAL TIMER</div><div class="timer-face"><div class="big-number" id="clock">00:40</div><div class="tiny" id="timerLabel">WORK</div></div>
+  <p class="tiny" id="timerHint">40 seconds moving · 20 seconds recovery. Repeat for each exercise.</p>
+  <div class="timer-actions"><button class="btn" id="timerToggle" onclick="toggleTimer()">Start timer</button><button class="btn soft" onclick="timerReset()">Reset</button><button class="btn soft" onclick="setRest()">Rest 20s</button></div>
  </div>
+ <div class="card"><h3>Finish your session</h3><p class="tiny">When you've completed the workout, log it to your progress. Listen to your body and keep every rep controlled.</p><button class="btn green full" onclick="completeWorkout()">Complete workout ✓</button></div>
 </section>
 <section class="page" id="plan">
- <h2>Your training plan</h2>
- <div class="card">
-  <h3>Strength cycle</h3><p class="sub">Starts with A on Monday 2 November 2026. A repeats every 3 days; B starts the next day and repeats every 3 days.</p>
-  <div class="week" id="planWeek"></div>
-  <p class="tiny">The strength pattern continues across week boundaries: A, B, rest, A, B, rest…</p>
+ <div class="eyebrow">YOUR ROUTINE</div><h2 style="margin-top:5px">A plan that moves with you</h2>
+ <div class="card"><div class="row"><div><h3>Rolling strength cycle</h3><p class="tiny">Workout A · Workout B · Recovery</p></div><span class="pill">REPEAT</span></div><div class="week" id="planWeek" style="margin-top:15px"></div><p class="tiny" style="margin-top:12px">Your strength cycle repeats every three days. If life gets in the way, adjust the start date in Settings.</p></div>
+ <div class="card"><h3>Plan your Zwift rides</h3><p class="tiny">A suggested weekly rhythm. Keep hard efforts away from heavy leg fatigue and make recovery your priority.</p>
+  <label class="checkline"><input type="checkbox" id="rideMon" onchange="saveRides()"> Monday · Easy endurance / recovery</label>
+  <label class="checkline"><input type="checkbox" id="rideWed" onchange="saveRides()"> Wednesday · Quality intervals</label>
+  <label class="checkline"><input type="checkbox" id="rideSat" onchange="saveRides()"> Saturday · Longer endurance ride</label>
+  <label class="checkline"><input type="checkbox" id="rideSun" onchange="saveRides()"> Sunday · Optional easy spin</label>
  </div>
- <div class="card">
-  <h3>Zwift rides · 3 planned + 1 optional</h3>
-  <p class="tiny">A balanced starting template. Move rides to suit your work and recovery; avoid hard intervals immediately before a demanding leg-strength day.</p>
-  <label class="check"><input type="checkbox" id="rideMon" onchange="saveRides()"> Monday · Easy endurance / recovery spin</label>
-  <label class="check"><input type="checkbox" id="rideWed" onchange="saveRides()"> Wednesday · Quality intervals (if recovered)</label>
-  <label class="check"><input type="checkbox" id="rideSat" onchange="saveRides()"> Saturday · Longer endurance ride</label>
-  <label class="check"><input type="checkbox" id="rideSun" onchange="saveRides()"> Sunday · Optional easy ride</label>
-  <p class="tiny">These are suggested ride slots, not fixed prescriptions. Keep the hard ride away from heavy leg fatigue and take an easy/rest day when needed.</p>
- </div>
- <div class="card">
-  <h3>Calendar export</h3><p class="tiny">Create an Apple Calendar file for your rolling strength sessions and the Zwift slots you've selected.</p>
-  <button class="btn full" onclick="downloadCalendar()">ADD PLAN TO APPLE CALENDAR (.ICS)</button>
- </div>
+ <div class="card"><h3>Put it in your calendar</h3><p class="tiny">Export your rolling strength sessions and selected Zwift slots to your device calendar.</p><button class="btn full" onclick="downloadCalendar()">Export calendar plan</button></div>
 </section>
 <section class="page" id="progress">
- <h2>Your progress</h2>
- <div class="grid">
-  <div class="stat"><b id="pStrength">0</b><small>Strength sessions</small></div>
-  <div class="stat"><b id="pRides">0</b><small>Zwift rides</small></div>
- </div>
- <div class="card" style="margin-top:14px">
-  <h3>Log a completed session</h3><p class="tiny">Use these buttons after finishing a session. Your log is stored on this device.</p>
-  <div class="row"><button class="btn" onclick="logSession('strength')">+ Strength session</button><button class="btn secondary" onclick="logSession('ride')">+ Zwift ride</button></div>
-  <p id="logMessage" class="tiny"></p>
- </div>
- <div class="card"><h3>Recent activity</h3><div id="history" class="tiny">No sessions logged yet.</div></div>
- <div class="card"><h3>Training principle</h3><p class="sub">Build gradually. Prioritise technique over load, keep at least one or two repetitions in reserve, and reduce leg loading if it compromises key bike sessions. Stop if you feel sharp pain.</p></div>
+ <div class="eyebrow">LOOK HOW FAR YOU'VE COME</div><h2 style="margin-top:5px">Your progress</h2>
+ <div class="card"><div class="row"><div><div class="tiny">TOTAL STRENGTH SESSIONS</div><div class="big-number" id="pStrength">0</div></div><div class="exercise-art">💪</div></div><div class="progress"><span id="strengthBar"></span></div><p class="tiny" id="strengthGoal">Your first milestone is 8 strength sessions.</p></div>
+ <div class="stats"><div class="stat"><b id="pRides">0</b><small>Zwift rides</small></div><div class="stat"><b id="pMinutes">0</b><small>Minutes trained</small></div><div class="stat"><b id="pWeek">0</b><small>This week</small></div></div>
+ <div class="card"><h3>Log a session</h3><p class="tiny">Add a completed session to your activity history.</p><div class="row"><button class="btn green" onclick="logSession('strength')">+ Strength</button><button class="btn soft" onclick="logSession('ride')">+ Ride</button></div></div>
+ <div class="card"><div class="row"><h3>Recent activity</h3><button class="linkbtn" onclick="clearHistory()">Clear</button></div><div id="history" class="empty">Your activity will appear here.</div></div>
+ <div class="card"><h3>A little reminder</h3><p class="tiny">Progress isn't linear. Build gradually, prioritise good technique, leave a couple of reps in reserve and reduce leg loading if it affects your key rides. Stop if you feel sharp pain.</p></div>
 </section>
 <section class="page" id="settings">
- <h2>Settings</h2>
- <div class="card">
-  <h3>Workout reminders</h3>
-  <label for="reminder">Preferred strength time</label><input id="reminder" type="time" value="18:00">
-  <p class="tiny">Calendar events use this time when you export the plan. Browser notifications are not enabled in this offline starter version.</p>
-  <label for="startDate">Strength cycle start date</label><input id="startDate" type="date" value="2026-11-02">
-  <label for="weight">Dumbbell weight (each, optional)</label><input id="weight" type="text" placeholder="e.g. 6 kg">
-  <button class="btn full" style="margin-top:14px" onclick="saveSettings()">SAVE SETTINGS</button>
- </div>
- <div class="card"><h3>Your privacy</h3><p class="tiny">Your checklists, settings and workout log stay in this browser on this device. There is no account or cloud sync in this starter app. Export your calendar separately to Apple Calendar.</p></div>
+ <div class="eyebrow">MAKE IT YOURS</div><h2 style="margin-top:5px">Your settings</h2>
+ <div class="card"><h3>Your strength routine</h3><label for="startDate">Cycle start date</label><input id="startDate" type="date" value="2026-11-02"><label for="reminder">Preferred workout time</label><input id="reminder" type="time" value="18:00"><label for="weight">Dumbbell weight (each)</label><input id="weight" type="text" placeholder="e.g. 6 kg"><button class="btn full" style="margin-top:15px" onclick="saveSettings()">Save my settings</button></div>
+ <div class="card"><h3>Your data & privacy</h3><p class="tiny">Your settings and activity are stored in this browser on this device. This version has no account or cloud sync. Your existing RideStrong training history is retained on this device.</p><button class="btn soft full" onclick="downloadBackup()">Export my training data</button></div>
+ <div class="card"><h3>About RideStrong</h3><p class="tiny">A simple strength companion for cyclists. Designed to help you build consistency off the bike and enjoy stronger rides.</p><div class="tiny">Version 2.0 · RideStrong</div></div>
 </section>
 </main>
 <nav class="tabs">
  <button class="active" data-page="home" onclick="showPage('home',this)"><strong>⌂</strong>Home</button>
- <button data-page="workout" onclick="showPage('workout',this)"><strong>▶</strong>Workout</button>
+ <button data-page="workout" onclick="showPage('workout',this)"><strong>✦</strong>Workout</button>
  <button data-page="plan" onclick="showPage('plan',this)"><strong>▦</strong>Plan</button>
  <button data-page="progress" onclick="showPage('progress',this)"><strong>↗</strong>Progress</button>
- <button data-page="settings" onclick="showPage('settings',this)"><strong>⚙</strong>Settings</button>
+ <button data-page="settings" onclick="showPage('settings',this)"><strong>⚙</strong>Profile</button>
 </nav>
+<div class="modal" id="exerciseModal" onclick="if(event.target===this)closeExercise()"><div class="sheet"><div class="sheet-top"><span class="eyebrow">EXERCISE GUIDE</span><button class="close" onclick="closeExercise()">×</button></div><div id="exerciseDetail"></div></div></div>
+<div class="toast" id="toast"></div>
 <script>
 const exercises={
- A:[["Goblet squat","Quads, glutes","https://www.youtube.com/results?search_query=goblet+squat+dumbbell+exercise+demonstration"],["Dumbbell Romanian deadlift","Hamstrings, glutes","https://www.youtube.com/results?search_query=dumbbell+romanian+deadlift+demonstration"],["Reverse lunge","Single-leg strength","https://www.youtube.com/results?search_query=reverse+lunge+exercise+demonstration"],["Dumbbell glute bridge","Glutes","https://www.youtube.com/results?search_query=dumbbell+glute+bridge+demonstration"],["Calf raises","Calves","https://www.youtube.com/results?search_query=standing+calf+raise+demonstration"],["Plank","Core stability","https://www.youtube.com/results?search_query=plank+exercise+demonstration"]],
- B:[["Bent-over dumbbell row","Back, posture","https://www.youtube.com/results?search_query=dumbbell+bent+over+row+demonstration"],["Dumbbell floor press","Chest, triceps","https://www.youtube.com/results?search_query=dumbbell+floor+press+demonstration"],["Dumbbell shoulder press","Shoulders","https://www.youtube.com/results?search_query=dumbbell+shoulder+press+demonstration"],["Biceps curl","Arms","https://www.youtube.com/results?search_query=dumbbell+biceps+curl+demonstration"],["Dead bug","Deep core","https://www.youtube.com/results?search_query=dead+bug+core+exercise+demonstration"],["Side plank","Lateral core","https://www.youtube.com/results?search_query=side+plank+exercise+demonstration"]]
+ A:[
+  {name:"Goblet squat",focus:"Quads · Glutes",cue:"Hold one dumbbell close to your chest. Sit your hips down and back, keep your chest lifted, then drive through your whole foot to stand.",icon:"🏋️",tone:"peach",video:"goblet squat dumbbell exercise demonstration"},
+  {name:"Dumbbell Romanian deadlift",focus:"Hamstrings · Glutes",cue:"Hold the weights in front of your thighs. Soften your knees, push your hips back and lower with a long spine. Squeeze your glutes to stand tall.",icon:"↘️",tone:"lav",video:"dumbbell romanian deadlift demonstration"},
+  {name:"Reverse lunge",focus:"Single-leg strength",cue:"Step one foot back and lower under control. Keep your front knee tracking over your foot. Push through the front foot to return.",icon:"🦵",tone:"blue",video:"reverse lunge exercise demonstration"},
+  {name:"Dumbbell glute bridge",focus:"Glutes · Hip drive",cue:"Lie on your back with knees bent and feet flat. Rest a dumbbell across your hips, drive through your heels and squeeze at the top.",icon:"🌉",tone:"peach",video:"dumbbell glute bridge demonstration"},
+  {name:"Calf raises",focus:"Calves · Ankle strength",cue:"Stand tall and rise onto the balls of your feet. Pause briefly at the top, then lower slowly. Use a wall for balance if needed.",icon:"⬆️",tone:"lav",video:"standing calf raise exercise demonstration"},
+  {name:"Plank",focus:"Core stability",cue:"Rest on your forearms and toes. Keep your body in a straight line, brace gently and breathe normally. Stop before your hips sag.",icon:"🧘",tone:"blue",video:"forearm plank exercise demonstration"}
+ ],
+ B:[
+  {name:"Bent-over dumbbell row",focus:"Back · Posture",cue:"Hinge at the hips with a neutral spine. Pull the dumbbells towards your lower ribs, keeping elbows close, then lower slowly.",icon:"🚣",tone:"lav",video:"dumbbell bent over row demonstration"},
+  {name:"Dumbbell floor press",focus:"Chest · Triceps",cue:"Lie on the floor with knees bent. Start with elbows on the floor, press the weights above your chest, then lower with control.",icon:"💪",tone:"peach",video:"dumbbell floor press demonstration"},
+  {name:"Dumbbell shoulder press",focus:"Shoulders",cue:"Start with weights around shoulder height. Brace your middle and press overhead without arching your lower back.",icon:"🙌",tone:"blue",video:"dumbbell shoulder press demonstration"},
+  {name:"Biceps curl",focus:"Arms",cue:"Keep elbows close to your sides. Curl the weights without swinging, then lower slowly through the full range.",icon:"💪",tone:"lav",video:"dumbbell biceps curl demonstration"},
+  {name:"Dead bug",focus:"Deep core",cue:"Lie on your back with arms up and knees bent. Slowly extend the opposite arm and leg while keeping your lower back steady.",icon:"🐞",tone:"peach",video:"dead bug core exercise demonstration"},
+  {name:"Side plank",focus:"Lateral core",cue:"Support yourself on one forearm and the side of your foot or knee. Lift your hips and keep your body aligned. Repeat on both sides.",icon:"🧘",tone:"blue",video:"side plank exercise demonstration"}
+ ]
 };
 let chosen="A",checks={},seconds=40,interval=null,logs=JSON.parse(localStorage.getItem("rsLogs")||"[]"),rides=JSON.parse(localStorage.getItem("rsRides")||'{"rideMon":true,"rideWed":true,"rideSat":true,"rideSun":false}');
 const $=id=>document.getElementById(id);
+function safeSave(k,v){try{localStorage.setItem(k,v)}catch(e){toast("Could not save on this device")}}
 function dateLocal(s){return new Date(s+"T12:00:00")}
-function cycleFor(d){let start=dateLocal($("startDate").value||"2026-11-02"),diff=Math.floor((dateLocal(d.toISOString().slice(0,10))-start)/86400000),n=((diff%3)+3)%3;return n===0?"A":n===1?"B":"REST"}
-function dateStr(d){return d.toISOString().slice(0,10)}
-function showPage(p,btn){document.querySelectorAll(".page").forEach(x=>x.classList.remove("active"));$(p).classList.add("active");document.querySelectorAll(".tabs button").forEach(x=>x.classList.remove("active"));(btn||document.querySelector(`[data-page="${p}"]`)).classList.add("active");}
-function chooseWorkout(x){chosen=x;$("tabA").classList.toggle("active",x==="A");$("tabB").classList.toggle("active",x==="B");$("workTag").textContent="WORKOUT "+x;$("workTitle").textContent=x==="A"?"Legs, glutes & core":"Upper body & core";renderExercises()}
-function renderExercises(){let arr=exercises[chosen];$("exerciseList").innerHTML=arr.map((e,i)=>`<div class="exercise"><div class="num">${i+1}</div><div class="info"><b>${e[0]}</b><br><small>${e[1]} · 40 sec work / 20 sec rest × 2</small></div><button onclick="window.open('${e[2]}','_blank')">▶ Video</button><input aria-label="Mark complete" type="checkbox" style="width:20px;accent-color:#c7f36b" ${checks[chosen+"-"+i]?"checked":""} onchange="mark('${chosen}',${i},this.checked)"></div>`).join("");updateChecks()}
-function mark(w,i,v){checks[w+"-"+i]=v;updateChecks()}
-function updateChecks(){let n=exercises[chosen].filter((_,i)=>checks[chosen+"-"+i]).length;$("workCount").textContent=n+" of 6 exercises checked";$("workProgress").style.width=(n/6*100)+"%"}
-function resetChecks(){exercises[chosen].forEach((_,i)=>delete checks[chosen+"-"+i]);renderExercises()}
-function startWorkout(){showPage("workout");chooseWorkout(cycleFor(new Date())==="B"?"B":"A");timerStart()}
-function timerStart(){if(interval)return;interval=setInterval(()=>{seconds--;if(seconds<=0){clearInterval(interval);interval=null;seconds=0;beep()}renderClock()},1000);renderClock()}
-function timerPause(){clearInterval(interval);interval=null}
-function timerReset(){timerPause();seconds=40;renderClock();$("timerLabel").textContent="Work interval"}
-function setRest(){timerPause();seconds=20;$("timerLabel").textContent="Rest interval";renderClock();timerStart()}
+function dateStr(d){return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")}
+function cycleFor(d){let start=dateLocal($("startDate").value||"2026-11-02"),diff=Math.round((dateLocal(dateStr(d))-start)/86400000),n=((diff%3)+3)%3;return n===0?"A":n===1?"B":"REST"}
+function showPage(p,btn){document.querySelectorAll(".page").forEach(x=>x.classList.remove("active"));$(p).classList.add("active");document.querySelectorAll(".tabs button").forEach(x=>x.classList.remove("active"));(btn||document.querySelector('[data-page="'+p+'"]')).classList.add("active");window.scrollTo(0,0)}
+function chooseWorkout(x){chosen=x;$("tabA").classList.toggle("active",x==="A");$("tabB").classList.toggle("active",x==="B");$("workTitle").textContent=x==="A"?"Legs, glutes & core":"Upper body & core";$("workSub").textContent=x==="A"?"Build a stronger foundation for the bike.":"Support your riding position and upper-body endurance.";renderExercises()}
+function renderExercises(){let arr=exercises[chosen];$("exerciseList").innerHTML=arr.map((e,i)=>'<div class="workout-card"><div class="exercise-art '+e.tone+'">'+e.icon+'</div><div class="exercise-copy"><b>'+e.name+'</b><small>'+e.focus+' · 40s work / 20s rest</small></div><button class="arrow" aria-label="Exercise details" onclick="openExercise('+i+')">›</button><input aria-label="Mark '+e.name+' complete" type="checkbox" style="width:19px;height:19px;accent-color:#83ae49" '+(checks[chosen+"-"+i]?"checked":"")+' onchange="markExercise('+i+',this.checked)"></div>').join("");updateExerciseProgress()}
+function markExercise(i,v){checks[chosen+"-"+i]=v;updateExerciseProgress()}
+function updateExerciseProgress(){let n=exercises[chosen].filter((e,i)=>checks[chosen+"-"+i]).length;$("exerciseProgress").style.width=(n/6*100)+"%";$("exerciseProgressText").textContent=n+" of 6 exercises completed"}
+function openExercise(i){let e=exercises[chosen][i];$("exerciseDetail").innerHTML='<div class="exercise-art '+e.tone+'" style="width:74px;height:74px;font-size:32px;margin-bottom:15px">'+e.icon+'</div><h2>'+e.name+'</h2><div class="pill">'+e.focus+'</div><p style="line-height:1.6;font-size:14px">'+e.cue+'</p><p class="tiny">Aim for smooth, controlled movement. Choose a load that lets you keep good technique.</p><a class="btn full" style="display:block;text-align:center;text-decoration:none;margin-top:15px" href="https://www.youtube.com/results?search_query='+encodeURIComponent(e.video)+'" target="_blank" rel="noopener">Watch exercise demonstrations ↗</a>';$("exerciseModal").classList.add("open")}
+function closeExercise(){$("exerciseModal").classList.remove("open")}
+function startTodaysWorkout(){let c=cycleFor(new Date());chooseWorkout(c==="B"?"B":"A");showPage("workout");if(c==="REST")toast("Today is a recovery day — choose a gentle session if you feel fresh")}
+function toggleTimer(){if(interval){timerPause();return}interval=setInterval(()=>{seconds--;if(seconds<=0){seconds=0;timerPause();beep();$("timerLabel").textContent="INTERVAL COMPLETE";$("timerToggle").textContent="Start next interval"}renderClock()},1000);$("timerToggle").textContent="Pause"}
+function timerPause(){clearInterval(interval);interval=null;if($("timerToggle"))$("timerToggle").textContent="Resume"}
+function timerReset(){timerPause();seconds=40;$("timerLabel").textContent="WORK";$("timerToggle").textContent="Start timer";renderClock()}
+function setRest(){timerPause();seconds=20;$("timerLabel").textContent="REST";$("timerToggle").textContent="Start rest";renderClock();toggleTimer()}
 function renderClock(){$("clock").textContent="00:"+String(seconds).padStart(2,"0")}
-function beep(){try{let c=new(window.AudioContext||window.webkitAudioContext)(),o=c.createOscillator(),g=c.createGain();o.connect(g);g.connect(c.destination);o.frequency.value=660;g.gain.value=.08;o.start();o.stop(c.currentTime+.18)}catch(e){}}
-function saveRides(){["rideMon","rideWed","rideSat","rideSun"].forEach(k=>rides[k]=$(k).checked);localStorage.setItem("rsRides",JSON.stringify(rides));renderWeek()}
-function saveSettings(){localStorage.setItem("rsStart",$("startDate").value);localStorage.setItem("rsTime",$("reminder").value);localStorage.setItem("rsWeight",$("weight").value);renderWeek();alert("Settings saved on this device.")}
-function logSession(type){logs.unshift({type,date:new Date().toLocaleString()});localStorage.setItem("rsLogs",JSON.stringify(logs));renderStats();$("logMessage").textContent="Session added to your activity log."}
-function renderStats(){let s=logs.filter(x=>x.type==="strength").length,r=logs.filter(x=>x.type==="ride").length;$("streak").textContent=s;$("rides").textContent=r;$("pStrength").textContent=s;$("pRides").textContent=r;$("history").innerHTML=logs.length?logs.slice(0,12).map(x=>`<p>${x.type==="strength"?"💪 Strength":"🚴 Zwift"} · ${x.date}</p>`).join(""):"No sessions logged yet."}
-function renderWeek(){let now=new Date(),mon=new Date(now);mon.setDate(now.getDate()-((now.getDay()+6)%7));let days=["Mon","Tue","Wed","Thu","Fri","Sat","Sun"];let html=days.map((d,i)=>{let dt=new Date(mon);dt.setDate(mon.getDate()+i);let kind=cycleFor(dt);let ride=["rideMon","rideWed","rideSat","rideSun"][i===0?0:i===2?1:i===5?2:i===6?3:-1];let isRide=ride&&rides[ride];let cls=kind==="REST"?"rest":"strength";return `<div class="day ${cls} ${isRide?"ride":""}"><b>${d} ${dt.getDate()}</b><small>${kind==="REST"?"REST":kind==="A"?"STRENGTH A":"STRENGTH B"}${isRide?" + RIDE":""}</small></div>`}).join("");$("miniWeek").innerHTML=html;$("planWeek").innerHTML=html}
-function downloadCalendar(){let start=$("startDate").value||"2026-11-02",time=$("reminder").value||"18:00",hm=time.replace(":","")+"00";let z=[];function ev(dt,title,desc,rr){z.push(["BEGIN:VEVENT","UID:"+Math.random().toString(36).slice(2)+"@ridestrong","DTSTAMP:20261102T090000Z","DTSTART:"+dt+"T"+hm,"DTEND:"+dt+"T"+String(Number(time.slice(0,2))+0).padStart(2,"0")+time.slice(3)+ "00","RRULE:"+rr,"SUMMARY:"+title,"DESCRIPTION:"+desc,"BEGIN:VALARM","TRIGGER:-PT10M","ACTION:DISPLAY","DESCRIPTION:Workout starts in 10 minutes","END:VALARM","END:VEVENT"].join("\r\n"))}
-let d=new Date(start+"T12:00:00");let dt=d.toISOString().slice(0,10).replaceAll("-","");ev(dt,"RideStrong · Workout A — Legs & core","15 minutes. Warm up 2 minutes, then goblet squat, Romanian deadlift, reverse lunge, glute bridge, calf raises and plank. 40 sec work / 20 sec rest, two rounds. Open RideStrong for video links.","FREQ=DAILY;INTERVAL=3");let d2=new Date(d);d2.setDate(d2.getDate()+1);ev(d2.toISOString().slice(0,10).replaceAll("-",""),"RideStrong · Workout B — Upper body & core","15 minutes. Warm up 2 minutes, then dumbbell row, floor press, shoulder press, biceps curl, dead bug and side plank. 40 sec work / 20 sec rest, two rounds. Open RideStrong for video links.","FREQ=DAILY;INTERVAL=3");
-let rideMap=[["rideMon","MO","Easy Zwift endurance"],["rideWed","WE","Zwift quality intervals"],["rideSat","SA","Long Zwift endurance"],["rideSun","SU","Optional easy Zwift ride"]];rideMap.forEach(([k,day,title])=>{if(rides[k]){let first=new Date(start+"T12:00:00");let target=["MO","TU","WE","TH","FR","SA","SU"].indexOf(day),delta=(target-first.getDay()+6)%7;first.setDate(first.getDate()+delta);let ds=first.toISOString().slice(0,10).replaceAll("-","");z.push(["BEGIN:VEVENT","UID:"+Math.random().toString(36).slice(2)+"@ridestrong","DTSTAMP:20261102T090000Z","DTSTART:"+ds+"T070000","DTEND:"+ds+"T080000","RRULE:FREQ=WEEKLY","SUMMARY:"+title,"DESCRIPTION:Suggested Zwift slot. Adjust intensity and duration to recovery and your cycling plan.","END:VEVENT"].join("\r\n"))}});
-let ics=["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//RideStrong//Cycling Strength Coach//EN","CALSCALE:GREGORIAN",...z,"END:VCALENDAR"].join("\r\n");let blob=new Blob([ics],{type:"text/calendar"}),a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="ridestrong-training-plan.ics";a.click();URL.revokeObjectURL(a.href)}
-function init(){let today=new Date();$("today").textContent=today.toLocaleDateString(undefined,{weekday:"short",day:"numeric",month:"short"});if(localStorage.getItem("rsStart"))$("startDate").value=localStorage.getItem("rsStart");if(localStorage.getItem("rsTime"))$("reminder").value=localStorage.getItem("rsTime");if(localStorage.getItem("rsWeight"))$("weight").value=localStorage.getItem("rsWeight");Object.keys(rides).forEach(k=>$(k).checked=rides[k]);let c=cycleFor(today);$("todayTitle").textContent=c==="A"?"Workout A · Legs & core":c==="B"?"Workout B · Upper body & core":"Recovery day";$("todayDesc").textContent=c==="REST"?"Recovery day. Gentle mobility or an easy spin if you feel fresh.":c==="A"?"Build glute, leg and trunk strength for stable, powerful riding.":"Build back, shoulder and core strength to support your position on the bike.";if(c==="REST")$("todayTag").textContent="RECOVERY";renderExercises();renderStats();renderWeek();renderClock()}
-if ('serviceWorker' in navigator) { window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js').catch(() => {})); }
+function beep(){try{let c=new(window.AudioContext||window.webkitAudioContext)(),o=c.createOscillator(),g=c.createGain();o.connect(g);g.connect(c.destination);o.frequency.value=660;g.gain.value=.07;o.start();o.stop(c.currentTime+.16)}catch(e){}}
+function toast(t){$("toast").textContent=t;$("toast").style.display="block";setTimeout(()=>$("toast").style.display="none",2300)}
+function completeWorkout(){logSession("strength",chosen);timerPause();timerReset();showPage("progress");toast("Workout completed — nice work!")}
+function logSession(type,workout){logs.unshift({type:type,workout:workout||"",date:new Date().toISOString(),minutes:type==="strength"?15:60});safeSave("rsLogs",JSON.stringify(logs));renderStats();toast(type==="strength"?"Strength session logged":"Ride logged")}
+function renderStats(){let s=logs.filter(x=>x.type==="strength").length,r=logs.filter(x=>x.type==="ride").length,m=logs.reduce((a,x)=>a+(Number(x.minutes)||0),0);$("statStrength").textContent=s;$("statRides").textContent=r;$("statMinutes").textContent=m;$("pStrength").textContent=s;$("pRides").textContent=r;$("pMinutes").textContent=m;$("strengthBar").style.width=Math.min(100,s/8*100)+"%";$("strengthGoal").textContent=s>=8?"First milestone reached. Keep building!":(8-s)+" more strength sessions to your first milestone.";let weekAgo=Date.now()-7*86400000;$("pWeek").textContent=logs.filter(x=>new Date(x.date).getTime()>=weekAgo).length;$("history").innerHTML=logs.length?logs.slice(0,15).map(x=>'<div class="log-row"><span><b>'+(x.type==="strength"?"💪 Strength · Workout "+(x.workout||"logged"):"🚴 Ride")+'</b><br><span class="muted">'+new Date(x.date).toLocaleString()+'</span></span><b>'+(x.minutes||0)+' min</b></div>').join(""):'<div class="empty">Your activity will appear here. Log your first session to get started.</div>'}
+function clearHistory(){if(!confirm("Clear all activity stored on this device? This cannot be undone."))return;logs=[];safeSave("rsLogs","[]");renderStats()}
+function saveRides(){["rideMon","rideWed","rideSat","rideSun"].forEach(k=>rides[k]=$(k).checked);safeSave("rsRides",JSON.stringify(rides));renderWeeks()}
+function saveSettings(){safeSave("rsStart",$("startDate").value);safeSave("rsTime",$("reminder").value);safeSave("rsWeight",$("weight").value);renderHome();renderWeeks();toast("Your settings have been saved")}
+function renderWeeks(){let now=new Date(),mon=new Date(now);mon.setDate(now.getDate()-((now.getDay()+6)%7));let days=["Mon","Tue","Wed","Thu","Fri","Sat","Sun"];let html=days.map((d,i)=>{let dt=new Date(mon);dt.setDate(mon.getDate()+i);let kind=cycleFor(dt),ride=["rideMon","rideWed","rideSat","rideSun"][i===0?0:i===2?1:i===5?2:i===6?3:-1],isRide=ride&&rides[ride],cls=kind==="REST"?"rest":"strength";return '<div class="day '+cls+' '+(isRide?"ride":"")+'"><b>'+d+' '+dt.getDate()+'</b><small>'+(kind==="REST"?"REST":kind==="A"?"STRENGTH A":"STRENGTH B")+(isRide?"<br>+ RIDE":"")+'</small></div>'}).join("");$("homeWeek").innerHTML=html;$("planWeek").innerHTML=html}
+function renderHome(){let now=new Date(),c=cycleFor(now);$("todayDate").textContent=now.toLocaleDateString(undefined,{weekday:"long",day:"numeric",month:"long"});let hr=now.getHours();$("greeting").textContent=hr<12?"Good morning.":hr<17?"Good afternoon.":"Good evening.";if(c==="REST"){$("todayTag").textContent="RECOVERY DAY";$("todayTitle").textContent="Take time to recharge";$("todayDesc").textContent="Recovery is part of getting stronger. A gentle spin or mobility is plenty if it feels good.";$("nextTitle").textContent="Make recovery count";$("nextText").textContent="Rest, hydrate and let your body adapt. Your next strength session will come around.";$("nextPill").textContent="RECOVER"}else{$("todayTag").textContent="YOUR PLAN TODAY";$("todayTitle").textContent=c==="A"?"Workout A · Legs & core":"Workout B · Upper body";$("todayDesc").textContent=c==="A"?"Build a stronger foundation for every ride.":"Build strength and stability to support your riding position.";$("nextTitle").textContent=c==="A"?"Build your cycling foundation":"Support your riding position";$("nextText").textContent=c==="A"?"Six simple moves for your legs, glutes and core.":"Six simple moves for your back, shoulders, arms and core.";$("nextPill").textContent="15 MIN"}let preview=c==="B"?"B":"A";$("homeWorkoutPreview").innerHTML=exercises[preview].slice(0,3).map(e=>'<div class="workout-card"><div class="exercise-art '+e.tone+'">'+e.icon+'</div><div class="exercise-copy"><b>'+e.name+'</b><small>'+e.focus+'</small></div></div>').join("")}
+function downloadCalendar(){let start=$("startDate").value||"2026-11-02",time=$("reminder").value||"18:00",hm=time.replace(":","")+"00",events=[];function add(dt,title,desc,rr){events.push(["BEGIN:VEVENT","UID:"+Math.random().toString(36).slice(2)+"@ridestrong","DTSTAMP:"+new Date().toISOString().replace(/[-:]/g,"").split(".")[0]+"Z","DTSTART:"+dt+"T"+hm,"DURATION:PT15M","RRULE:"+rr,"SUMMARY:"+title,"DESCRIPTION:"+desc,"BEGIN:VALARM","TRIGGER:-PT10M","ACTION:DISPLAY","DESCRIPTION:RideStrong starts in 10 minutes","END:VALARM","END:VEVENT"].join("\r\n"))}let d=new Date(start+"T12:00:00"),d2=new Date(d);d2.setDate(d2.getDate()+1);add(dateStr(d).replaceAll("-",""),"RideStrong · Workout A","Legs, glutes and core strength session","FREQ=DAILY;INTERVAL=3");add(dateStr(d2).replaceAll("-",""),"RideStrong · Workout B","Upper body and core strength session","FREQ=DAILY;INTERVAL=3");let map=[["rideMon","MO","Easy Zwift endurance"],["rideWed","WE","Zwift quality intervals"],["rideSat","SA","Long Zwift endurance"],["rideSun","SU","Optional easy Zwift ride"]];map.forEach(a=>{if(rides[a[0]]){let f=new Date(start+"T12:00:00"),target=["SU","MO","TU","WE","TH","FR","SA"].indexOf(a[1]),delta=(target-f.getDay()+7)%7;f.setDate(f.getDate()+delta);let ds=dateStr(f).replaceAll("-","");events.push(["BEGIN:VEVENT","UID:"+Math.random().toString(36).slice(2)+"@ridestrong","DTSTAMP:"+new Date().toISOString().replace(/[-:]/g,"").split(".")[0]+"Z","DTSTART:"+ds+"T070000","DURATION:PT60M","RRULE:FREQ=WEEKLY","SUMMARY:"+a[2],"DESCRIPTION:Suggested Zwift slot. Adjust intensity to your recovery.","END:VEVENT"].join("\r\n"))}});let ics=["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//RideStrong//Cycling Strength Coach//EN","CALSCALE:GREGORIAN"].concat(events,["END:VCALENDAR"]).join("\r\n"),blob=new Blob([ics],{type:"text/calendar"}),a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="ridestrong-plan.ics";a.click();URL.revokeObjectURL(a.href)}
+function downloadBackup(){let data={logs:logs,rides:rides,startDate:$("startDate").value,reminder:$("reminder").value,weight:$("weight").value};let a=document.createElement("a"),u=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:"application/json"}));a.href=u;a.download="ridestrong-backup.json";a.click();URL.revokeObjectURL(u)}
+function init(){if(localStorage.getItem("rsStart"))$("startDate").value=localStorage.getItem("rsStart");if(localStorage.getItem("rsTime"))$("reminder").value=localStorage.getItem("rsTime");if(localStorage.getItem("rsWeight"))$("weight").value=localStorage.getItem("rsWeight");Object.keys(rides).forEach(k=>{if($(k))$(k).checked=!!rides[k]});renderHome();renderWeeks();renderExercises();renderStats();renderClock()}
+if("serviceWorker"in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}))}
 init();
 </script>
 </body></html>
