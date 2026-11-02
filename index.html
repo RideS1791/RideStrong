@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#0e0f13">
+<meta name="theme-color" content="#000000">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -284,6 +284,21 @@ input,select,textarea{background:#1f2129;border-color:#2c2f3b;color:var(--ink)}
 .g-panel{flex:0 0 auto}
 .g-links{justify-content:space-between}
 .det-steps{margin-top:6px}.det-steps summary{cursor:pointer;color:var(--muted);font-weight:800;font-size:13px;padding:6px 0}
+
+/* ===== darker ===== */
+:root{--bg:#000;--paper:#0f0f12;--line:#1d1d22;--muted:#8b8d98}
+html,body,#guide,#session,.s-body{background:#000}
+.card,.stat,.tilecard,.mini,.ex-card,.sheet,.g-panel{background:#0f0f12}
+.ringstats div,.pv-tile,.stepper,.g-hold,.planday .d,.phase div,.sum div,.seg,.chip,input,select,.day,.iconbtn,.btn.soft,.btn.light,.chev,.x,.close,.addset,.g-x,.restbar,.banner{background:#18181d}
+.hero{background:#0f0f12;border:1px solid #1d1d22}.hero .eyebrow{color:#ff4d5e}.hero p,.hero .meta{color:#b9bbc5}.hero .pill.dark{background:#1d1d22;color:#ff7d8a}
+.hero .btn.lime{background:var(--grad);color:#fff}#heroAlt{background:#1d1d22!important;color:#fff}#heroSwap{color:#ff7d8a!important}
+.hero:after{border-color:rgba(255,59,79,.08)}
+.hero-fig{box-shadow:none}
+.g-rest{background:#000}.g-rest h2{color:#ff4d5e}.rest-ring svg circle:first-child{stroke:#1d1d22}.rest-ring svg circle#gRestArc{stroke:#ff3b4f}.g-rest .row2 button{background:#18181d}.g-next{background:#0f0f12}
+.tabs{background:rgba(0,0,0,.96);border-top:1px solid #16161a}
+.logo span{background:none;-webkit-background-clip:initial;background-clip:initial;color:#fff}
+.s-head{background:#0a0a0c}
+.modal{background:rgba(0,0,0,.75)}
 </style>
 </head>
 <body>
@@ -450,30 +465,30 @@ const W={
   {id:"Dumbbell_Rear_Lunge",alt:["edb_dumbbell_forward_lunge"],t:"weight",b:[2,8],i:[3,8],a:[3,10],bw:"Dumbbell_Rear_Lunge",bwt:"reps",why:"Kind on the knees and great for glutes."},
   {id:"Kettlebell_One-Legged_Deadlift",t:"weight",b:[2,8],i:[3,8],a:[4,8],bw:"Kettlebell_One-Legged_Deadlift",bwt:"reps",why:"Hamstrings, glutes and balance."},
   {id:"Split_Squat_with_Dumbbells",alt:["edb_curtsy_squat"],t:"weight",b:[2,8],i:[3,8],a:[3,10],lv:{b:"Split_Squats"},bw:"Split_Squats",bwt:"reps"},
-  {id:"Lateral_Bound",t:"reps",b:[2,10],i:[3,10],a:[3,12],lv:{b:"Bodyweight_Walking_Lunge"},why:"Side to side control for the hips. Land softly."},
+  {id:"Standing_Dumbbell_Calf_Raise",t:"weight",b:[2,12],i:[3,15],a:[3,15],bw:"Standing_Dumbbell_Calf_Raise",bwt:"reps"},
   {id:"Single_Leg_Glute_Bridge",alt:["edb_glute_bridge_march"],t:"reps",b:[2,10],i:[3,12],a:[3,15],core:1},
   {id:"Superman",t:"reps",b:[2,8],i:[3,10],a:[3,12],core:1,why:"Core finisher: lower back strength for holding a low position."},
   {id:"Plank",alt:["edb_plank_shoulder_taps"],t:"time",b:[2,20],i:[3,30],a:[3,45],core:1}]},
- w_power:{name:"Power",cat:"power",rest:120,max:5,desc:"Fast, explosive moves with full rest, then core to finish.",why:"Training to move quickly builds power and keeps your legs springy.",items:[
-  {id:"Freehand_Jump_Squat",t:"reps",b:[2,8],i:[3,6],a:[4,6],lv:{b:"Bodyweight_Squat"},why:"Jump high, land softly. Beginners squat and stand up fast."},
+ w_power:{name:"Power",cat:"power",rest:120,max:5,desc:"Fast moves with full rest, no jumping. Push up hard, lower slowly.",why:"Training to move quickly builds power and keeps your legs springy.",items:[
+  {id:"edb_dumbbell_squat",t:"weight",b:[2,8],i:[3,8],a:[3,8],bw:"Bodyweight_Squat",bwt:"reps"},
   {id:"Vertical_Swing",t:"weight",b:[2,10],i:[3,12],a:[4,12],bw:"Butt_Lift_Bridge",bwt:"reps"},
   {id:"Dumbbell_Step_Ups",t:"weight",b:[2,6],i:[3,6],a:[3,8],bw:"Dumbbell_Step_Ups",bwt:"reps",why:"Light weight, drive up fast, lower slowly."},
-  {id:"Lateral_Bound",t:"reps",b:[2,8],i:[3,8],a:[4,10],lv:{b:"Bodyweight_Walking_Lunge"},why:"Spring from one leg to the other and stick each landing."},
-  {id:"edb_jump_lunge",t:"reps",b:[2,20],i:[3,20],a:[3,8],lv:{b:"Mountain_Climbers",i:"Mountain_Climbers"}},
+  {id:"Dumbbell_Rear_Lunge",t:"weight",b:[2,8],i:[3,8],a:[3,10],bw:"Dumbbell_Rear_Lunge",bwt:"reps"},
+  {id:"Mountain_Climbers",t:"time",b:[2,20],i:[3,30],a:[3,40]},
   {id:"edb_plank_with_twist",t:"reps",b:[2,8],i:[3,10],a:[3,12],core:1},
   {id:"Russian_Twist",t:"reps",b:[2,12],i:[3,16],a:[3,20],core:1}]},
  w_core:{name:"Core Strength",cat:"core",rest:40,max:6,desc:"Bridge, superman, boat, plank and side plank: a complete core session.",why:"A strong core protects your lower back and makes every other exercise stronger.",items:[
   {id:"Butt_Lift_Bridge",alt:["edb_glute_bridge_march"],t:"reps",b:[2,10],i:[3,12],a:[3,15],why:"Bridge: glutes and lower back."},
   {id:"Superman",t:"reps",b:[2,8],i:[3,10],a:[3,12]},
-  {id:"edb_jackknife_sit_up",alt:["Reverse_Crunch"],t:"reps",b:[2,8],i:[3,10],a:[3,12],lv:{b:"Reverse_Crunch"},why:"Boat style: lower and upper abs together."},
+  {id:"Reverse_Crunch",alt:["edb_tuck_crunch"],t:"reps",b:[2,8],i:[3,10],a:[3,12]},
   {id:"Plank",alt:["edb_plank_shoulder_taps"],t:"time",b:[2,20],i:[3,30],a:[3,45]},
-  {id:"Side_Bridge",alt:["edb_push_up_to_side_plank"],t:"time",b:[2,15],i:[3,25],a:[3,35],why:"Side plank: obliques and hips that steady the pelvis. Do both sides."},
+  {id:"Side_Bridge",alt:["edb_plank_with_twist"],t:"time",b:[2,15],i:[3,25],a:[3,35],why:"Side plank: obliques and hips that steady the pelvis. Do both sides."},
   {id:"Single_Leg_Glute_Bridge",t:"reps",b:[2,8],i:[3,10],a:[3,12],why:"Single leg bridge: hamstrings and glutes, one side at a time."},
   {id:"Dead_Bug",t:"reps",b:[2,8],i:[3,10],a:[3,12]}]},
  w_abs:{name:"Six Pack Abs",cat:"core",rest:30,max:6,desc:"Upper abs, lower abs and obliques with short rests.",why:"Builds the front abs and obliques. You'll see them clearly once body fat is low, which comes from what you eat as much as from crunches.",items:[
   {id:"edb_crunch",alt:["edb_tuck_crunch"],t:"reps",b:[2,12],i:[3,15],a:[3,20]},
   {id:"edb_bicycle_crunch",t:"reps",b:[2,16],i:[3,20],a:[3,30]},
-  {id:"Reverse_Crunch",alt:["edb_jackknife_sit_up"],t:"reps",b:[2,10],i:[3,12],a:[3,15]},
+  {id:"Reverse_Crunch",alt:["Dead_Bug"],t:"reps",b:[2,10],i:[3,12],a:[3,15]},
   {id:"edb_heel_touches",alt:["edb_oblique_crunch"],t:"reps",b:[2,16],i:[3,20],a:[3,24]},
   {id:"Russian_Twist",alt:["edb_cross_body_crunch"],t:"reps",b:[2,16],i:[3,20],a:[3,24]},
   {id:"Flutter_Kicks",t:"time",b:[2,20],i:[3,30],a:[3,40]},
@@ -483,9 +498,9 @@ const W={
   {id:"edb_cross_body_crunch",t:"reps",b:[2,12],i:[3,16],a:[3,20]},
   {id:"edb_oblique_crunch",t:"reps",b:[2,10],i:[3,12],a:[3,15]},
   {id:"Side_Bridge",t:"time",b:[2,15],i:[2,25],a:[3,30]},
-  {id:"edb_hip_twist_lift",t:"reps",b:[2,8],i:[3,10],a:[3,12]},
+  {id:"Russian_Twist",t:"reps",b:[2,12],i:[3,16],a:[3,20]},
   {id:"Dumbbell_Side_Bend",t:"weight",b:[2,12],i:[3,12],a:[3,15],bw:"edb_oblique_crunch",bwt:"reps"},
-  {id:"edb_push_up_to_side_plank",t:"reps",b:[2,6],i:[3,8],a:[3,10],lv:{b:"Side_Bridge"}}]},
+  {id:"edb_plank_with_twist",t:"reps",b:[2,8],i:[3,10],a:[3,12]}]},
  w_core10:{name:"Quick Core",cat:"core",rest:20,max:4,desc:"Ten minutes, short and sharp.",why:"Little and often works well for core strength.",items:[
   {id:"Plank",alt:["edb_plank_shoulder_taps"],t:"time",b:[2,20],i:[2,30],a:[3,40]},
   {id:"Dead_Bug",alt:["edb_bicycle_crunch"],t:"reps",b:[2,8],i:[2,10],a:[3,12]},
@@ -502,7 +517,7 @@ const W={
   {id:"edb_plank_shoulder_taps",t:"reps",b:[2,12],i:[3,16],a:[3,20],core:1}]},
  w_upcore:{name:"Upper Body and Core",cat:"upper",rest:60,max:5,desc:"Back, chest, shoulders and arms, finished with core.",why:"A balanced upper body session for strength and better posture.",items:[
   {id:"One-Arm_Dumbbell_Row",alt:["edb_dumbbell_bent_over_row"],t:"weight",b:[2,10],i:[3,10],a:[4,8],bw:"Superman",bwt:"reps"},
-  {id:"Pushups",alt:["edb_decline_push_up"],t:"reps",b:[2,8],i:[3,10],a:[4,12],lv:{b:"Incline_Push-Up"}},
+  {id:"Pushups",alt:["edb_diamond_push_up"],t:"reps",b:[2,8],i:[3,10],a:[4,12],lv:{b:"Incline_Push-Up"}},
   {id:"Dumbbell_Shoulder_Press",alt:["edb_dumbbell_arnold_press"],t:"weight",b:[2,10],i:[3,10],a:[3,8],bw:"Pushups",bwt:"reps"},
   {id:"Bent-Arm_Dumbbell_Pullover",t:"weight",b:[2,10],i:[3,10],a:[3,12],bw:"Superman",bwt:"reps",why:"Lats and an open chest."},
   {id:"Reverse_Flyes",t:"weight",b:[2,12],i:[3,12],a:[3,15],bw:"Superman",bwt:"reps",why:"Rear shoulders and upper back for posture."},
@@ -528,11 +543,11 @@ const W={
  w_circuit:{name:"Fat Burn Circuit",cat:"full",rest:30,max:6,lean:1,desc:"Fast circuit with short rests. Gets your heart rate up.",why:"High reps and short rests keep your heart rate up, so you burn energy and stay lean.",items:[
   {id:"edb_dumbbell_squat",t:"weight",b:[2,12],i:[3,15],a:[3,15],bw:"Bodyweight_Squat",bwt:"reps"},
   {id:"Pushups",t:"reps",b:[2,8],i:[3,12],a:[3,15],lv:{b:"edb_kneeling_push_up"}},
-  {id:"Vertical_Swing",t:"weight",b:[2,12],i:[3,15],a:[3,20],bw:"Freehand_Jump_Squat",bwt:"reps"},
+  {id:"Vertical_Swing",t:"weight",b:[2,12],i:[3,15],a:[3,20],bw:"Bodyweight_Squat",bwt:"reps"},
   {id:"edb_dumbbell_bent_over_row",t:"weight",b:[2,12],i:[3,12],a:[3,15],bw:"Superman",bwt:"reps"},
   {id:"Bodyweight_Walking_Lunge",t:"reps",b:[2,12],i:[3,16],a:[3,20]},
   {id:"Mountain_Climbers",t:"time",b:[2,20],i:[3,30],a:[3,40]},
-  {id:"Lateral_Bound",t:"reps",b:[2,12],i:[3,16],a:[3,20]},
+  {id:"edb_curtsy_squat",t:"reps",b:[2,12],i:[3,16],a:[3,20]},
   {id:"Plank",t:"time",b:[2,20],i:[3,30],a:[3,45]}]},
  w_bw:{name:"No Equipment",cat:"full",rest:45,max:6,desc:"Bodyweight only, for anywhere.",why:"Keeps your strength ticking over when you can't get to your weights.",items:[
   {id:"Bodyweight_Squat",t:"reps",b:[2,12],i:[3,15],a:[3,20]},
@@ -561,7 +576,7 @@ const W={
   {id:"IT_Band_and_Glute_Stretch",t:"time",b:[1,40],i:[1,45],a:[1,60]},
   {id:"Childs_Pose",t:"time",b:[1,45],i:[1,60],a:[1,60]}]}
 };
-const WARMUP=[{id:"edb_star_jump",t:"time",n:30},{id:"Inchworm",t:"reps",n:5},{id:"Worlds_Greatest_Stretch",t:"time",n:30}];
+const WARMUP=[{id:"Bodyweight_Squat",t:"reps",n:10},{id:"Inchworm",t:"reps",n:5},{id:"Worlds_Greatest_Stretch",t:"time",n:30}];
 // weekly plan by number of strength days
 const TEMPLATES={1:["w_full"],2:["w_legs","w_upcore"],3:["w_legs","w_upcore","w_single"],4:["w_legs","w_lean","w_single","w_abs"],5:["w_legs","w_upcore","w_single","w_abs","w_lean"],6:["w_legs","w_upcore","w_single","w_abs","w_lean","w_core"]};
 const PHASES=[{name:"Foundation",weeks:"Weeks 1 to 4",desc:"Learn the movements and build the habit. Choose weights that feel comfortable with good form, leaving 3 reps in the tank."},{name:"Build",weeks:"Weeks 5 to 8",desc:"One extra set on the main lifts. Leave about 2 reps in the tank and add a little weight when the last set feels easy."},{name:"Strength and power",weeks:"Weeks 9 to 12",desc:"Heavier weights for fewer reps, and sprint power replaces single leg work for intermediate and advanced riders."},{name:"Maintain",weeks:"Week 13 onwards",desc:"Keep the strength you have built with the same work. Restart the plan whenever you want a new block, for example before a new season."}];
@@ -597,9 +612,14 @@ function dayKey(d){d=new Date(d);return d.getFullYear()+"-"+(d.getMonth()+1)+"-"
 function monday(d){d=new Date(d);d.setHours(0,0,0,0);d.setDate(d.getDate()-((d.getDay()+6)%7));return d}
 function dow(d){return(new Date(d).getDay()+6)%7}
 function toast(t){const el=$("toast");el.textContent=t;el.style.display="block";clearTimeout(el._t);el._t=setTimeout(()=>el.style.display="none",2600)}
-function beep(f,len){if(!settings.sound)return;try{const c=window._ac||(window._ac=new(window.AudioContext||window.webkitAudioContext)()),o=c.createOscillator(),g=c.createGain();o.connect(g);g.connect(c.destination);o.frequency.value=f||880;g.gain.value=.12;o.start();o.stop(c.currentTime+(len||.18))}catch(e){}try{navigator.vibrate&&navigator.vibrate(200)}catch(e){}}
-function unlockAudio(){try{const c=window._ac||(window._ac=new(window.AudioContext||window.webkitAudioContext)());c.resume&&c.resume()}catch(e){}}
-document.addEventListener("touchstart",unlockAudio,{once:true});document.addEventListener("click",unlockAudio,{once:true});
+const SND={};function snd(n){if(!SND[n]){const a=new Audio("sounds/"+n+".mp3");a.preload="auto";a.setAttribute("playsinline","");SND[n]=a}return SND[n]}
+function beep(f,len){if(!settings.sound)return;const big=(f||880)>=1000||(len||0)>=.3;let ok=false;try{const a=snd(big?"go":"beep");a.currentTime=0;const pr=a.play();ok=true;if(pr&&pr.catch)pr.catch(()=>webBeep(f,len))}catch(e){}if(!ok)webBeep(f,len);try{navigator.vibrate&&navigator.vibrate(big?300:120)}catch(e){}}
+function webBeep(f,len){try{const c=window._ac||(window._ac=new(window.AudioContext||window.webkitAudioContext)());if(c.state!=="running")c.resume();const o=c.createOscillator(),g=c.createGain();o.connect(g);g.connect(c.destination);o.frequency.value=f||880;g.gain.value=.2;o.start();o.stop(c.currentTime+(len||.18))}catch(e){}}
+let audioReady=false;function unlockAudio(){try{if(navigator.audioSession)navigator.audioSession.type="playback"}catch(e){}try{const c=window._ac||(window._ac=new(window.AudioContext||window.webkitAudioContext)());if(c.state!=="running")c.resume();const b=c.createBuffer(1,1,22050),s=c.createBufferSource();s.buffer=b;s.connect(c.destination);s.start(0)}catch(e){}if(!audioReady){audioReady=true;["beep","go"].forEach(n=>{try{const a=snd(n);a.muted=true;const p=a.play();const r=()=>{a.pause();a.currentTime=0;a.muted=false};if(p&&p.then)p.then(r).catch(()=>{a.muted=false;audioReady=false});else r()}catch(e){}})}try{if(window.speechSynthesis&&!window._spk){window._spk=1;const u=new SpeechSynthesisUtterance(" ");u.volume=0;speechSynthesis.speak(u)}}catch(e){}}
+/* keep the screen awake during a workout */
+let wakeLock=null,wakeVid=null;async function keepAwake(on){if(on){try{if("wakeLock" in navigator&&!wakeLock){wakeLock=await navigator.wakeLock.request("screen");wakeLock.addEventListener("release",()=>{wakeLock=null})}}catch(e){}try{if(!wakeVid){wakeVid=document.createElement("video");wakeVid.setAttribute("playsinline","");wakeVid.setAttribute("muted","");wakeVid.muted=true;wakeVid.loop=true;wakeVid.src="sounds/keepawake.mp4";wakeVid.style.cssText="position:fixed;width:1px;height:1px;opacity:0.01;left:0;bottom:0;pointer-events:none";document.body.appendChild(wakeVid)}const p=wakeVid.play();if(p&&p.catch)p.catch(()=>{})}catch(e){}}else{try{wakeLock&&wakeLock.release()}catch(e){}wakeLock=null;try{wakeVid&&wakeVid.pause()}catch(e){}}}
+document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible"&&(G.open||active)){keepAwake(true);if(window._ac&&window._ac.state!=="running")window._ac.resume()}});
+document.addEventListener("touchend",unlockAudio,true);document.addEventListener("click",unlockAudio,true);
 const isRide=s=>s.kind==="ride";
 const strengthSessions=()=>sessions.filter(s=>!isRide(s));
 
@@ -662,7 +682,7 @@ function renderHome(){
  $("heroFig").innerHTML="";if(active){const ci=active.items.find(i=>i.sets.some(s=>!s.done))||active.items[0];if(ci)$("heroFig").innerHTML=media(ci.id,"clear",true);$("heroTag").textContent="IN PROGRESS";$("heroPill").textContent=fmtTime((Date.now()-active.startedAt)/1000);$("heroTitle").textContent=active.name;$("heroDesc").textContent="You have a workout open. Pick up where you left off.";$("heroMeta").innerHTML="";$("heroBtn").textContent="Resume workout";$("heroBtn").onclick=()=>{openSession();if(settings.guided)openGuide()};$("heroAlt").style.display="none"}
  else{const sl=nextSlot();$("heroAlt").style.display="";
   if(sl){const w=W[sl.wid],items=resolve(sl.wid),today=sl.day===dow(now);$("heroTag").textContent=today?"TODAY'S SESSION":"NEXT SESSION · "+DAYS[sl.day].toUpperCase();$("heroPill").textContent="WEEK "+(planWeekIndex()+1)+" · "+PHASES[phaseIndex()].name.toUpperCase();$("heroTitle").textContent=w.name;$("heroDesc").textContent="";
-   $("heroMeta").innerHTML='<span><b>'+estMins(items.concat(settings.warmup&&w.cat!=="mob"?warmupItems():[]))+'</b> min</span><span><b>'+items.length+'</b> exercises</span><span><b>'+LEVELS[settings.level]+'</b></span>';
+   $("heroMeta").innerHTML='<span><b>'+estMins(items.concat(settings.warmup&&w.cat!=="mob"?warmupItems():[]))+'</b> min</span><span><b>'+items.length+'</b> exercises</span>';
    $("heroBtn").textContent="▶ Start";$("heroFig").innerHTML=media(items[0].id,"clear",true);$("heroBtn").onclick=()=>startWorkout({wid:sl.wid,plan:true});$("heroAlt").onclick=()=>previewWorkout(sl.wid,true)}
   else{$("heroTag").textContent="WEEK COMPLETE";$("heroPill").textContent="✓ "+slots.length+" OF "+slots.length;$("heroTitle").textContent="Plan done for this week";$("heroFig").innerHTML=media("Childs_Pose","clear",true);$("heroDesc").textContent="Great work. Recovery is when you get stronger. A mobility or stretch session is plenty if you want to do something.";$("heroMeta").innerHTML="";$("heroBtn").textContent="Mobility session";$("heroBtn").onclick=()=>previewWorkout("w_mob");$("heroAlt").textContent="Stretch";$("heroAlt").onclick=()=>previewWorkout("w_post")}
   if(sl)$("heroAlt").textContent="See exercises"}
@@ -763,9 +783,9 @@ function startWorkout(o){if(active){if(!confirm("You already have a workout open
  else{const h=new Date().getHours();name=(h<12?"Morning":h<18?"Afternoon":"Evening")+" workout";items=(o.ids||[]).map(id=>({id:id}))}
  active={id:uid(),name:name,src:src,plan:!!o.plan,level:o.lv||settings.level,startedAt:Date.now(),items:items.map(makeItem)};saveActive();openSession();if(!items.length)setTimeout(()=>openPicker("session"),250);else if(settings.guided)openGuide()}
 function addToSession(ids){if(!active)return;ids.forEach(id=>active.items.push(makeItem({id:id})));saveActive();renderSession()}
-function openSession(){if(!active)return;$("session").classList.add("open");renderSession();clearInterval(tickInt);tickInt=setInterval(updateSessionHead,1000);renderBanner()}
+function openSession(){if(!active)return;keepAwake(true);$("session").classList.add("open");renderSession();clearInterval(tickInt);tickInt=setInterval(updateSessionHead,1000);renderBanner()}
 function updateSessionHead(){if(!active)return;const all=active.items.reduce((a,i)=>a+i.sets.length,0),done=active.items.reduce((a,i)=>a+i.sets.filter(s=>s.done).length,0);$("sTime").textContent=fmtTime((Date.now()-active.startedAt)/1000)+" · "+done+" of "+all+" sets";$("sProg").style.width=(all?done/all*100:0)+"%"}
-function closeSession(){$("session").classList.remove("open");clearInterval(tickInt);renderHome();renderBanner()}
+function closeSession(){keepAwake(false);$("session").classList.remove("open");clearInterval(tickInt);renderHome();renderBanner()}
 setInterval(()=>{if(active&&!$("session").classList.contains("open"))renderBanner()},1000);
 function placeholder(it,si,f){const p=it.warm?null:prevSets(it.id),pv=p&&(p[si]||p[p.length-1]);if(f==="kg")return pv&&pv.kg!==""&&pv.kg!=null?pv.kg:"";if(f==="reps")return pv&&pv.reps?pv.reps:it.target;if(f==="secs")return pv&&pv.secs?pv.secs:it.target;return""}
 function curIndex(){return active?active.items.findIndex(i=>i.sets.some(s=>!s.done)):-1}
@@ -816,8 +836,8 @@ function saveAsMine(sid){const s=sessions.find(x=>x.id===sid);const name=prompt(
 let G={open:false,phase:"work",ri:null,rleft:0,rtotal:0,rend:0,hold:null,tick:null};
 function pos(){if(!active)return null;for(let ei=0;ei<active.items.length;ei++){const si=active.items[ei].sets.findIndex(s=>!s.done);if(si>=0)return{ei,si}}return null}
 function say(t){if(!settings.voice||!window.speechSynthesis)return;try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang="en-GB";const v=speechSynthesis.getVoices().find(v=>/en-GB/i.test(v.lang));if(v)u.voice=v;u.rate=1.02;speechSynthesis.speak(u)}catch(e){}}
-function openGuide(){if(!active)return;G.open=true;G.phase="work";stopRest();$("guide").classList.add("open");renderGuide(true);clearInterval(G.tick);G.tick=setInterval(guideTick,250)}
-function closeGuide(){G.open=false;if(G.w&&G.w.int)clearInterval(G.w.int);G.w=null;clearInterval(G.tick);if(G.hold){clearInterval(G.hold.int);G.hold=null}$("guide").classList.remove("open");if(active)renderSession()}
+function openGuide(){if(!active)return;unlockAudio();keepAwake(true);G.open=true;G.phase="work";stopRest();$("guide").classList.add("open");renderGuide(true);clearInterval(G.tick);G.tick=setInterval(guideTick,250)}
+function closeGuide(){G.open=false;if(!active)keepAwake(false);if(G.w&&G.w.int)clearInterval(G.w.int);G.w=null;clearInterval(G.tick);if(G.hold){clearInterval(G.hold.int);G.hold=null}$("guide").classList.remove("open");if(active)renderSession()}
 function guideTick(){if(!active){closeGuide();return}const t=$("gTime");if(t)t.textContent=fmtTime((Date.now()-active.startedAt)/1000);
  if(G.phase==="rest"){G.rleft=Math.max(0,Math.round((G.rend-Date.now())/1000));const b=$("gRest");if(b)b.textContent=fmtTime(G.rleft);const ra=$("gRestArc");if(ra){const C3=2*Math.PI*46;ra.setAttribute("stroke-dasharray",(C3*Math.max(0,(G.rend-Date.now())/1000)/(G.rtotal||1)).toFixed(1)+" "+C3.toFixed(1))}if(G.rleft<=3&&G.rleft>0&&G._last!==G.rleft){beep(660,.06)}G._last=G.rleft;if(G.rleft<=0){G.phase="work";beep(880,.3);renderGuide(true)}}}
 function segsHTML(){return active.items.map(it=>{const d=it.sets.filter(s=>s.done).length/it.sets.length;return'<span><i style="width:'+(d*100)+'%"></i></span>'}).join("")}

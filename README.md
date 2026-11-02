@@ -10,7 +10,7 @@ Strength, core and mobility training built around dumbbells and bodyweight. Runs
 - **12 week plan** in four blocks: Foundation, Build, Strength and power, then Maintain. Sets and reps step up automatically as the weeks go on.
 - **Your level**: beginner, intermediate or advanced. Each level gets different sets, reps and easier or harder versions of the exercises.
 - **Your week**: choose your strength days (1 to 6).
-- **Workouts by goal**: Leg Strength, Legs and Core, Power, Core Strength, Six Pack Abs, Obliques, Quick Core, Lean Upper Body, Upper Body and Core, Posture, Full Body, Fat Burn Circuit, No Equipment, Mobility, Stretch. Plus your own workouts.
+- **Workouts by goal**: Leg Strength, Legs and Core, Power (no jumping), Core Strength, Six Pack Abs, Obliques, Quick Core, Lean Upper Body, Upper Body and Core, Posture, Full Body, Fat Burn Circuit, No Equipment, Mobility, Stretch. Plus your own workouts.
 - **Variety**: every workout rotates through versions A, B and C, and leg sessions finish with a core block.
 - **Any workout, any day**: whatever you choose counts towards that week's plan.
 - **3D animated demonstrations** for every exercise in the plans (from the free ExerciseDB V1 service by AscendAPI), with photos and step by step instructions as well. 876 exercises in the full library.

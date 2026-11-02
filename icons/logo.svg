@@ -1,22 +1,11 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
- <defs>
-  <linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff2d55"/><stop offset="1" stop-color="#ff5b3a"/></linearGradient>
-  <linearGradient id="s" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".22"/><stop offset=".55" stop-color="#fff" stop-opacity="0"/></linearGradient>
- </defs>
- <rect width="512" height="512" rx="116" fill="url(#g)"/>
- <rect width="512" height="512" rx="116" fill="url(#s)"/>
- <!-- chainring behind -->
- <g transform="translate(256 262)" opacity=".2" fill="none" stroke="#fff" stroke-width="18">
-  <circle r="168"/>
- </g>
- <g transform="translate(256 262)" opacity=".2" fill="#fff">
+ <rect width="512" height="512" rx="116" fill="#000"/>
+ <g transform="translate(256 262)" opacity=".22" fill="none" stroke="#fff" stroke-width="18"><circle r="168"/></g>
+ <g transform="translate(256 262)" opacity=".22" fill="#fff">
   <g id="t"><rect x="-12" y="-196" width="24" height="34" rx="6"/></g>
   <use href="#t" transform="rotate(30)"/><use href="#t" transform="rotate(60)"/><use href="#t" transform="rotate(90)"/><use href="#t" transform="rotate(120)"/><use href="#t" transform="rotate(150)"/><use href="#t" transform="rotate(180)"/><use href="#t" transform="rotate(210)"/><use href="#t" transform="rotate(240)"/><use href="#t" transform="rotate(270)"/><use href="#t" transform="rotate(300)"/><use href="#t" transform="rotate(330)"/>
  </g>
- <!-- R: stem + bowl -->
  <path d="M168 380 V140 H266 C326 140 362 176 362 228 C362 280 326 314 266 314 H214" fill="none" stroke="#fff" stroke-width="56" stroke-linecap="round" stroke-linejoin="round"/>
- <!-- leg as a crank arm -->
  <path d="M262 316 L340 386" stroke="#fff" stroke-width="56" stroke-linecap="round"/>
- <!-- pedal -->
- <circle cx="340" cy="386" r="30" fill="#fff"/><rect x="290" y="372" width="100" height="28" rx="14" fill="#1b1d26" stroke="#fff" stroke-width="10"/>
+ <circle cx="340" cy="386" r="30" fill="#fff"/><rect x="290" y="372" width="100" height="28" rx="14" fill="#000" stroke="#fff" stroke-width="10"/>
 </svg>
