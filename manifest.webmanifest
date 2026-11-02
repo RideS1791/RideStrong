@@ -1,0 +1,10 @@
+{
+  "name": "RideStrong Cycling Strength Coach",
+  "short_name": "RideStrong",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#101714",
+  "theme_color": "#101714",
+  "description": "Cycling strength, Zwift planning and workout tracking."
+}
