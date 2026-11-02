@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#f4f3ef">
+<meta name="theme-color" content="#f6f6fb">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -105,12 +105,66 @@ svg.fig{display:block;background:#eef3e6}svg.fig.thumb{border-radius:15px;overfl
 .sum{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:14px 0}.sum div{background:var(--mint);border-radius:16px;padding:12px 8px;text-align:center}.sum b{display:block;font-size:20px}.sum small{font-size:10px;color:var(--deep);font-weight:800}
 .ridetype{display:grid;grid-template-columns:1fr 1fr;gap:7px}.ridetype button{border:1px solid var(--line);background:#fff;border-radius:12px;padding:11px 8px;font-weight:800;font-size:13px;text-align:left}.ridetype button small{display:block;font-weight:600;color:var(--muted);font-size:11px}.ridetype button.active{border-color:#2f6f9f;background:#eaf2f8}
 @media(min-width:600px){main{padding:8px 24px 35px}.tabs{max-width:720px;left:50%;transform:translateX(-50%);border:1px solid var(--line);border-bottom:0;border-radius:18px 18px 0 0}}
+
+/* ===== bright theme ===== */
+:root{--bg:#f6f6fb;--paper:#fff;--ink:#1d1f33;--ink2:#2f3250;--muted:#7d8098;--line:#ececf4;--lime:#6a5af9;--lime2:#6a5af9;--deep:#5546e0;--mint:#efedff;--peach:#ffece5;--lav:#f0e9ff;--blue:#e5efff;--sand:#fff4e2;--coral:#ff7a59;--grad:linear-gradient(135deg,#7b61ff 0%,#5a8dff 100%);--shadow:0 10px 30px rgba(40,44,90,.08);--r:24px}
+body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Rounded","SF Pro Text","Segoe UI",Roboto,sans-serif}
+.card{border:0;box-shadow:var(--shadow)}
+.greeting{font-size:30px;font-weight:800}
+.logo span{color:var(--deep)}
+.hero{background:var(--grad);min-height:210px;padding:22px 20px;border-radius:28px}
+.hero:after{border-color:rgba(255,255,255,.14)}
+.hero .eyebrow{color:#e5e1ff}.hero p{color:#e9e8ff;max-width:58%}.hero h2{max-width:60%}.hero .meta{color:#efeeff}
+.hero-fig{position:absolute;right:6px;top:40px;width:40%;max-width:190px;aspect-ratio:1.1;border-radius:50%;background:rgba(255,255,255,.16)}svg.fig.clear{background:transparent!important}
+.hero-fig svg{width:100%;height:100%}
+.hero>*:not(.hero-fig){position:relative;z-index:1}
+.btn{border-radius:30px}.btn.lime{background:#fff;color:var(--deep);box-shadow:0 6px 16px rgba(30,20,120,.18)}
+.btn.lime.solid,.s-head .btn.lime,#previewModal .btn.lime,#setupModal .btn.lime,#summaryModal .btn.lime,#detailModal .btn.lime{background:var(--grad);color:#fff}
+.btn.soft{background:#f0f0f7}
+.pill{background:var(--mint);color:var(--deep);border-radius:30px}
+.pill.dark{background:rgba(255,255,255,.2);color:#fff}
+.eyebrow{color:var(--deep)}
+.stat{border:0;box-shadow:var(--shadow);border-radius:20px}
+.ringcard{display:flex;gap:16px;align-items:center}
+.ring{width:96px;height:96px;flex:none;position:relative}.ring svg{width:100%;height:100%;transform:rotate(-90deg)}.ring b{position:absolute;inset:0;display:grid;place-items:center;font-size:22px;font-weight:800}.ring b small{display:block;font-size:10px;color:var(--muted);font-weight:700;margin-top:-26px}
+.ringstats{flex:1;display:grid;grid-template-columns:1fr 1fr;gap:10px}.ringstats div{background:#f7f7fc;border-radius:16px;padding:10px 12px}.ringstats b{font-size:18px;display:block}.ringstats small{font-size:11px;color:var(--muted)}
+.day{background:#f3f3f9}.day.today{outline:2px solid var(--lime2);background:#fff}
+.mini{border:0;box-shadow:var(--shadow);border-radius:22px;width:150px}.mini .band{display:none}.mini .tile{height:118px;position:relative}.mini .tile svg{width:100%;height:100%}.mini .tx{padding:10px 12px 12px}
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.tilecard{background:#fff;border-radius:22px;box-shadow:var(--shadow);overflow:hidden;cursor:pointer;display:flex;flex-direction:column}
+.tilecard .tile{height:130px;position:relative}.tilecard .tile svg{width:100%;height:100%;display:block}.tilecard .tile .pill{position:absolute;left:10px;top:10px;background:rgba(255,255,255,.85);font-size:9px}
+.tilecard .tx{padding:11px 13px 13px}.tilecard b{display:block;font-size:14px;line-height:1.25}.tilecard small{display:block;font-size:11px;color:var(--muted);margin-top:4px}
+.bg-legs{background:#ffe9e1}.bg-power{background:#fff1d6}.bg-core{background:#e2f6ec}.bg-upper{background:#e3efff}.bg-full{background:#efe7ff}.bg-mob{background:#dff6f5}.bg-mine{background:#f4f0e4}
+.cat-legs{background:#ff7a59}.cat-power{background:#f5a524}.cat-core{background:#2fb67c}.cat-upper{background:#3f8cff}.cat-full{background:#8b5cf6}.cat-mob{background:#14b8a6}.cat-mine{background:#c9a94a}
+.chip{border:0;background:#fff;box-shadow:0 3px 10px rgba(40,44,90,.06);border-radius:30px}.chip.active{background:var(--grad);color:#fff}
+.seg{background:#efeff6;border-radius:30px}.seg button{border-radius:30px}.seg button.active{color:var(--deep)}
+.daypick button{border-radius:14px;border:0;background:#f0f0f7}.daypick button.active{background:var(--grad)}.daypick.ride button.active{background:linear-gradient(135deg,#ff8a5c,#ff6a6a)}
+.tabs{border-top:0;box-shadow:0 -6px 24px rgba(40,44,90,.07)}.tabs button.active{color:var(--deep)}.tabs button.active svg{color:var(--deep)}
+.tabs button{position:relative}.tabs button.active:after{content:"";position:absolute;top:-8px;width:26px;height:3px;border-radius:3px;background:var(--grad)}
+.tip{background:#fff4e2;border-radius:20px}
+.why{background:#efedff;color:#3c3290;border-radius:18px}
+.ex-card{border:0;box-shadow:var(--shadow);border-radius:24px}.ex-card.complete{box-shadow:0 0 0 2px #cfc8ff,var(--shadow)}
+.ex-head b{color:var(--ink)}
+.ex-fig{background:#f1efff;border-radius:20px;height:210px}.ex-fig .tag{background:var(--grad);color:#fff}
+.set.done{background:#efedff}.set.done input{background:#f7f6ff;border-color:#d6d0ff}.set.done .tick{background:var(--grad)}
+.play{background:var(--grad)}
+.restbar{background:var(--ink);border-radius:22px}.restbar .track{background:var(--coral)}
+.s-prog span{background:var(--grad)}
+.planday.today .d{background:var(--grad);color:#fff}.planday.today .d small{color:#fff}.done-mark{background:#e2f6ec;color:#1e8a5a}
+.phase div.on{background:var(--grad);color:#fff}.phase div.on small{color:#e7e4ff}
+.sum div{background:#efedff}.sum small{color:var(--deep)}
+.bars .s{background:var(--lime2)}.bars .r{background:var(--coral)}
+.ridetype button.active{border-color:var(--coral);background:#fff1ec}
+svg.fig{background:#f1efff}
+.demo.anim{background:#f1efff}
+.banner{background:var(--ink)}
+.wcard{display:none}
 </style>
 </head>
 <body>
 <header>
  <div class="top">
-  <div class="logo"><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="15" fill="#18201b"/><circle cx="16" cy="16" r="9.5" fill="none" stroke="#c6f06b" stroke-width="2.6"/><rect x="9" y="14.8" width="14" height="2.4" rx="1.2" fill="#fff"/><rect x="8" y="11.5" width="3" height="9" rx="1.2" fill="#fff"/><rect x="21" y="11.5" width="3" height="9" rx="1.2" fill="#fff"/></svg>RIDE<span>STRONG</span></div>
+  <div class="logo"><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="15" fill="#6a5af9"/><circle cx="16" cy="16" r="9.5" fill="none" stroke="#fff" stroke-width="2.6"/><rect x="9" y="14.8" width="14" height="2.4" rx="1.2" fill="#fff"/><rect x="8" y="11.5" width="3" height="9" rx="1.2" fill="#fff"/><rect x="21" y="11.5" width="3" height="9" rx="1.2" fill="#fff"/></svg>RIDE<span>STRONG</span></div>
   <button class="iconbtn" onclick="showPage('settings')" aria-label="Settings">⚙︎</button>
  </div>
  <div class="date" id="todayDate"></div><h1 class="greeting" id="greeting">Let's get stronger.</h1>
@@ -119,12 +173,13 @@ svg.fig{display:block;background:#eef3e6}svg.fig.thumb{border-radius:15px;overfl
 <!-- TODAY -->
 <section class="page active" id="home">
  <div class="card hero">
-  <div class="row"><span class="eyebrow" id="heroTag">NEXT SESSION</span><span class="pill dark" id="heroPill"></span></div>
+  <div class="hero-fig" id="heroFig"></div>
+  <div class="row"><span class="eyebrow" id="heroTag">NEXT SESSION</span></div><span class="pill dark" id="heroPill" style="margin-top:8px"></span>
   <h2 id="heroTitle">Loading</h2><p id="heroDesc"></p>
   <div class="meta" id="heroMeta"></div>
   <div class="row" style="justify-content:flex-start;gap:8px"><button class="btn lime" id="heroBtn">Start</button><button class="btn" style="background:rgba(255,255,255,.12)" id="heroAlt">Details</button></div>
  </div>
- <div class="stats" id="homeStats"></div>
+ <div id="homeStats"></div>
  <div class="card"><div class="row" style="margin-bottom:10px"><h3 id="weekTitle">This week</h3><button class="linkbtn" onclick="showPage('plan')">Full plan</button></div><div class="week" id="homeWeek"></div><div class="legend" id="weekLegend"></div></div>
  <div id="rideCta"></div>
  <div class="section-head"><h2>Train by goal</h2><button class="linkbtn" onclick="showPage('train')">See all</button></div>
@@ -422,18 +477,19 @@ function renderHome(){
  $("todayDate").textContent=now.toLocaleDateString("en-GB",{weekday:"long",day:"numeric",month:"long"}).toUpperCase();
  $("greeting").textContent=(hr<12?"Good morning":hr<18?"Good afternoon":"Good evening")+nm+".";
  const wk=weekSessions(),str=wk.filter(s=>!isRide(s)),rides=wk.filter(isRide),slots=planProgress(),doneSlots=slots.filter(s=>s.done).length;
- $("homeStats").innerHTML='<div class="stat"><b>'+doneSlots+'<span class="muted" style="font-size:15px">/'+slots.length+'</span></b><small>Plan sessions this week</small></div>'+(settings.cycling?'<div class="stat"><b>'+rides.length+'</b><small>Rides this week</small></div><div class="stat"><b>'+(rides.reduce((a,s)=>a+(s.durationSec||0),0)/3600).toFixed(1)+'</b><small>Ride hours this week</small></div>':'<div class="stat"><b>'+str.length+'</b><small>Workouts this week</small></div><div class="stat"><b>'+streak()+'</b><small>Day streak</small></div>');
+ const pct=slots.length?doneSlots/slots.length:0,C2=2*Math.PI*42;
+ $("homeStats").innerHTML='<div class="card ringcard"><div class="ring"><svg viewBox="0 0 100 100"><defs><linearGradient id="rg" x1="0" x2="1"><stop offset="0" stop-color="#7b61ff"/><stop offset="1" stop-color="#5a8dff"/></linearGradient></defs><circle cx="50" cy="50" r="42" fill="none" stroke="#efeff6" stroke-width="10"/>'+(pct?'<circle cx="50" cy="50" r="42" fill="none" stroke="url(#rg)" stroke-width="10" stroke-linecap="round" stroke-dasharray="'+(C2*pct).toFixed(1)+' '+C2.toFixed(1)+'"/>':'')+'</svg><b>'+doneSlots+'/'+slots.length+'</b></div><div class="ringstats"><div><b>'+streak()+'</b><small>Day streak</small></div>'+(settings.cycling?'<div><b>'+rides.length+'</b><small>Rides this week</small></div><div><b>'+(rides.reduce((a,s)=>a+(s.durationSec||0),0)/3600).toFixed(1)+'</b><small>Ride hours</small></div>':'<div><b>'+str.length+'</b><small>Workouts this week</small></div><div><b>'+Math.round(str.reduce((a,s)=>a+(s.durationSec||0),0)/60)+'</b><small>Minutes this week</small></div>')+'<div><b>'+(planWeekIndex()+1)+'</b><small>Plan week</small></div></div></div>';
  renderWeekStrip(slots);
  // hero
- if(active){$("heroTag").textContent="IN PROGRESS";$("heroPill").textContent=fmtTime((Date.now()-active.startedAt)/1000);$("heroTitle").textContent=active.name;$("heroDesc").textContent="You have a workout open. Pick up where you left off.";$("heroMeta").innerHTML="";$("heroBtn").textContent="Resume workout";$("heroBtn").onclick=openSession;$("heroAlt").style.display="none"}
+ $("heroFig").innerHTML="";if(active){const ci=active.items.find(i=>i.sets.some(s=>!s.done))||active.items[0];if(ci)$("heroFig").innerHTML=media(ci.id,"clear",true);$("heroTag").textContent="IN PROGRESS";$("heroPill").textContent=fmtTime((Date.now()-active.startedAt)/1000);$("heroTitle").textContent=active.name;$("heroDesc").textContent="You have a workout open. Pick up where you left off.";$("heroMeta").innerHTML="";$("heroBtn").textContent="Resume workout";$("heroBtn").onclick=openSession;$("heroAlt").style.display="none"}
  else{const sl=nextSlot();$("heroAlt").style.display="";
   if(sl){const w=W[sl.wid],items=resolve(sl.wid),today=sl.day===dow(now);$("heroTag").textContent=today?"TODAY'S SESSION":"NEXT SESSION · "+DAYS[sl.day].toUpperCase();$("heroPill").textContent="WEEK "+(planWeekIndex()+1)+" · "+PHASES[phaseIndex()].name.toUpperCase();$("heroTitle").textContent=w.name;$("heroDesc").textContent=w.desc;
    $("heroMeta").innerHTML='<span><b>'+estMins(items.concat(settings.warmup&&w.cat!=="mob"?warmupItems():[]))+'</b> min</span><span><b>'+items.length+'</b> exercises</span><span><b>'+LEVELS[settings.level]+'</b></span>';
-   $("heroBtn").textContent="Start session";$("heroBtn").onclick=()=>startWorkout({wid:sl.wid,plan:true});$("heroAlt").onclick=()=>previewWorkout(sl.wid,true)}
-  else{$("heroTag").textContent="WEEK COMPLETE";$("heroPill").textContent="✓ "+slots.length+" OF "+slots.length;$("heroTitle").textContent="Plan done for this week";$("heroDesc").textContent="Great work. Recovery is when you get stronger. A mobility session or a post ride stretch is plenty if you want to do something.";$("heroMeta").innerHTML="";$("heroBtn").textContent="Mobility session";$("heroBtn").onclick=()=>previewWorkout("w_mob");$("heroAlt").textContent="Post ride stretch";$("heroAlt").onclick=()=>previewWorkout("w_post")}
+   $("heroBtn").textContent="Start session";$("heroFig").innerHTML=media(items[0].id,"clear",true);$("heroBtn").onclick=()=>startWorkout({wid:sl.wid,plan:true});$("heroAlt").onclick=()=>previewWorkout(sl.wid,true)}
+  else{$("heroTag").textContent="WEEK COMPLETE";$("heroPill").textContent="✓ "+slots.length+" OF "+slots.length;$("heroTitle").textContent="Plan done for this week";$("heroFig").innerHTML=media("Childs_Pose","clear",true);$("heroDesc").textContent="Great work. Recovery is when you get stronger. A mobility session or a post ride stretch is plenty if you want to do something.";$("heroMeta").innerHTML="";$("heroBtn").textContent="Mobility session";$("heroBtn").onclick=()=>previewWorkout("w_mob");$("heroAlt").textContent="Post ride stretch";$("heroAlt").onclick=()=>previewWorkout("w_post")}
   if(sl)$("heroAlt").textContent="Details"}
- $("rideCta").innerHTML=settings.cycling?'<div class="card"><div class="row"><div><h3>'+(settings.rideDays.includes(dow(now))?"Riding today?":"Been out on the bike?")+'</h3><p class="tiny" style="margin:0">Log it so your week shows the full picture.</p></div><button class="btn small" style="background:#2f6f9f" onclick="openRide()">Log ride</button></div></div>':"";
- $("homeGoals").innerHTML=Object.keys(W).map(id=>{const w=W[id];return'<div class="mini" onclick="previewWorkout(\''+id+'\')"><span class="band cat-'+w.cat+'"></span>'+media(w.items[0].id,"miniimg")+'<div class="tx"><b>'+esc(w.name)+'</b><small>'+CATS[w.cat]+' · '+estMins(resolve(id))+' min</small></div></div>'}).join("");
+ $("rideCta").innerHTML=settings.cycling?'<div class="card"><div class="row"><div><h3>'+(settings.rideDays.includes(dow(now))?"Riding today?":"Been out on the bike?")+'</h3><p class="tiny" style="margin:0">Log it so your week shows the full picture.</p></div><button class="btn small" style="background:linear-gradient(135deg,#ff8a5c,#ff6a6a)" onclick="openRide()">Log ride</button></div></div>':"";
+ $("homeGoals").innerHTML=Object.keys(W).map(id=>{const w=W[id];return'<div class="mini" onclick="previewWorkout(\''+id+'\')"><div class="tile bg-'+w.cat+'">'+media(heroEx(id),"clear",true)+'</div><div class="tx"><b>'+esc(w.name)+'</b><small>'+CATS[w.cat]+' · '+estMins(resolve(id))+' min</small></div></div>'}).join("");
  $("homeLast").innerHTML=sessions.length?sessions.slice(0,2).map(s=>'<div class="card">'+historyCardInner(s)+'</div>').join(""):'<div class="card empty">Your workouts and rides will show here.</div>';
  renderBanner()}
 function renderWeekStrip(slots){const now=new Date(),mon=monday(now),wk=weekSessions();
@@ -474,8 +530,10 @@ function saveSetup(){const d=setupDraft;if(!d.days.length){toast("Choose at leas
 
 /* ============ WORKOUTS ============ */
 function renderTrain(){const cats=[["all","All"]].concat(Object.entries(CATS));$("catChips").innerHTML=cats.map(c=>'<button class="chip'+(catFilter===c[0]?" active":"")+'" onclick="catFilter=\''+c[0]+'\';renderTrain()">'+c[1]+'</button>').join("");
- $("goalList").innerHTML=Object.keys(W).filter(id=>catFilter==="all"||W[id].cat===catFilter).map(id=>wcard(id)).join("");
- $("myList").innerHTML=custom.length?custom.map(c=>'<div class="wcard" onclick="previewCustom(\''+c.id+'\')"><div class="band cat-mine"></div><div class="in"><div class="row"><h3>'+esc(c.name)+'</h3><span class="pill" style="background:var(--sand);color:#6b5214">MINE</span></div><div class="facts"><span>'+c.items.length+' exercises</span></div><div class="thumbs">'+c.items.slice(0,4).map(i=>media(i.id,"wthumb")).join("")+'</div></div></div>').join(""):'<div class="card empty">Build your own routine from any exercise in the library.<br><br><button class="btn small" onclick="openBuilder(null)">Create a workout</button></div>'}
+ $("goalList").innerHTML='<div class="tiles">'+Object.keys(W).filter(id=>catFilter==="all"||W[id].cat===catFilter).map(id=>tileCard(id)).join("")+'</div>';
+ $("myList").innerHTML=custom.length?'<div class="tiles">'+custom.map(c=>'<div class="tilecard" onclick="previewCustom(\''+c.id+'\')"><div class="tile bg-mine">'+(c.items[0]?media(c.items[0].id,"clear",true):"")+'<span class="pill">Mine</span></div><div class="tx"><b>'+esc(c.name)+'</b><small>'+c.items.length+' exercises</small></div></div>').join("")+'</div>':'<div class="card empty">Build your own routine from any exercise in the library.<br><br><button class="btn small" onclick="openBuilder(null)">Create a workout</button></div>'}
+function heroEx(id){const r=resolve(id);const pref={w_legs:"Goblet_Squat",w_single:"Dumbbell_Step_Ups",w_power:"Freehand_Jump_Squat",w_core:"Dead_Bug",w_core10:"Mountain_Climbers",w_upcore:"Pushups",w_upper:"One-Arm_Dumbbell_Row",w_full:"Kettlebell_One-Legged_Deadlift",w_bw:"Bodyweight_Walking_Lunge",w_mob:"Worlds_Greatest_Stretch",w_post:"Kneeling_Hip_Flexor"}[id];return r.some(i=>i.id===pref)?pref:r[0].id}
+function tileCard(id){const w=W[id],items=resolve(id);return'<div class="tilecard" onclick="previewWorkout(\''+id+'\')"><div class="tile bg-'+w.cat+'">'+media(heroEx(id),"clear",true)+'<span class="pill">'+CATS[w.cat]+'</span></div><div class="tx"><b>'+esc(w.name)+'</b><small>'+estMins(items)+' min · '+items.length+' exercises</small></div></div>'}
 function wcard(id){const w=W[id],items=resolve(id);return'<div class="wcard" onclick="previewWorkout(\''+id+'\')"><div class="band cat-'+w.cat+'"></div><div class="in"><div class="row"><h3>'+esc(w.name)+'</h3><span class="pill">'+CATS[w.cat]+'</span></div><p class="tiny" style="margin:4px 0 0">'+esc(w.desc)+'</p><div class="facts"><span>⏱ '+estMins(items)+' min</span><span>'+items.length+' exercises</span><span>'+LEVELS[settings.level]+'</span></div><div class="thumbs">'+items.slice(0,4).map(i=>media(i.id,"wthumb")).join("")+'</div></div></div>'}
 function previewWorkout(wid,plan,lv){previewState={wid:wid,plan:!!plan,lv:lv||settings.level};renderPreview();openModal("previewModal");$("previewModal").querySelector(".sheet").scrollTop=0}
 function renderPreview(){const p=previewState,w=W[p.wid],items=resolve(p.wid,p.lv),warm=settings.warmup&&w.cat!=="mob";$("previewTag").textContent=CATS[w.cat]+(p.plan?" · YOUR PLAN":"");

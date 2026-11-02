@@ -6,7 +6,7 @@
 const K=.86,L={torso:54*K,neck:6*K,headR:11*K,ua:29*K,fa:27*K,th:41*K,sh:40*K,ft:12*K};
 const G=186; // floor line
 const BASE={hip:[120,110],torso:-90,head:null,bend:0,face:1,uaN:96,faN:92,uaF:84,faF:88,thN:92,shN:91,thF:88,shF:89,ftN:0,ftF:0,sN:1,sF:1,lN:1,lF:1};
-const C={skin:"#efc19a",skin2:"#d8a47b",shirt:"#3b4a3f",shirt2:"#2c382f",shorts:"#1c2520",shoe:"#c6f06b",shoe2:"#a8d14f",hair:"#2a211c",db:"#2b2f2c",db2:"#6d746f",prop:"#d9d6cc",prop2:"#c4c0b4",mat:"#dbeec2"};
+const C={skin:"#f2c4a0",skin2:"#dca883",shirt:"#6a5af9",shirt2:"#5546e0",shorts:"#22243a",shoe:"#ff7a59",shoe2:"#e8623f",hair:"#2a211c",db:"#2c2f3e",db2:"#8a8fa6",prop:"#ffffff",prop2:"#d9dbe8",mat:"#d9d3ff"};
 const rad=a=>a*Math.PI/180,dir=a=>[Math.cos(rad(a)),Math.sin(rad(a))],add=(p,a,l)=>{const d=dir(a);return[p[0]+d[0]*l,p[1]+d[1]*l]};
 function joints(p){const hip=p.hip,sh=add(hip,p.torso,L.torso),hd=p.head==null?p.torso:p.head,head=add(sh,hd,L.neck+L.headR);
  const eN=add(sh,p.uaN,L.ua*p.sN),hN=add(eN,p.faN,L.fa*p.sN),eF=add(sh,p.uaF,L.ua*p.sF),hF=add(eF,p.faF,L.fa*p.sF);
@@ -106,17 +106,17 @@ S.Russian_Twist={db:"one",props:[{mat:1}],t:600,hold:150,f:[pose({g:["hip"],tors
 const NS="http://www.w3.org/2000/svg";
 function el(t,a,parent){const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);parent&&parent.appendChild(e);return e}
 let gid=0;function build(svg,spec){svg.innerHTML="";svg.setAttribute("viewBox","0 0 240 200");const id="rsbg"+(++gid);
- el("rect",{x:0,y:0,width:240,height:200,fill:"url(#"+id+")"},svg);
- const defs=el("defs",{},svg),g=el("radialGradient",{id:id,cx:"50%",cy:"40%",r:"75%"},defs);el("stop",{offset:"0%","stop-color":"#ffffff"},g);el("stop",{offset:"100%","stop-color":"#eef3e6"},g);
- el("line",{x1:0,y1:G,x2:240,y2:G,stroke:"#d8dccf","stroke-width":2},svg);
- (spec.props||[]).forEach(p=>{if(p.mat)el("rect",{x:24,y:G-3,width:192,height:4,rx:2,fill:C.mat},svg);if(p.box)el("rect",{x:p.box[0],y:p.box[1],width:p.box[2],height:p.box[3],rx:5,fill:C.prop,stroke:C.prop2,"stroke-width":2},svg);if(p.wall)el("rect",{x:p.wall,y:20,width:240-p.wall,height:G-20,fill:"#e4e1d6"},svg)});
+ if(!svg.classList.contains("clear"))el("rect",{x:0,y:0,width:240,height:200,fill:"url(#"+id+")"},svg);
+ const defs=el("defs",{},svg),g=el("radialGradient",{id:id,cx:"50%",cy:"40%",r:"75%"},defs);el("stop",{offset:"0%","stop-color":"#ffffff"},g);el("stop",{offset:"100%","stop-color":"#efedff"},g);
+ el("line",{x1:0,y1:G,x2:240,y2:G,stroke:svg.classList.contains("clear")?"rgba(0,0,0,.08)":"#dcdcef","stroke-width":2},svg);
+ (spec.props||[]).forEach(p=>{if(p.mat)el("rect",{x:24,y:G-3,width:192,height:4,rx:2,fill:C.mat},svg);if(p.box)el("rect",{x:p.box[0],y:p.box[1],width:p.box[2],height:p.box[3],rx:5,fill:C.prop,stroke:C.prop2,"stroke-width":2},svg);if(p.wall)el("rect",{x:p.wall,y:20,width:240-p.wall,height:G-20,fill:"rgba(255,255,255,.7)"},svg)});
  const shadow=el("ellipse",{cx:120,cy:G+1,rx:34,ry:4,fill:"#000",opacity:.08},svg);
  const line=(c,w)=>el("line",{stroke:c,"stroke-width":w,"stroke-linecap":"round"},svg),circ=(c,r)=>el("circle",{r:r,fill:c},svg);
  const front=!!spec.front,sk2=front?C.skin:C.skin2,sh2=front?C.shoe:C.shoe2;
  const e={shadow};
  e.uaF=line(sk2,7.6);e.faF=line(sk2,6.8);e.hF=circ(sk2,4.2);
  e.dbF=el("g",{},svg);
- e.thF=line(sk2,10.8);e.shF=line(sk2,9);e.ftF=line(sh2,6.4);e.shortsF=line(front?C.shorts:"#151c18",13.5);
+ e.thF=line(sk2,10.8);e.shF=line(sk2,9);e.ftF=line(sh2,6.4);e.shortsF=line(front?C.shorts:"#181a2c",13.5);
  e.torso=el("path",{fill:"none",stroke:C.shirt,"stroke-width":front?23:19.5,"stroke-linecap":"round"},svg);
  e.hips=circ(C.shorts,10.5);
  e.neck=line(C.skin,7);e.hair=circ(C.hair,10.2);e.head=circ(C.skin,9);
