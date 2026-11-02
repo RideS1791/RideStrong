@@ -295,7 +295,7 @@ input,select,textarea{background:#1f2129;border-color:#2c2f3b;color:var(--ink)}
   <button class="linkbtn" id="heroSwap" style="color:#fff;opacity:.85;padding:12px 0 0" onclick="showPage('train')">Fancy something else today? Pick any workout ›</button>
  </div>
  <div id="homeStats"></div>
- <div class="card"><div class="row" style="margin-bottom:10px"><h3 id="weekTitle">This week</h3><button class="linkbtn" onclick="showPage('plan')">Full plan</button></div><div class="week" id="homeWeek"></div><div class="legend" id="weekLegend"></div></div>
+ <div class="card"><div class="row" style="margin-bottom:10px"><h3 id="weekTitle" onclick="showPage('plan')" style="cursor:pointer">This week</h3><button class="linkbtn" onclick="showPage('plan')">Full plan</button></div><div class="week" id="homeWeek"></div><div class="legend" id="weekLegend"></div></div>
  <div id="rideCta"></div>
  <div class="section-head"><h2>Train by goal</h2><button class="linkbtn" onclick="showPage('train')">See all</button></div>
  <div class="hscroll" id="homeGoals"></div>
@@ -306,7 +306,7 @@ input,select,textarea{background:#1f2129;border-color:#2c2f3b;color:var(--ink)}
 <!-- PLAN -->
 <section class="page" id="plan">
  <div class="eyebrow">YOUR 12 WEEK PLAN</div><h2 style="margin-top:5px" id="planTitle">Strength for cyclists</h2>
- <div class="card"><div class="row"><div><h3 id="phaseName">Foundation</h3><span class="tiny" id="phaseWeek"></span></div><span class="pill" id="levelPill"></span></div><p class="tiny" id="phaseDesc" style="margin:8px 0 0"></p><div class="phase" id="phaseBar"></div></div>
+ <div class="card"><div class="row"><div><h3 id="phaseName">Foundation</h3><span class="tiny" id="phaseWeek"></span></div><span class="pill" id="levelPill"></span></div><p class="tiny" id="phaseDesc" style="margin:8px 0 0"></p><p class="tiny" style="margin:6px 0 0;color:#ff7d8a">Tap a stage to see what it involves.</p><div class="phase" id="phaseBar"></div></div>
  <div class="section-head"><h2>This week</h2><span class="tiny" id="planCount"></span></div>
  <div class="card" style="padding:4px 14px" id="planWeek"></div>
  <div id="planTips"></div>
@@ -606,7 +606,7 @@ function nextSlot(){const slots=planProgress(),today=dow(new Date());return slot
 function timesDone(wid){return sessions.filter(s=>s.src===wid).length}
 function nVersions(wid){return Math.max(...W[wid].items.map(it=>1+(it.alt?it.alt.length:0)))}
 function verOf(wid){return timesDone(wid)%nVersions(wid)}
-function resolve(wid,level,opts){opts=opts||{};const w=W[wid],lv=level||settings.level,ph=opts.noPhase?0:phaseIndex(),bwOnly=settings.equip==="bw",out=[],seen=new Set(),ver=opts.ver!=null?opts.ver:verOf(wid);
+function resolve(wid,level,opts){opts=opts||{};const w=W[wid],lv=level||settings.level,ph=opts.noPhase?0:(opts.ph!=null?opts.ph:phaseIndex()),bwOnly=settings.equip==="bw",out=[],seen=new Set(),ver=opts.ver!=null?opts.ver:verOf(wid);
  w.items.forEach(it=>{const pool=[it.id].concat(it.alt||[]);let id=pool[ver%pool.length],t=it.t;
   if(it.lv&&it.lv[lv]){id=it.lv[lv];t=typeOf(ex(id))}else if(id!==it.id){t=typeOf(ex(id))}
   if(bwOnly&&t==="weight"){if(it.bw){id=it.bw;t=it.bwt||typeOf(ex(id))}else return}
@@ -669,7 +669,7 @@ function renderBanner(){const b=$("banner");if(active&&!$("session").classList.c
 function renderPlan(){const ph=phaseIndex(),wi=planWeekIndex(),slots=planProgress(),today=dow(new Date());
  $("planTitle").textContent=settings.days.length+" strength sessions a week"+(settings.cycling?" + "+settings.rideDays.length+" rides":"");
  $("phaseName").textContent=PHASES[ph].name;$("phaseWeek").textContent="Week "+(wi+1)+(wi<12?" of 12":"")+" · "+PHASES[ph].weeks;$("phaseDesc").textContent=PHASES[ph].desc;$("levelPill").textContent=LEVELS[settings.level];
- $("phaseBar").innerHTML=PHASES.map((p,i)=>'<div class="'+(i===ph?"on":"")+'"><b>'+p.name.split(" ")[0]+'</b><small>'+p.weeks.replace("Weeks ","").replace("Week ","").replace(" onwards","+")+'</small></div>').join("");
+ $("phaseBar").innerHTML=PHASES.map((p,i)=>'<div class="'+(i===ph?"on":"")+'" onclick="openPhase('+i+')" style="cursor:pointer"><b>'+p.name.split(" ")[0]+'</b><small>'+p.weeks.replace("Weeks ","").replace("Week ","").replace(" onwards","+")+'</small></div>').join("");
  $("planCount").textContent=slots.filter(s=>s.done).length+" of "+slots.length+" done";
  const rows=[];for(let d=0;d<7;d++){const sl=slots.find(s=>s.day===d),ride=settings.cycling&&settings.rideDays.includes(d);if(!sl&&!ride)continue;
   if(sl){const w=W[sl.wid];rows.push('<div class="planday'+(sl&&sl.done?" today":"")+'" onclick="previewWorkout(\''+sl.wid+'\',true)" style="cursor:pointer"><div class="d"><b>'+DAYS[d]+'</b><small>💪</small></div><div class="copy"><b>'+esc(w.name)+'</b><small>'+CATS[w.cat]+' · about '+estMins(resolve(sl.wid))+' min'+(ride?" · ride day too":"")+'</small></div>'+(sl.done?'<span class="done-mark">DONE</span>':'<button class="chev">›</button>')+'</div>')}
@@ -854,6 +854,15 @@ function delItem(sid,eid,k){const s=sessions.find(x=>x.id===sid);if(!s)return;if
 function delDay(k){if(!confirm("Delete every workout on this day?"))return;sessions=sessions.filter(s=>dayKey(s.date)!==k);saveSessions();toast("Day cleared");afterEdit(k)}
 function afterEdit(k){renderHome();if($("progress").classList.contains("active"))renderProgress();if(k)openDay(k);else closeModal("previewModal")}
 
+
+/* ============ PHASES ============ */
+const PHASE_CHANGES=["2 to 3 sets per exercise, comfortable weights, leave 3 reps in the tank. Focus on doing every rep well.","One extra set on the main moves. Leave about 2 reps in the tank and add a little weight when the last set feels easy.","Heavier weights for fewer reps on the main lifts, and Power replaces Legs and Core for intermediate and advanced.","Same work as Build to hold on to what you've gained. Restart the plan whenever you want a new 12 weeks."];
+function openPhase(i){const p=PHASES[i],cur=phaseIndex(),t=TEMPLATES[Math.min(6,Math.max(1,settings.days.length))].map(x=>i===2&&settings.level!=="b"&&x==="w_single"?"w_power":x);
+ $("previewTag").textContent="STAGE "+(i+1)+" OF 4"+(i===cur?" · YOU ARE HERE":"");
+ $("previewBody").innerHTML='<h2 style="margin-bottom:4px">'+esc(p.name)+'</h2><p class="tiny" style="margin:0 0 10px">'+esc(p.weeks)+'</p><div class="why"><b>What changes.</b> '+esc(PHASE_CHANGES[i])+'</div><div class="blocklbl">YOUR SESSIONS AT THIS STAGE</div>'+t.map(wid=>{const items=resolve(wid,settings.level,{ph:i});return'<div class="card" style="background:#20232c;box-shadow:none;margin-bottom:8px"><div class="row"><h3>'+esc(W[wid].name)+'</h3><span class="tiny">about '+estMins(items)+' min</span></div><div class="tiny" style="margin-top:4px">'+items.map(x=>esc(exName(x.id))+' '+x.sets+'×'+x.target+(x.type==="time"?"s":"")).join(" · ")+'</div></div>'}).join("")+(i!==cur?'<button class="btn lime full" style="background:var(--grad);color:#fff;margin-top:6px" onclick="jumpPhase('+i+')">Move my plan to '+esc(p.name)+'</button>':'');
+ openModal("previewModal")}
+function jumpPhase(i){if(!confirm("Move your plan to "+PHASES[i].name+"? Your history is kept."))return;const m=monday(new Date());m.setDate(m.getDate()-7*[0,4,8,12][i]);settings.planStart=m.toISOString();saveSet();closeModal("previewModal");renderPlan();renderHome();toast("Plan moved to "+PHASES[i].name)}
+
 /* ============ RIDES ============ */
 function openRide(){rideType="endurance";renderRideTypes();$("rDur").value="";$("rKm").value="";$("rRpe").value="";$("rNote").value="";$("rDate").value=new Date().toISOString().slice(0,10);openModal("rideModal")}
 function renderRideTypes(){$("rideTypes").innerHTML=RIDETYPES.map(r=>'<button class="'+(rideType===r.k?"active":"")+'" onclick="rideType=\''+r.k+'\';renderRideTypes()">'+r.n+'<small>'+r.d+'</small></button>').join("")}
@@ -870,7 +879,7 @@ function renderProgress(){const str=strengthSessions(),rides=sessions.filter(isR
  const mon=monday(new Date()),weeks=[];for(let i=7;i>=0;i--){const a=new Date(mon);a.setDate(a.getDate()-7*i);const b=new Date(a);b.setDate(b.getDate()+7);const inW=sessions.filter(s=>{const d=new Date(s.date);return d>=a&&d<b});weeks.push({lbl:a.toLocaleDateString("en-GB",{day:"numeric",month:"short"}),s:inW.filter(x=>!isRide(x)).length,r:inW.filter(isRide).length})}
  const mx=Math.max(1,...weeks.map(w=>w.s+w.r));$("bars").innerHTML=weeks.map(w=>'<div><em>'+((w.s+w.r)||"")+'</em><div class="stack">'+(w.r?'<span class="r" style="height:'+(w.r/mx*100)+'%"></span>':"")+(w.s?'<span class="s" style="height:'+(w.s/mx*100)+'%"></span>':"")+'</div><small>'+w.lbl+'</small></div>').join("");
  $("barsLegend").innerHTML='<span style="color:var(--lime2)">■</span> Strength'+(rides.length||settings.cycling?' <span style="color:#7aa7c7">■</span> Rides':"");
- const ids=[];str.forEach(s=>(s.items||[]).forEach(i=>{if(!i.warm&&!ids.includes(i.id))ids.push(i.id)}));
+ const ids=[];str.forEach(s=>(s.items||[]).forEach(i=>{if(!i.warm&&!ids.includes(i.id)&&ex(i.id).cat!=="stretching"&&!(W[s.src]&&W[s.src].cat==="mob"))ids.push(i.id)}));
  $("bests").innerHTML=ids.length?ids.slice(0,15).map(id=>{const b=bestOf(id);return'<div class="item" style="cursor:pointer" onclick="openDetail(\''+id+'\')">'+media(id,"thumb",false,'style=\"width:44px;height:44px\"')+'<div class="copy"><b>'+esc(exName(id))+'</b><small>'+b.sets+(b.sets===1?' set':' sets')+' · last '+new Date(b.last).toLocaleDateString("en-GB",{day:"numeric",month:"short"})+'</small></div><b style="font-size:15px">'+bestText(b)+'</b></div>'}).join(""):'<div class="empty">Finish a workout to see your bests here.</div>';
  $("logRideLink").style.display=settings.cycling?"":"none";
  $("histList").innerHTML=sessions.length?sessions.slice(0,60).map((s,k)=>'<div class="card hist" onclick="openDay(\''+dayKey(s.date)+'\')">'+historyCardInner(s)+'<div class="detail">'+(s.items||[]).filter(i=>!i.warm).map(it=>'<div class="line"><span>'+esc(exName(it.id))+'</span><span>'+it.sets.map(x=>esc(setText(it.type,x))).join(", ")+'</span></div>').join("")+'<button class="btn red small" style="margin-top:10px" onclick="event.stopPropagation();deleteSession(\''+s.id+'\')">Delete</button></div></div>').join(""):'<div class="card empty">No workouts yet. Your history will build up here.</div>'}
