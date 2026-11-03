@@ -305,6 +305,19 @@ html,body,#guide,#session,.s-body{background:#000}
 #heroSwap{color:#c9cbd3!important}
 .eyebrow{color:#8b8d98}.linkbtn{color:#c9cbd3}
 .ring circle+circle{stroke:#fff}
+
+/* ===== one tap ===== */
+.go-hero{text-align:center;padding:22px 18px 18px}
+.go-hero .hero-fig{position:relative;right:auto;top:auto;width:170px;height:170px;max-width:none;margin:12px auto 8px;border-radius:50%}
+.go-hero h2{max-width:none;margin:6px 0 2px;font-size:26px}
+.go-hero .meta{justify-content:center;margin-bottom:14px}
+.go-btn{display:block;margin:4px auto 6px;width:132px;height:132px;border-radius:50%;border:0;background:var(--grad);color:#fff;font-size:36px;font-weight:900;letter-spacing:2px;box-shadow:0 0 0 10px rgba(255,59,79,.12),0 14px 30px rgba(255,45,85,.35)}
+.go-btn:active{transform:scale(.96)}
+.go-links{display:flex;justify-content:center;gap:18px}
+.tabs button{min-width:90px}
+.g-load{display:block;margin:0 auto 10px;border:0;background:#18181d;color:#fff;border-radius:18px;padding:10px 22px;text-align:center}.g-load b{display:block;font-size:24px;font-variant-numeric:tabular-nums}.g-load small{font-size:11px;color:var(--muted)}
+#gEditBox .g-steps2{justify-content:center}
+#heroAlt{background:none!important;color:#c9cbd3!important;padding:6px}.g-clock{width:min(42vw,170px);height:min(42vw,170px)}.g-clock b{font-size:52px}.g-media.sm{min-height:26vh}
 </style>
 </head>
 <body>
@@ -318,13 +331,13 @@ html,body,#guide,#session,.s-body{background:#000}
 <main>
 <!-- TODAY -->
 <section class="page active" id="home">
- <div class="card hero">
+ <div class="card hero go-hero">
+  <div class="row" style="justify-content:center"><span class="eyebrow" id="heroTag">TODAY</span></div>
   <div class="hero-fig" id="heroFig"></div>
-  <div class="row"><span class="eyebrow" id="heroTag">NEXT SESSION</span></div><span class="pill dark" id="heroPill" style="margin-top:8px"></span>
-  <h2 id="heroTitle">Loading</h2><p id="heroDesc"></p>
-  <div class="meta" id="heroMeta"></div>
-  <div class="row" style="justify-content:flex-start;gap:8px"><button class="btn lime" id="heroBtn">Start</button><button class="btn" style="background:rgba(255,255,255,.12)" id="heroAlt">Details</button></div>
-  <button class="linkbtn" id="heroSwap" style="color:#fff;opacity:.85;padding:12px 0 0" onclick="showPage('train')">Or pick another workout ›</button>
+  <h2 id="heroTitle">Loading</h2>
+  <div class="meta" id="heroMeta"></div><span class="pill dark" id="heroPill" style="display:none"></span><p id="heroDesc" style="display:none"></p>
+  <button class="go-btn" id="heroBtn">GO</button>
+  <div class="go-links"><button class="linkbtn" id="heroAlt">See exercises</button><button class="linkbtn" id="heroSwap" onclick="showPage('train')">Change workout</button></div>
  </div>
  <div id="homeStats"></div>
  <div class="card"><div class="row" style="margin-bottom:10px"><h3 id="weekTitle" onclick="showPage('plan')" style="cursor:pointer">This week</h3><button class="linkbtn" onclick="showPage('plan')">Full plan</button></div><div class="week" id="homeWeek"></div><div class="legend" id="weekLegend"></div></div>
@@ -347,7 +360,7 @@ html,body,#guide,#session,.s-body{background:#000}
 
 <!-- TRAIN -->
 <section class="page" id="train">
- <div class="eyebrow">CHOOSE YOUR FOCUS</div><h2 style="margin-top:5px">Workouts</h2>
+ <div class="eyebrow">CHOOSE YOUR FOCUS</div><div class="row"><h2 style="margin-top:5px">Workouts</h2><button class="btn soft small" onclick="showPage('library')">🔍 All exercises</button></div>
  <div class="chips" id="catChips"></div>
  <div id="goalList"></div>
  <div class="section-head"><h2>My workouts</h2><button class="linkbtn" onclick="openBuilder(null)">+ Create</button></div>
@@ -401,9 +414,7 @@ html,body,#guide,#session,.s-body{background:#000}
 
 <nav class="tabs">
  <button class="active" data-page="home" onclick="showPage('home')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/></svg>Today</button>
- <button data-page="plan" onclick="showPage('plan')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Plan</button>
  <button data-page="train" onclick="showPage('train')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 7v10M3 9v6M18 7v10M21 9v6M6 12h12"/></svg>Workouts</button>
- <button data-page="library" onclick="showPage('library')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>Exercises</button>
  <button data-page="progress" onclick="showPage('progress')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>Progress</button>
 </nav>
 
@@ -661,7 +672,7 @@ function warmupItems(){return WARMUP.map(w=>({id:w.id,type:w.t,sets:1,target:w.n
 function estMins(items){let s=0;items.forEach(i=>{const work=i.type==="time"?i.target:Math.max(20,i.target*3.5);s+=i.sets*(work+3)+Math.max(0,i.sets-1)*i.rest+30});return Math.max(5,Math.round(s/60))}
 
 /* ============ NAVIGATION ============ */
-function showPage(p){document.querySelectorAll(".page").forEach(x=>x.classList.toggle("active",x.id===p));document.querySelectorAll(".tabs button").forEach(b=>b.classList.toggle("active",b.dataset.page===p));window.scrollTo(0,0);({home:renderHome,plan:renderPlan,train:renderTrain,library:renderLibrary,progress:renderProgress,settings:renderSettings}[p]||(()=>{}))()}
+function showPage(p){document.querySelectorAll(".page").forEach(x=>x.classList.toggle("active",x.id===p));const tp={plan:"home",library:"train",settings:"home"}[p]||p;document.querySelectorAll(".tabs button").forEach(b=>b.classList.toggle("active",b.dataset.page===tp));window.scrollTo(0,0);({home:renderHome,plan:renderPlan,train:renderTrain,library:renderLibrary,progress:renderProgress,settings:renderSettings}[p]||(()=>{}))()}
 function openModal(id){$(id).classList.add("open")}
 function closeModal(id){$(id).classList.remove("open");if(id==="detailModal"){clearInterval(demoInt);demoInt=null}}
 
@@ -685,12 +696,12 @@ function renderHome(){
  $("homeStats").innerHTML='<div class="card ringcard"><div class="ring"><svg viewBox="0 0 100 100"><defs><linearGradient id="rg" x1="0" x2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#d9d9de"/></linearGradient></defs><circle cx="50" cy="50" r="42" fill="none" stroke="#262935" stroke-width="10"/>'+(pct?'<circle cx="50" cy="50" r="42" fill="none" stroke="url(#rg)" stroke-width="10" stroke-linecap="round" stroke-dasharray="'+(C2*pct).toFixed(1)+' '+C2.toFixed(1)+'"/>':'')+'</svg><b>'+doneSlots+'/'+slots.length+'</b></div><div class="ringstats"><div><b>'+streak()+'</b><small>Day streak</small></div>'+(settings.cycling?'<div><b>'+rides.length+'</b><small>Rides this week</small></div><div><b>'+(rides.reduce((a,s)=>a+(s.durationSec||0),0)/3600).toFixed(1)+'</b><small>Ride hours</small></div>':'<div><b>'+str.length+'</b><small>Workouts this week</small></div><div><b>'+Math.round(str.reduce((a,s)=>a+(s.durationSec||0),0)/60)+'</b><small>Minutes this week</small></div>')+'<div><b>'+(planWeekIndex()+1)+'</b><small>Plan week</small></div></div></div>';
  renderWeekStrip(slots);
  // hero
- $("heroFig").innerHTML="";if(active){const ci=active.items.find(i=>i.sets.some(s=>!s.done))||active.items[0];if(ci)$("heroFig").innerHTML=media(ci.id,"clear",true);$("heroTag").textContent="IN PROGRESS";$("heroPill").textContent=fmtTime((Date.now()-active.startedAt)/1000);$("heroTitle").textContent=active.name;$("heroDesc").textContent="You have a workout open. Pick up where you left off.";$("heroMeta").innerHTML="";$("heroBtn").textContent="Resume workout";$("heroBtn").onclick=()=>{openSession();if(settings.guided)openGuide()};$("heroAlt").style.display="none"}
+ $("heroFig").innerHTML="";if(active){const ci=active.items.find(i=>i.sets.some(s=>!s.done))||active.items[0];if(ci)$("heroFig").innerHTML=media(ci.id,"clear",true);$("heroTag").textContent="IN PROGRESS";$("heroPill").textContent=fmtTime((Date.now()-active.startedAt)/1000);$("heroTitle").textContent=active.name;$("heroDesc").textContent="You have a workout open. Pick up where you left off.";$("heroMeta").innerHTML="";$("heroBtn").textContent="RESUME";$("heroBtn").onclick=()=>{openSession();if(settings.guided)openGuide()};$("heroAlt").style.display="none"}
  else{const sl=nextSlot();$("heroAlt").style.display="";
-  if(sl){const w=W[sl.wid],items=resolve(sl.wid),today=sl.day===dow(now);$("heroTag").textContent=today?"TODAY'S SESSION":"NEXT SESSION · "+DAYS[sl.day].toUpperCase();$("heroPill").textContent="WEEK "+(planWeekIndex()+1)+" · "+PHASES[phaseIndex()].name.toUpperCase();$("heroTitle").textContent=w.name;$("heroDesc").textContent="";
+  if(sl){const w=W[sl.wid],items=resolve(sl.wid),today=sl.day===dow(now);$("heroTag").textContent=today?"TODAY":"NEXT · "+DAYS[sl.day].toUpperCase();$("heroPill").textContent="WEEK "+(planWeekIndex()+1)+" · "+PHASES[phaseIndex()].name.toUpperCase();$("heroTitle").textContent=w.name;$("heroDesc").textContent="";
    $("heroMeta").innerHTML='<span><b>'+estMins(items.concat(settings.warmup&&w.cat!=="mob"?warmupItems():[]))+'</b> min</span><span><b>'+items.length+'</b> exercises</span>';
-   $("heroBtn").textContent="▶ Start";$("heroFig").innerHTML=media(items[0].id,"clear",true);$("heroBtn").onclick=()=>startWorkout({wid:sl.wid,plan:true});$("heroAlt").onclick=()=>previewWorkout(sl.wid,true)}
-  else{$("heroTag").textContent="WEEK COMPLETE";$("heroPill").textContent="✓ "+slots.length+" OF "+slots.length;$("heroTitle").textContent="Plan done for this week";$("heroFig").innerHTML=media("Childs_Pose","clear",true);$("heroDesc").textContent="Great work. Recovery is when you get stronger. A mobility or stretch session is plenty if you want to do something.";$("heroMeta").innerHTML="";$("heroBtn").textContent="Mobility session";$("heroBtn").onclick=()=>previewWorkout("w_mob");$("heroAlt").textContent="Stretch";$("heroAlt").onclick=()=>previewWorkout("w_post")}
+   $("heroBtn").textContent="GO";$("heroFig").innerHTML=media(items[0].id,"clear",true);$("heroBtn").onclick=()=>startWorkout({wid:sl.wid,plan:true});$("heroAlt").onclick=()=>previewWorkout(sl.wid,true)}
+  else{$("heroTag").textContent="WEEK COMPLETE";$("heroPill").textContent="✓ "+slots.length+" OF "+slots.length;$("heroTitle").textContent="Plan done for this week";$("heroFig").innerHTML=media("Childs_Pose","clear",true);$("heroDesc").textContent="Great work. Recovery is when you get stronger. A mobility or stretch session is plenty if you want to do something.";$("heroMeta").innerHTML="";$("heroBtn").textContent="GO";$("heroBtn").onclick=()=>previewWorkout("w_mob");$("heroAlt").textContent="Stretch";$("heroAlt").onclick=()=>previewWorkout("w_post")}
   if(sl)$("heroAlt").textContent="See exercises"}
  $("rideCta").innerHTML=settings.cycling?'<div class="card"><div class="row"><div><h3>'+(settings.rideDays.includes(dow(now))?"Riding today?":"Been out on the bike?")+'</h3><p class="tiny" style="margin:0">Log it so your week shows the full picture.</p></div><button class="btn small" style="background:linear-gradient(135deg,#4fa3ff,#6a7dff)" onclick="openRide()">Log ride</button></div></div>':"";
  $("homeGoals").innerHTML=Object.keys(W).map(id=>{const w=W[id];return'<div class="mini" onclick="previewWorkout(\''+id+'\')"><div class="tile bg-'+w.cat+'">'+media(heroEx(id),"clear",true)+'</div><div class="tx"><b>'+esc(w.name)+'</b><small>'+CATS[w.cat]+' · '+estMins(resolve(id))+' min</small></div></div>'}).join("");
@@ -859,10 +870,11 @@ function renderGuide(announce){const p=pos();const B=$("guideBody");
  if(t==="weight")tgt='<div class="g-steps2"><div class="stepper sm"><button onclick="gStep(\'kg\','+(settings.unit==="kg"?-1:-2)+')">−</button><div><b id="gkg">'+stepVal(it,p.si,"kg")+'</b><small>'+settings.unit.toUpperCase()+'</small></div><button onclick="gStep(\'kg\','+(settings.unit==="kg"?1:2)+')">+</button></div><div class="stepper sm"><button onclick="gStep(\'reps\',-1)">−</button><div><b id="greps">'+stepVal(it,p.si,"reps")+'</b><small>REPS</small></div><button onclick="gStep(\'reps\',1)">+</button></div></div>';
  else if(t==="reps")tgt='<div class="g-steps2"><div class="stepper sm"><button onclick="gStep(\'reps\',-1)">−</button><div><b id="greps">'+stepVal(it,p.si,"reps")+'</b><small>REPS</small></div><button onclick="gStep(\'reps\',1)">+</button></div></div>';
  else tgt='<div class="g-steps2"><div class="g-hold"><b>'+total+' s</b><small>HOLD</small></div></div>';
- const steps=insOf(it.id);
+ const steps=insOf(it.id);const loadTxt=t==="weight"?(stepVal(it,p.si,"kg")?stepVal(it,p.si,"kg")+" "+settings.unit+" × "+stepVal(it,p.si,"reps"):stepVal(it,p.si,"reps")+" reps"):t==="reps"?stepVal(it,p.si,"reps")+" reps":"";if(t!=="time")tgt='<button class="g-load" id="gLoad" onclick="gEditLoad()"><b id="gLoadTxt">'+loadTxt+'</b><small>'+(t==="weight"&&!stepVal(it,p.si,"kg")?"tap to set weight":"tap to change")+'</small></button><div id="gEditBox" style="display:none">'+tgt+'</div>';
  const clock='<div class="g-clock" onclick="gToggle()"><svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="44" fill="none" stroke="#262935" stroke-width="9"/><circle id="gArc" cx="50" cy="50" r="44" fill="none" stroke="#ff3b4f" stroke-width="9" stroke-linecap="round" stroke-dasharray="'+(C2*(w.ready>0?1:w.left/w.total)).toFixed(1)+' '+C2.toFixed(1)+'"/></svg><div><b id="gClock" class="'+(w.ready>0?"ready":"")+'">'+(w.ready>0?w.ready:fmtTime(shown))+'</b></div></div>';
  B.innerHTML=top+'<div class="g-media sm"><span class="lbl">'+(it.warm?"WARM UP":(it.core?"CORE · ":"")+"EXERCISE "+(active.items.filter(i=>!i.warm).indexOf(it)+1)+" OF "+active.items.filter(i=>!i.warm).length)+'</span>'+media(it.id,"",true,'onclick="openDetail(\''+it.id+'\',true)"')+'</div><div class="g-panel"><p class="g-name">'+esc(nm)+'</p><div class="g-sub">Set '+(p.si+1)+' of '+it.sets.length+(pv?" · "+esc(pv):"")+'</div>'+clock+'<div class="g-row">'+tgt+'</div><button class="g-main'+(w.left<=0&&t!=="time"?" pulse":"")+'" id="gDoneBtn" onclick="gDone()">Done ✓</button><div class="g-links"><button onclick="gBack()">‹ Back</button><button onclick="gSkip()">Skip set ›</button></div></div>';
  if(announce)say(nm+". "+(t==="time"?stepVal(it,p.si,"secs")+" seconds.":(t==="weight"&&stepVal(it,p.si,"kg")?stepVal(it,p.si,"kg")+" "+(settings.unit==="kg"?"kilos":"pounds")+", ":"")+stepVal(it,p.si,"reps")+" reps."))}
+function gEditLoad(){const b=$("gEditBox"),l=$("gLoad");if(b){b.style.display="block";l.style.display="none"}}
 function gStep(f,d){const p=pos(),it=active.items[p.ei],s=it.sets[p.si];let v=stepVal(it,p.si,f)+d;v=Math.max(0,Math.round(v*10)/10);s[f]=String(v);saveActive();const el=$("g"+f);if(el)el.textContent=v;if(f==="reps"&&G.w&&G.w.ready>0){G.w.total=G.w.left=workSecs(it,p.si)}}
 function gDone(){if(G.w&&G.w.int)clearInterval(G.w.int);G.w=null;const p=pos(),it=active.items[p.ei],s=it.sets[p.si];["kg","reps","secs"].forEach(f=>{if(s[f]===""){const v=stepVal(it,p.si,f);if(v!==""&&!(f==="kg"&&!v))s[f]=String(v)}});fillDefaults(it,p.si);s.done=true;saveActive();beep(1046,.08);const np=pos();
  if(!np){renderGuide();return}
