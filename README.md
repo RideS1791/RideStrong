@@ -1,4 +1,4 @@
-# RideStrong
+# FitJoy
 
 Strength, core and mobility training built around dumbbells and bodyweight. Runs on your phone like an app, works offline, and keeps everything on your phone.
 

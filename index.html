@@ -7,11 +7,11 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="RideStrong">
+<meta name="apple-mobile-web-app-title" content="FitJoy">
 <link rel="manifest" href="manifest.webmanifest">
-<link rel="apple-touch-icon" href="icons/icon-180-v2.png">
-<link rel="icon" href="icons/logo-v2.svg" type="image/svg+xml">
-<title>RideStrong</title>
+<link rel="apple-touch-icon" href="icons/icon-180-v3.png">
+<link rel="icon" href="icons/logo-v3.svg" type="image/svg+xml">
+<title>FitJoy</title>
 <style>
 :root{--bg:#f4f3ef;--paper:#fff;--ink:#18201b;--ink2:#2b352e;--muted:#737b74;--line:#e7e6e0;--lime:#c6f06b;--lime2:#a9d84a;--deep:#3d6b1f;--mint:#e9f3dc;--peach:#fbe8dc;--lav:#ecebfa;--blue:#e3eef5;--sand:#f6efdc;--red:#c4533f;--shadow:0 6px 24px rgba(24,32,27,.06);--r:20px}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
@@ -323,7 +323,7 @@ html,body,#guide,#session,.s-body{background:#000}
 <body>
 <header>
  <div class="top">
-  <div class="logo"><img src="icons/logo-v2.svg" alt="" style="width:30px;height:30px;border-radius:8px">RIDE<span>STRONG</span></div>
+  <div class="logo"><img src="icons/logo-v3.svg" alt="" style="width:30px;height:30px;border-radius:8px">FIT<span>JOY</span></div>
   <button class="iconbtn" onclick="showPage('settings')" aria-label="Settings">⚙︎</button>
  </div>
  <div class="date" id="todayDate"></div><h1 class="greeting" id="greeting">Let's get stronger.</h1>
@@ -406,7 +406,7 @@ html,body,#guide,#session,.s-body{background:#000}
   <button class="btn soft full" style="margin-top:8px" onclick="$('importFile').click()">Restore from backup</button><input type="file" id="importFile" accept=".json,application/json" style="display:none" onchange="importData(this)">
   <button class="btn red full" style="margin-top:8px" onclick="wipeAll()">Delete all my data</button>
  </div>
- <div class="card"><h3>About RideStrong</h3><p class="tiny">Strength, core and mobility training built around dumbbells and bodyweight. Exercise photos and instructions come from the free, public domain Free Exercise DB.</p><p class="tiny">This is general fitness guidance, not medical advice. Stop any exercise that causes pain, dizziness or unusual discomfort, and speak to a GP or physiotherapist if you have an injury or health condition.</p><div class="tiny">Version 5.0</div></div>
+ <div class="card"><h3>About FitJoy</h3><p class="tiny">Strength, core and mobility training built around dumbbells and bodyweight. Exercise photos and instructions come from the free, public domain Free Exercise DB.</p><p class="tiny">This is general fitness guidance, not medical advice. Stop any exercise that causes pain, dizziness or unusual discomfort, and speak to a GP or physiotherapist if you have an injury or health condition.</p><div class="tiny">Version 5.0</div></div>
 </section>
 </main>
 
@@ -733,7 +733,7 @@ function restartPlan(){if(!confirm("Restart the plan from week 1? Your history i
 function openSetup(first){setupDraft=JSON.parse(JSON.stringify({level:settings.level,equip:settings.equip,days:settings.days,cycling:settings.cycling,rideDays:settings.rideDays,first:!!first}));renderSetup();openModal("setupModal")}
 function renderSetup(){const d=setupDraft;const seg=(key,opts)=>'<div class="seg">'+opts.map(o=>'<button class="'+(d[key]===o[0]?"active":"")+'" onclick="setupDraft.'+key+'='+JSON.stringify(o[0]).replace(/"/g,"'")+';renderSetup()">'+o[1]+'</button>').join("")+'</div>';
  const dp=(key,cls)=>'<div class="daypick '+cls+'">'+DAYS.map((n,i)=>'<button class="'+(d[key].includes(i)?"active":"")+'" onclick="toggleDay(\''+key+'\','+i+')">'+n.slice(0,2)+'</button>').join("")+'</div>';
- $("setupBody").innerHTML=(d.first?'<div style="text-align:center;margin:4px 0 6px"><div class="eyebrow">WELCOME TO RIDESTRONG</div><h2 style="margin:8px 0 6px">Let\'s build your plan</h2><p class="tiny" style="margin:0 0 6px">Strength, core and mobility. A few questions and you\'re ready.</p></div>':'<div class="sheet-top"><span class="eyebrow">PLAN SETTINGS</span><button class="close" onclick="closeModal(\'setupModal\')">×</button></div>')+
+ $("setupBody").innerHTML=(d.first?'<div style="text-align:center;margin:4px 0 6px"><div class="eyebrow">WELCOME TO FITJOY</div><h2 style="margin:8px 0 6px">Let\'s build your plan</h2><p class="tiny" style="margin:0 0 6px">Strength, core and mobility. A few questions and you\'re ready.</p></div>':'<div class="sheet-top"><span class="eyebrow">PLAN SETTINGS</span><button class="close" onclick="closeModal(\'setupModal\')">×</button></div>')+
  '<label>Your level</label>'+seg("level",[["b","Beginner"],["i","Intermediate"],["a","Advanced"]])+'<p class="tiny" style="margin:6px 2px 0">'+({b:"New to strength training or coming back after a long break. Fewer sets and simpler versions.",i:"Trained before and comfortable with squats, lunges and rows.",a:"Train regularly and confident with heavier, more explosive work."})[d.level]+'</p>'+
  '<label>Equipment</label>'+seg("equip",[["db","Dumbbells and bodyweight"],["bw","Bodyweight only"]])+
  '<label>Strength days ('+d.days.length+' a week)</label>'+dp("days","")+'<p class="tiny" style="margin:6px 2px 0">Most people do 3 or 4. Choose up to 6.</p>'+
@@ -921,7 +921,7 @@ function saveRide(){const mins=parseInt($("rDur").value);if(!mins||mins<1){toast
 /* ============ PROGRESS ============ */
 function historyCardInner(s){const d=new Date(s.date),vol=volume(s);const when=d.toLocaleDateString("en-GB",{weekday:"short",day:"numeric",month:"short"});
  if(isRide(s))return'<div class="row"><div style="min-width:0"><h3>🚴 '+esc(s.name)+'</h3><span class="tiny">'+when+'</span></div><span class="pill" style="background:var(--blue);color:#2f5a7a">'+fmtDur(s.durationSec).toUpperCase()+'</span></div><div class="tiny" style="margin-top:6px">'+[s.km?s.km+" km":"",s.rpe?"Effort "+s.rpe+"/10":"",s.notes?esc(s.notes):""].filter(Boolean).join(" · ")+'</div>';
- return'<div class="row"><div style="min-width:0"><h3>'+(s.legacy?"":"💪 ")+esc(s.name)+'</h3><span class="tiny">'+when+' · '+d.toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit"})+(s.level?" · "+LEVELS[s.level]:"")+'</span></div><span class="pill">'+fmtDur(s.durationSec||0).toUpperCase()+'</span></div><div class="tiny" style="margin-top:6px">'+(s.legacy?"Logged in an earlier version of RideStrong":((s.items||[]).filter(i=>!i.warm).length+((s.items||[]).filter(i=>!i.warm).length===1?" exercise · ":" exercises · ")+setCount(s)+(setCount(s)===1?" set":" sets")+(vol?" · "+vol.toLocaleString("en-GB")+" "+settings.unit+" lifted":"")))+'</div>'}
+ return'<div class="row"><div style="min-width:0"><h3>'+(s.legacy?"":"💪 ")+esc(s.name)+'</h3><span class="tiny">'+when+' · '+d.toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit"})+(s.level?" · "+LEVELS[s.level]:"")+'</span></div><span class="pill">'+fmtDur(s.durationSec||0).toUpperCase()+'</span></div><div class="tiny" style="margin-top:6px">'+(s.legacy?"Logged in an earlier version of the app":((s.items||[]).filter(i=>!i.warm).length+((s.items||[]).filter(i=>!i.warm).length===1?" exercise · ":" exercises · ")+setCount(s)+(setCount(s)===1?" set":" sets")+(vol?" · "+vol.toLocaleString("en-GB")+" "+settings.unit+" lifted":"")))+'</div>'}
 function renderProgress(){const str=strengthSessions(),rides=sessions.filter(isRide);
  $("progStats").innerHTML='<div class="stat"><b>'+str.length+'</b><small>Strength sessions</small></div>'+(settings.cycling||rides.length?'<div class="stat"><b>'+rides.length+'</b><small>Rides logged</small></div><div class="stat"><b>'+Math.round(rides.reduce((a,s)=>a+s.durationSec,0)/3600)+'</b><small>Ride hours</small></div>':'<div class="stat"><b>'+streak()+'</b><small>Day streak</small></div><div class="stat"><b>'+Math.round(str.reduce((a,s)=>a+(s.durationSec||0),0)/3600)+'</b><small>Hours trained</small></div>');
  const mon=monday(new Date()),weeks=[];for(let i=7;i>=0;i--){const a=new Date(mon);a.setDate(a.getDate()-7*i);const b=new Date(a);b.setDate(b.getDate()+7);const inW=sessions.filter(s=>{const d=new Date(s.date);return d>=a&&d<b});weeks.push({lbl:a.toLocaleDateString("en-GB",{day:"numeric",month:"short"}),s:inW.filter(x=>!isRide(x)).length,r:inW.filter(isRide).length})}
@@ -938,8 +938,8 @@ function renderSettings(){$("setName").value=settings.name||"";$("setRest").valu
  $("planSummary").textContent=LEVELS[settings.level]+" · "+(settings.equip==="bw"?"bodyweight only":"dumbbells and bodyweight")+" · strength on "+settings.days.map(d=>DAYS[d]).join(", ")+(settings.cycling?" · rides on "+(settings.rideDays.map(d=>DAYS[d]).join(", ")||"no set days"):" · cycling off")+" · week "+(planWeekIndex()+1)}
 function saveSettings(){settings.name=$("setName").value.trim().slice(0,30);settings.rest=$("setRest").value;saveSet();renderHome();toast("Settings saved")}
 function setOpt(k,v){settings[k]=v;saveSet();renderSettings();renderHome()}
-function exportData(){const data={app:"RideStrong",version:5,exported:new Date().toISOString(),sessions:sessions,custom:custom,settings:settings};const a=document.createElement("a"),u=URL.createObjectURL(new Blob([JSON.stringify(data,null,1)],{type:"application/json"}));a.href=u;a.download="ridestrong-backup-"+new Date().toISOString().slice(0,10)+".json";document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),1000)}
-function importData(inp){const f=inp.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{const d=JSON.parse(r.result);if(!Array.isArray(d.sessions))throw 0;if(!confirm("Replace everything on this phone with the backup from "+(d.exported?new Date(d.exported).toLocaleDateString("en-GB"):"that file")+"?"))return;sessions=d.sessions;custom=d.custom||[];settings=Object.assign(settings,d.settings||{});saveSessions();saveCustom();saveSet();renderSettings();renderHome();toast("Backup restored")}catch(e){toast("That file isn't a RideStrong backup")}inp.value=""};r.readAsText(f)}
+function exportData(){const data={app:"FitJoy",version:5,exported:new Date().toISOString(),sessions:sessions,custom:custom,settings:settings};const a=document.createElement("a"),u=URL.createObjectURL(new Blob([JSON.stringify(data,null,1)],{type:"application/json"}));a.href=u;a.download="fitjoy-backup-"+new Date().toISOString().slice(0,10)+".json";document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),1000)}
+function importData(inp){const f=inp.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{const d=JSON.parse(r.result);if(!Array.isArray(d.sessions))throw 0;if(!confirm("Replace everything on this phone with the backup from "+(d.exported?new Date(d.exported).toLocaleDateString("en-GB"):"that file")+"?"))return;sessions=d.sessions;custom=d.custom||[];settings=Object.assign(settings,d.settings||{});saveSessions();saveCustom();saveSet();renderSettings();renderHome();toast("Backup restored")}catch(e){toast("That file isn't a FitJoy backup")}inp.value=""};r.readAsText(f)}
 function wipeAll(){if(!confirm("Delete all workouts, rides, history and settings on this phone? This cannot be undone."))return;["rs2Sessions","rs2Custom","rs2Settings","rs2Active"].forEach(k=>localStorage.removeItem(k));location.reload()}
 
 /* history from the very first RideStrong version */
