@@ -1,0 +1,25 @@
+feature,area,priority,original,clone,notes
+Onboarding quiz one question per screen,onboarding,must,yes,yes,
+Plan built from quiz answers,onboarding,must,yes,yes,
+Daily targets (water steps calories),onboarding,should,yes,yes,
+Guided workout player with timer,workouts,must,yes,yes,already built
+Workout library by goal,workouts,must,yes,yes,already built
+Animated exercise demos,workouts,must,yes,yes,ExerciseDB GIFs
+Day by day plan,plan,must,yes,yes,already built
+Challenges with day calendar,challenges,must,yes,yes,
+Badges and streaks,challenges,should,yes,yes,
+Water tracker,daily,must,yes,yes,
+Steps tracker,daily,must,yes,partial,manual entry; no Apple Health from web
+Weight log with goal line,body,must,yes,yes,
+Body measurements,body,should,yes,yes,
+Progress photos,body,should,yes,yes,
+Meal ideas with kcal and time,meals,should,yes,yes,optional section
+Calorie target,meals,could,yes,yes,optional section
+Breathing exercises,mind,should,yes,yes,optional section
+Mood check in,mind,could,yes,yes,optional section
+Daily tips,coaching,could,yes,yes,optional section
+Human 1 to 1 coaching,coaching,could,yes,skip,needs real coaches
+Apple Health and Watch sync,daily,could,yes,skip,not possible from a web app
+Subscription and paywall,billing,must,yes,no,needs T's own Stripe or App Store account
+Reminders and notifications,daily,could,yes,no,
+One tap cancel and clear renewal reminders,billing,should,no,no,fix for top complaint

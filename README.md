@@ -25,3 +25,10 @@ Everything is stored in Safari on your phone only. Use **Settings, Export backup
 Exercise photos and instructions are from [Free Exercise DB](https://github.com/yuhonas/free-exercise-db), released into the public domain. Exercise animations are loaded from ExerciseDB V1 (AscendAPI, static.exercisedb.dev), free tier, for personal use.
 
 This is general fitness guidance, not medical advice. Stop any exercise that causes pain and get advice from a GP or physiotherapist if you have an injury or health condition.
+
+## Daily life features
+- One minute quiz on first open: goal, body, activity, focus areas, level, equipment, days. Builds the plan and daily targets.
+- Your day on the Today screen: water glasses, steps, and optional meal ideas, breathing, mood and a daily tip (switch each on or off in Settings).
+- Challenges: 14, 21 and 28 day programmes with a day calendar. Workouts started from a challenge tick their day off automatically.
+- Body: weight chart with goal line, measurements, progress photos (stored on the phone only), BMI.
+- Badges for workouts, streaks, challenges, water, steps and weigh ins.

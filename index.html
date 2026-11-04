@@ -954,6 +954,7 @@ async function init(){migrate();if(!settings.planStart)settings.planStart=monday
  try{const r=await fetch("data/exercises.json");EX=await r.json();Object.values(EDB.extra).forEach(e=>EX.push(e));EX.forEach(e=>EXMAP[e.id]=e)}catch(e){toast("Couldn't load the exercise library. Check your connection.")}
  renderHome();renderTrain();if(active)renderBanner();if(!settings.setupDone)openSetup(true)}
 if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}))}
-init();
+window.addEventListener("DOMContentLoaded",init);
 </script>
+<script src="life.js"></script>
 </body></html>
