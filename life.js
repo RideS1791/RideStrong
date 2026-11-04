@@ -46,6 +46,18 @@ const css=`
 .b-circle span{width:46%;height:46%;border-radius:50%;background:var(--grad);display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:900;color:#fff;letter-spacing:1px}
 .b-left{font-size:44px;font-weight:900;letter-spacing:-1px}
 .bigtap{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0}.bigtap button{border:0;border-radius:14px;padding:16px 0;background:#17171c;color:#fff;font-weight:900;font-size:16px}
+
+.dayrings{display:flex;justify-content:space-around;gap:6px;padding:16px 8px}
+.dring{flex:1;border:0;background:none;color:var(--ink);display:flex;flex-direction:column;align-items:center;gap:4px;padding:0}
+.dring .rg{position:relative;width:min(24vw,96px);height:min(24vw,96px)}.dring svg{width:100%;height:100%}
+.dring .rg span{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:900}.dring .rg span i{font-style:normal;font-size:13px;color:var(--muted);font-weight:700}
+.dring b{font-size:14px;margin-top:4px}.dring small{font-size:11px;color:var(--muted)}
+.pcard{display:flex;align-items:center;gap:12px;width:100%;text-align:left;color:var(--ink)}.pcard div{flex:1}.pcard b{display:block}.pcard small{display:block;color:var(--muted);font-size:12px;margin-top:2px}.pcard .chev{color:var(--muted);font-size:22px}
+.tcard{display:flex;align-items:center;gap:12px;cursor:pointer}.tcard .ti{font-size:26px}.tcard .tx{flex:1;min-width:0}.tcard b{display:block;font-size:15px;margin-top:2px}.tcard small{color:var(--muted);font-size:12px}
+.tiles2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+.tile2{border:1px solid var(--line);background:var(--paper);border-radius:20px;padding:14px;text-align:left;color:var(--ink);display:flex;flex-direction:column;gap:4px;min-height:110px}
+.tile2 .em{font-size:28px}.tile2 b{font-size:14px}.tile2 small{color:var(--muted);font-size:12px;line-height:1.3}
+.mcard b{display:block;margin-bottom:6px}
 `;
 const st=document.createElement("style");st.textContent=css;document.head.appendChild(st);
 
@@ -64,6 +76,8 @@ const saveDaily=()=>store.set("rs2Daily",daily),saveBody=()=>store.set("rs2Body"
 const today=()=>dayKey(new Date());
 const D=k=>daily[k||today()]||(daily[k||today()]={});
 const prof=()=>settings.profile||null;
+const goalsOf=p=>p?(p.goals&&p.goals.length?p.goals:(p.goal?[p.goal]:[])):[];
+const hasGoal=g=>goalsOf(prof()).includes(g);
 const mods=()=>(prof()&&prof().mods)||{water:true,steps:true,meals:false,mind:false,tips:false};
 
 /* ---------- units ---------- */
@@ -75,9 +89,9 @@ function htTxt(cm){if(settings.hUnit==="ft"){const i=Math.round(cm/2.54);return 
 /* ---------- targets ---------- */
 function targets(){const p=prof();if(!p)return{water:2000,steps:8000,kcal:0};
  const water=Math.min(3500,Math.max(1500,Math.round(p.wt*33/250)*250));
- const steps=[6000,8000,10000,10000][p.act||0]+(p.goal==="lose"?1000:0);
+ const steps=[6000,8000,10000,10000][p.act||0]+(goalsOf(p).includes("lose")?1000:0);
  const base=10*p.wt+6.25*p.h-5*p.age+(p.sex==="m"?5:p.sex==="f"?-161:-78),tdee=base*[1.2,1.375,1.55,1.725][p.act||0]*1.05;
- let kcal=tdee+({lose:-450,tone:-200,strong:200,abs:-300}[p.goal]||0);kcal=Math.max(p.sex==="m"?1500:1200,Math.round(kcal/50)*50);
+ const gs=goalsOf(p),adj=gs.includes("lose")?-450:gs.includes("abs")?-300:gs.includes("tone")?-200:gs.includes("strong")?200:0;let kcal=tdee+adj;kcal=Math.max(p.sex==="m"?1500:1200,Math.round(kcal/50)*50);
  return{water:water,steps:Math.min(12000,steps),kcal:kcal}}
 function bmi(){const p=prof(),w=latestWeight();if(!p||!p.h||!w)return null;return w/Math.pow(p.h/100,2)}
 function bmiBand(b){return b<18.5?"below the healthy range":b<25?"in the healthy range":b<30?"above the healthy range":"well above the healthy range"}
@@ -87,27 +101,27 @@ function latestWeight(){return body.w.length?body.w[body.w.length-1].kg:(prof()?
 const GOALPLANS={lose:["w_circuit","w_legs","w_full","w_abs","w_lean","w_core10"],tone:["w_full","w_lean","w_legs","w_abs","w_circuit","w_obliques"],abs:["w_abs","w_legs","w_upcore","w_obliques","w_full","w_core"],posture:["w_upper","w_core","w_full","w_legs","w_upcore","w_abs"],fit:["w_full","w_upcore","w_legs","w_circuit","w_abs","w_core"]};
 const GOALS=[["lose","🔥","Lose weight","Burn fat and feel lighter"],["tone","✨","Tone up","Firmer and more defined"],["strong","💪","Get stronger","Build real strength"],["abs","🎯","Flat stomach","Core and abs focus"],["posture","🧍","Better posture","Back, shoulders and core"],["fit","❤️","Feel fitter","More energy every day"]];
 const _pt=planTemplate;
-window.planTemplate=planTemplate=function(){const p=prof();if(!p||!GOALPLANS[p.goal])return _pt();const n=Math.min(6,Math.max(1,settings.days.length));return GOALPLANS[p.goal].slice(0,n)};
+window.planTemplate=planTemplate=function(){const p=prof(),gs=goalsOf(p);if(!gs.length||(gs.length===1&&!GOALPLANS[gs[0]]))return _pt();const n=Math.min(6,Math.max(1,settings.days.length)),lists=gs.map(g=>GOALPLANS[g]||TEMPLATES[6]),out=[];for(let i=0;i<6&&out.length<n;i++)lists.forEach(l=>{if(l[i]&&!out.includes(l[i])&&out.length<n)out.push(l[i])});return out};
 
 /* ---------- quiz ---------- */
 let Q=null;
 const QSTEPS=["goal","sex","age","height","weight","goalw","act","focus","level","equip","days","mods"];
-function openQuiz(){const p=prof()||{};Q={i:0,d:{goal:p.goal||"",sex:p.sex||"",age:p.age||40,h:p.h||175,wt:p.wt||latestWeight()||80,gw:p.gw||null,act:p.act!=null?p.act:null,focus:(p.focus||[]).slice(),level:settings.setupDone?settings.level:"",equip:settings.setupDone?settings.equip:"",days:settings.setupDone?settings.days.slice():[0,2,4],mods:Object.assign({water:true,steps:true,meals:false,mind:false,tips:false},p.mods||{})}};document.getElementById("quiz").classList.add("open");renderQuiz()}
+function openQuiz(){const p=prof()||{};Q={i:0,d:{goals:goalsOf(p).slice(),kit:(p.kit||(settings.setupDone?(settings.equip==="bw"?["none"]:["db"]):[])).slice(),goal:p.goal||"",sex:p.sex||"",age:p.age||40,h:p.h||175,wt:p.wt||latestWeight()||80,gw:p.gw||null,act:p.act!=null?p.act:null,focus:(p.focus||[]).slice(),level:settings.setupDone?settings.level:"",equip:settings.setupDone?settings.equip:"",days:settings.setupDone?settings.days.slice():[0,2,4],mods:Object.assign({water:true,steps:true,meals:false,mind:false,tips:false},p.mods||{})}};document.getElementById("quiz").classList.add("open");renderQuiz()}
 function closeQuiz(){document.getElementById("quiz").classList.remove("open")}
 function opt(on,em,t,sub,click){return'<button class="qopt'+(on?" on":"")+'" onclick="'+click+'"><span class="em">'+em+'</span><span>'+t+(sub?'<small>'+sub+'</small>':'')+'</span></button>'}
-function stepper(val,unit,minus,plus){return'<div class="stepper"><button onclick="'+minus+'">−</button><div class="v'+(String(val).length>4?" long":"")+'">'+val+'<small>'+unit+'</small></div><button onclick="'+plus+'">+</button></div>'}
+function stepper(val,unit,minus,plus){return'<div class="stepper"><button onpointerdown="L.hold(event,\''+btoa(minus)+'\')">−</button><div class="v'+(String(val).length>4?" long":"")+'">'+val+'<small>'+unit+'</small></div><button onpointerdown="L.hold(event,\''+btoa(plus)+'\')">+</button></div>'}
 function renderQuiz(){const d=Q.d,k=QSTEPS[Q.i],n=QSTEPS.length;let h="",next=false,nextTxt="Next",skip="";
- if(k==="goal"){h='<h2>What is your main goal?</h2>'+GOALS.map(g=>opt(d.goal===g[0],g[1],g[2],g[3],"L.qset('goal','"+g[0]+"',1)")).join("")}
+ if(k==="goal"){h='<h2>What are your goals?</h2><p class="tiny" style="margin:-8px 0 16px">Pick as many as you like.</p>'+GOALS.map(g=>opt(d.goals.includes(g[0]),g[1],g[2],g[3],"L.qmulti('goals','"+g[0]+"')")).join("");next=d.goals.length>0}
  else if(k==="sex"){h='<h2>Which best describes you?</h2><p class="tiny" style="margin:-8px 0 16px">Only used to estimate your daily calories.</p>'+[["m","👨","Male"],["f","👩","Female"],["x","🙂","Prefer not to say"]].map(o=>opt(d.sex===o[0],o[1],o[2],"","L.qset('sex','"+o[0]+"',1)")).join("")}
  else if(k==="age"){h='<h2>How old are you?</h2>'+stepper(d.age,"years","L.qn('age',-1,14,95)","L.qn('age',1,14,95)");next=true}
  else if(k==="height"){const ft=settings.hUnit==="ft";h='<h2>How tall are you?</h2><div class="seg" style="max-width:220px;margin:0 auto"><button class="'+(!ft?"active":"")+'" onclick="L.unit(\'hUnit\',\'cm\')">cm</button><button class="'+(ft?"active":"")+'" onclick="L.unit(\'hUnit\',\'ft\')">ft and in</button></div>'+stepper(ft?htTxt(d.h).replace(" in",""):Math.round(d.h),ft?"in":"cm","L.qn('h',"+(ft?-2.54:-1)+",120,220)","L.qn('h',"+(ft?2.54:1)+",120,220)");next=true}
- else if(k==="weight"||k==="goalw"){const key=k==="weight"?"wt":"gw";if(d[key]==null)d[key]=d.goal==="lose"?Math.round(d.wt-5):Math.round(d.wt);const s=settings.bodyUnit==="st",inc=s?0.4536:1;
+ else if(k==="weight"||k==="goalw"){const key=k==="weight"?"wt":"gw";if(d[key]==null)d[key]=d.goals.includes("lose")?Math.round(d.wt-5):Math.round(d.wt);const s=settings.bodyUnit==="st",inc=s?0.4536:1;
   h='<h2>'+(k==="weight"?"What do you weigh now?":"What weight would you like to get to?")+'</h2><div class="seg" style="max-width:220px;margin:0 auto"><button class="'+(!s?"active":"")+'" onclick="L.unit(\'bodyUnit\',\'kg\')">kg</button><button class="'+(s?"active":"")+'" onclick="L.unit(\'bodyUnit\',\'st\')">st and lb</button></div>'+stepper(s?wtTxt(d[key]).replace(" lb",""):Math.round(d[key]),s?"lb":"kg","L.qn('"+key+"',"+(-inc)+",35,250)","L.qn('"+key+"',"+inc+",35,250)");
   if(k==="goalw"){const diff=d.gw-d.wt;h+='<p class="tiny" style="text-align:center">'+(Math.abs(diff)<0.5?"Keep your weight where it is":diffTxt(diff)+" from today")+'</p>';skip='<button class="linkbtn" style="display:block;margin:10px auto 0" onclick="Q.d.gw=Q.d.wt;L.qnext()">I don\'t have a target</button>'}next=true}
  else if(k==="act"){h='<h2>How active is a normal day?</h2>'+[["🪑","Mostly sitting","Desk or car most of the day"],["🚶","On my feet some of the day","A bit of walking"],["🏃","Active","Lots of walking or a physical job"],["⚡","Very active","On the go all day"]].map((o,i)=>opt(d.act===i,o[0],o[1],o[2],"L.qset('act',"+i+",1)")).join("")}
  else if(k==="focus"){h='<h2>Any areas you want to work on?</h2><div class="qgrid">'+[["arms","💪","Arms"],["chest","🫁","Chest"],["belly","🎯","Belly"],["back","🧍","Back"],["glutes","🍑","Bum"],["legs","🦵","Legs"]].map(o=>opt(d.focus.includes(o[0]),o[1],o[2],"","L.qtog('"+o[0]+"')")).join("")+'</div>';next=true}
  else if(k==="level"){h='<h2>How fit are you right now?</h2>'+[["b","🌱","Beginner","New to it or coming back after a break"],["i","🌿","Intermediate","I train now and then"],["a","🌳","Advanced","I train most weeks"]].map(o=>opt(d.level===o[0],o[1],o[2],o[3],"L.qset('level','"+o[0]+"',1)")).join("")}
- else if(k==="equip"){h='<h2>What have you got at home?</h2>'+[["db","🏋️","Dumbbells","Plus a bit of floor space"],["bw","🤸","Nothing","Bodyweight only"]].map(o=>opt(d.equip===o[0],o[1],o[2],o[3],"L.qset('equip','"+o[0]+"',1)")).join("")}
+ else if(k==="equip"){h='<h2>What have you got at home?</h2><p class="tiny" style="margin:-8px 0 16px">Pick everything you have.</p><div class="qgrid">'+[["db","🏋️","Dumbbells"],["kb","🔔","Kettlebell"],["bands","➰","Resistance bands"],["bar","🚪","Pull up bar"],["bench","🪑","Bench or sturdy chair"],["none","🤸","Nothing, just me"]].map(o=>opt(d.kit.includes(o[0]),o[1],o[2],"","L.qmulti('kit','"+o[0]+"')")).join("")+'</div>';next=d.kit.length>0}
  else if(k==="days"){h='<h2>Which days will you train?</h2><p class="tiny" style="margin:-8px 0 16px">Most people do 3 or 4. Each session takes 15 to 25 minutes.</p><div class="daypick">'+DAYS.map((nm,i)=>'<button class="'+(d.days.includes(i)?"active":"")+'" style="padding:16px 0" onclick="L.qday('+i+')">'+nm.slice(0,2)+'</button>').join("")+'</div><p style="text-align:center;font-weight:900;font-size:18px;margin-top:18px">'+d.days.length+' day'+(d.days.length===1?"":"s")+' a week</p>';next=d.days.length>0}
  else if(k==="mods"){h='<h2>What else would you like on your Today screen?</h2>'+[["water","💧","Water","Tap a glass each time you drink"],["steps","👟","Steps","Daily step goal"],["meals","🥗","Meal ideas","Simple healthy recipes"],["mind","🌬️","Breathing and mood","Short calming sessions"],["tips","💡","Daily tip","One quick tip a day"]].map(o=>opt(d.mods[o[0]],o[1],o[2],o[3],"L.qmod('"+o[0]+"')")).join("");next=true;nextTxt="Build my plan"}
  const el=document.getElementById("quiz");
@@ -116,19 +130,20 @@ function qset(k,v,go){Q.d[k]=v;renderQuiz();if(go)setTimeout(qnext,180)}
 function qn(k,dv,mn,mx){Q.d[k]=Math.max(mn,Math.min(mx,(+Q.d[k]||0)+dv));renderQuiz()}
 function qtog(v){const a=Q.d.focus,i=a.indexOf(v);if(i>=0)a.splice(i,1);else a.push(v);renderQuiz()}
 function qday(i){const a=Q.d.days,k=a.indexOf(i);if(k>=0)a.splice(k,1);else{if(a.length>=6){toast("Up to 6 days");return}a.push(i)}a.sort((x,y)=>x-y);renderQuiz()}
+function qmulti(key,v){const a=Q.d[key],i=a.indexOf(v);if(i>=0)a.splice(i,1);else{if(key==="kit"&&v==="none")a.length=0;else if(key==="kit"){const n=a.indexOf("none");if(n>=0)a.splice(n,1)}a.push(v)}renderQuiz()}
 function qmod(k){Q.d.mods[k]=!Q.d.mods[k];renderQuiz()}
 function unit(k,v){settings[k]=v;saveSet();renderQuiz()}
 function qback(){if(Q.i>0){Q.i--;renderQuiz()}else if(settings.setupDone)closeQuiz()}
-function qnext(){const k=QSTEPS[Q.i];if(["goal","sex","act","level","equip"].includes(k)&&(Q.d[k]===""||Q.d[k]==null)){toast("Tap an answer");return}if(Q.i<QSTEPS.length-1){Q.i++;renderQuiz();document.querySelector("#quiz .q-body").scrollTop=0}else qbuild()}
+function qnext(){const k=QSTEPS[Q.i];if(["sex","act","level"].includes(k)&&(Q.d[k]===""||Q.d[k]==null)){toast("Tap an answer");return}if(Q.i<QSTEPS.length-1){Q.i++;renderQuiz();document.querySelector("#quiz .q-body").scrollTop=0}else qbuild()}
 function qbuild(){const d=Q.d,first=!settings.setupDone;
- settings.profile={goal:d.goal,sex:d.sex,age:d.age,h:d.h,wt:Math.round(d.wt*10)/10,gw:Math.round((d.gw==null?d.wt:d.gw)*10)/10,act:d.act,focus:d.focus,mods:d.mods,at:new Date().toISOString()};
+ d.goal=d.goals[0];d.equip=d.kit.some(x=>x==="db"||x==="kb")?"db":"bw";settings.profile={goal:d.goals[0],goals:d.goals.slice(),kit:d.kit.slice(),sex:d.sex,age:d.age,h:d.h,wt:Math.round(d.wt*10)/10,gw:Math.round((d.gw==null?d.wt:d.gw)*10)/10,act:d.act,focus:d.focus,mods:d.mods,at:new Date().toISOString()};
  settings.level=d.level;settings.equip=d.equip;settings.days=d.days;if(first||!settings.planStart)settings.planStart=monday(new Date()).toISOString();settings.setupDone=true;saveSet();
  if(!body.w.length||Math.abs(body.w[body.w.length-1].kg-d.wt)>0.05){addWeight(d.wt,true)}
  document.getElementById("quiz").innerHTML='<div class="q-body" style="text-align:center"><div class="spin"></div><h2>Building your plan</h2><p class="tiny" id="qmsg">Matching workouts to your goal</p></div>';
  const msgs=["Matching workouts to your goal","Setting your daily targets","Picking your training days"];let m=0;const t=setInterval(()=>{m++;const e=document.getElementById("qmsg");if(e&&msgs[m])e.textContent=msgs[m]},600);
  setTimeout(()=>{clearInterval(t);planReady(first)},1900)}
-function planReady(first){const p=prof(),t=targets(),b=bmi(),g=GOALS.find(x=>x[0]===p.goal),slots=planSlots(),diff=p.gw-p.wt,weeks=Math.ceil(Math.abs(diff)/0.5);
- const rows=[[g[1],g[2],"Your main goal"]];
+function planReady(first){const p=prof(),t=targets(),b=bmi(),gl=GOALS.filter(x=>goalsOf(p).includes(x[0])),slots=planSlots(),diff=p.gw-p.wt,weeks=Math.ceil(Math.abs(diff)/0.5);
+ const rows=[[gl[0][1],gl.map(x=>x[2]).join(", "),gl.length>1?"Your goals":"Your goal"]];
  if(Math.abs(diff)>=0.5)rows.push(["📉","Target "+wtTxt(p.gw),diff<0?"Around "+weeks+" weeks at a steady 0.5 kg a week":"Gain slowly, about 0.25 kg a week"]);
  if(b)rows.push(["📏","BMI "+b.toFixed(1),"Your BMI is "+bmiBand(b)]);
  rows.push(["🗓️",slots.length+" workouts a week",slots.map(s=>DAYS[s.day]+" "+W[s.wid].name).join(" · ")]);
@@ -261,17 +276,22 @@ let tipOff=0;
 function tip(){const n=Math.floor(Date.now()/864e5)+tipOff;return TIPS[((n%TIPS.length)+TIPS.length)%TIPS.length]}
 
 /* ---------- Today ---------- */
+function ring(pct,inner,label,sub,click,id){const C=2*Math.PI*42,v=Math.max(0,Math.min(1,pct));return'<button class="dring" '+(id?'id="'+id+'" ':'')+'onclick="'+click+'"><div class="rg"><svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="42" fill="none" stroke="#1f1f25" stroke-width="10"/>'+(v?'<circle cx="50" cy="50" r="42" fill="none" stroke="'+(v>=1?"#34d27b":"#ff3b4f")+'" stroke-width="10" stroke-linecap="round" stroke-dasharray="'+(C*v).toFixed(1)+' '+C.toFixed(1)+'" transform="rotate(-90 50 50)"/>':'')+'</svg><span>'+inner+'</span></div><b>'+label+'</b><small>'+sub+'</small></button>'}
 function renderLifeToday(){const el=document.getElementById("lifeToday");if(!el)return;const p=prof(),m=mods(),t=targets(),d=D();let h="";
- if(!p&&settings.setupDone)h+='<div class="card" style="cursor:pointer;border-color:var(--lime)" onclick="L.openQuiz()"><div class="row"><div><h3>Personalise your plan</h3><p class="tiny" style="margin:0">One minute of quick taps. Goal, body and daily targets.</p></div><span style="font-size:28px">✨</span></div></div>';
- if(chal.cur){const c=chById(chal.cur.id),days=chDays(c),nx=chNext(),dn=Object.keys(chal.cur.done).length,w=days[nx];h+='<div class="card" style="cursor:pointer" onclick="L.openCh(\''+c.id+'\')"><div class="row"><div style="min-width:0"><span class="eyebrow">CHALLENGE · DAY '+(nx+1)+' OF '+days.length+'</span><h3 style="margin:4px 0 0">'+esc(c.name)+'</h3><p class="tiny" style="margin:2px 0 0">'+(w===REST?"Rest day today":"Today: "+esc(W[w].name))+'</p></div><button class="btn small" style="background:var(--grad);color:#fff;flex:none" onclick="event.stopPropagation();'+(w===REST?"L.chRest("+nx+")":"L.chGo("+nx+")")+'">'+(w===REST?"✓ Rest":"GO")+'</button></div><div class="hbar"><i style="width:'+(dn/days.length*100)+'%"></i></div></div>'}
- const rows=[];
- if(m.water){const g=Math.round(t.water/250),cur=Math.round((d.w||0)/250);rows.push('<div class="habit"><span class="ic">💧</span><div class="tx"><b>Water</b><small>'+litres(d.w||0)+' of '+litres(t.water)+' litres</small><div class="glasses">'+Array.from({length:g},(_,i)=>'<button class="'+(i<cur?"on":"")+'" onclick="L.water('+i+')" aria-label="Glass '+(i+1)+'"></button>').join("")+'</div></div><span class="tick'+(cur>=g?" on":"")+'">'+(cur>=g?"✓":"")+'</span></div>')}
- if(m.steps){const s=d.s||0;rows.push('<div class="habit" style="cursor:pointer" onclick="L.openSteps()"><span class="ic">👟</span><div class="tx"><b>Steps</b><small>'+s.toLocaleString("en-GB")+' of '+t.steps.toLocaleString("en-GB")+' · tap to add</small><div class="hbar"><i style="width:'+Math.min(100,s/t.steps*100)+'%"></i></div></div><span class="tick'+(s>=t.steps?" on":"")+'">'+(s>=t.steps?"✓":"")+'</span></div>')}
- if(m.meals){const r=todaysMeal(),n=(d.m||[]).length;rows.push('<div class="habit" style="cursor:pointer" onclick="L.recipe(\''+r.id+'\')"><span class="ic">'+r.em+'</span><div class="tx"><b>'+esc(r.n)+'</b><small>'+MEALS[r.m]+' idea · '+r.kcal+' kcal · '+r.min+' min</small></div><button class="linkbtn" onclick="event.stopPropagation();L.openMeals(\''+r.m+'\')">'+(n?n+" had":"More")+'</button></div>')}
- if(m.mind){const b=d.b||0;rows.push('<div class="habit" style="cursor:pointer" onclick="L.openBreath()"><span class="ic">🌬️</span><div class="tx"><b>Breathe</b><small>'+(b?Math.round(b/60)+" min today":"1 minute to reset")+'</small></div><span class="tick'+(b>=60?" on":"")+'">'+(b>=60?"✓":"")+'</span></div>');
-  rows.push('<div class="habit"><span class="ic">🙂</span><div class="tx"><b>How are you feeling?</b><div class="moods">'+["😫","😕","😐","🙂","😄"].map((e,i)=>'<button class="'+(d.mood===i+1?"on":"")+'" onclick="L.mood('+(i+1)+')">'+e+'</button>').join("")+'</div></div></div>')}
- if(m.tips)rows.push('<div class="habit" style="cursor:pointer" onclick="L.nextTip()"><span class="ic">💡</span><div class="tx"><b>Tip of the day</b><small style="color:var(--ink2);font-size:13px;line-height:1.4">'+esc(tip())+'</small></div><span style="color:var(--muted)">›</span></div>');
- if(rows.length)h+='<div class="section-head"><h2>Your day</h2></div><div class="card" style="padding:4px 16px">'+rows.join("")+'</div>';
+ const hs=document.getElementById("homeStats");if(hs)hs.style.display="none";
+ if(!p&&settings.setupDone)h+='<button class="card pcard" onclick="L.openQuiz()"><span style="font-size:28px">✨</span><div><b>Personalise your plan</b><small>One minute of taps. Your goals and daily targets.</small></div><span class="chev">›</span></button>';
+ const tk=today(),doneToday=sessions.some(s=>!isRide(s)&&dayKey(s.date)===tk),rings=[];
+ rings.push(ring(doneToday?1:0,doneToday?"✓":"💪","Workout",doneToday?"Done today":"Tap GO above","document.getElementById('heroBtn').click()"));
+ if(m.water){const g=Math.round(t.water/250),cur=Math.round((d.w||0)/250);rings.push(ring(cur/g,cur+'<i>/'+g+'</i>',"Water","Tap to add a glass","L.water("+cur+")","ringWater"))}
+ if(m.steps){const s=d.s||0;rings.push(ring(s/t.steps,s>=1000?(s/1000).toFixed(1).replace(/\.0$/,"")+"k":s,"Steps","of "+t.steps.toLocaleString("en-GB"),"L.openSteps()"))}
+ h+='<div class="section-head"><h2>Your day</h2>'+(m.water&&(d.w||0)>0?'<button class="linkbtn" onclick="L.water('+(Math.round((d.w||0)/250)-1)+')">Undo glass</button>':'')+'</div><div class="card dayrings">'+rings.join("")+'</div>';
+ if(chal.cur){const c=chById(chal.cur.id),days=chDays(c),nx=chNext(),dn=Object.keys(chal.cur.done).length,w=days[nx];h+='<div class="card tcard" onclick="L.openCh(\''+c.id+'\')"><div class="ti">🏆</div><div class="tx"><span class="eyebrow">DAY '+(nx+1)+' OF '+days.length+'</span><b>'+esc(c.name)+'</b><small>'+(w===REST?"Rest day":"Today: "+esc(W[w].name))+'</small><div class="hbar"><i style="width:'+(dn/days.length*100)+'%"></i></div></div><button class="btn small" style="background:var(--grad);color:#fff;flex:none" onclick="event.stopPropagation();'+(w===REST?"L.chRest("+nx+")":"L.chGo("+nx+")")+'">'+(w===REST?"✓":"GO")+'</button></div>'}
+ const tiles=[];
+ if(m.meals){const r=todaysMeal();tiles.push('<button class="tile2" onclick="L.recipe(\''+r.id+'\')"><span class="em">'+r.em+'</span><b>'+MEALS[r.m]+' idea</b><small>'+esc(r.n)+'</small></button>')}
+ if(m.mind){const b=d.b||0;tiles.push('<button class="tile2" onclick="L.openBreath()"><span class="em">🌬️</span><b>Breathe</b><small>'+(b?Math.round(b/60)+" min done today":"1 minute to reset")+'</small></button>')}
+ if(tiles.length)h+='<div class="tiles2">'+tiles.join("")+'</div>';
+ if(m.mind)h+='<div class="card mcard"><b>How are you feeling?</b><div class="moods">'+["😫","😕","😐","🙂","😄"].map((e,i)=>'<button class="'+(d.mood===i+1?"on":"")+'" onclick="L.mood('+(i+1)+')">'+e+'</button>').join("")+'</div></div>';
+ if(m.tips)h+='<button class="card pcard" onclick="L.nextTip()"><span style="font-size:24px">💡</span><div><small style="color:var(--ink2);font-size:14px;line-height:1.4">'+esc(tip())+'</small></div><span class="chev">›</span></button>';
  el.innerHTML=h}
 
 /* ---------- Workouts page: challenges ---------- */
@@ -290,9 +310,9 @@ function renderLifeProgress(){const el=document.getElementById("lifeBody");if(!e
  const bl=badgeList(),on=bl.filter(x=>x[3]).length;document.getElementById("lifeBadges").innerHTML='<div class="section-head"><h2>Badges</h2><span class="tiny">'+on+' of '+bl.length+'</span></div><div class="card"><div class="badges">'+bl.map(x=>'<div class="badge'+(x[3]?" on":"")+'"><div class="bx">'+x[1]+'</div><small>'+x[2]+'</small></div>').join("")+'</div></div>'}
 
 /* ---------- Settings ---------- */
-function renderLifeSettings(){const el=document.getElementById("lifeSettings");if(!el)return;const p=prof(),m=mods(),g=p&&GOALS.find(x=>x[0]===p.goal);
+function renderLifeSettings(){const el=document.getElementById("lifeSettings");if(!el)return;const p=prof(),m=mods(),gn=p?GOALS.filter(x=>goalsOf(p).includes(x[0])).map(x=>x[2]).join(", "):"";
  const tog=(k,lbl)=>'<label>'+lbl+'</label><div class="seg"><button class="'+(m[k]?"active":"")+'" onclick="L.mod(\''+k+'\',true)">On</button><button class="'+(!m[k]?"active":"")+'" onclick="L.mod(\''+k+'\',false)">Off</button></div>';
- el.innerHTML='<div class="card"><h3>About you</h3><p class="tiny">'+(p?esc(g[2])+" · "+(p.age)+" years · "+htTxt(p.h)+" · goal "+wtTxt(p.gw):"Not set up yet")+'</p><button class="btn soft full" onclick="L.openQuiz()">'+(p?"Retake the quiz":"Personalise my plan")+'</button>'+
+ el.innerHTML='<div class="card"><h3>About you</h3><p class="tiny">'+(p?esc(gn)+" · "+(p.age)+" years · "+htTxt(p.h)+" · goal "+wtTxt(p.gw):"Not set up yet")+'</p><button class="btn soft full" onclick="L.openQuiz()">'+(p?"Retake the quiz":"Personalise my plan")+'</button>'+
  '<label>Body weight in</label><div class="seg"><button class="'+(settings.bodyUnit!=="st"?"active":"")+'" onclick="L.su(\'bodyUnit\',\'kg\')">kg</button><button class="'+(settings.bodyUnit==="st"?"active":"")+'" onclick="L.su(\'bodyUnit\',\'st\')">st and lb</button></div><label>Height in</label><div class="seg"><button class="'+(settings.hUnit!=="ft"?"active":"")+'" onclick="L.su(\'hUnit\',\'cm\')">cm</button><button class="'+(settings.hUnit==="ft"?"active":"")+'" onclick="L.su(\'hUnit\',\'ft\')">ft and in</button></div></div>'+
  '<div class="card"><h3>On your Today screen</h3>'+tog("water","💧 Water")+tog("steps","👟 Steps")+tog("meals","🥗 Meal ideas")+tog("mind","🌬️ Breathing and mood")+tog("tips","💡 Daily tip")+'</div>'}
 function setMod(k,v){if(!settings.profile)settings.profile={mods:mods()};settings.profile.mods=Object.assign(mods(),{[k]:v});saveSet();renderLifeSettings();renderLifeToday()}
@@ -308,7 +328,10 @@ window.exportData=exportData=function(){PDB.all().catch(()=>[]).then(ph=>{const 
 window.importData=importData=function(inp){const f=inp.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{const d=JSON.parse(r.result);if(!Array.isArray(d.sessions))throw 0;if(!confirm("Replace everything on this phone with the backup from "+(d.exported?new Date(d.exported).toLocaleDateString("en-GB"):"that file")+"?"))return;sessions=d.sessions;custom=d.custom||[];settings=Object.assign(settings,d.settings||{});daily=d.daily||{};body=d.body||{w:[],m:[]};chal=d.challenges||{cur:null,fin:[]};saveSessions();saveCustom();saveSet();saveDaily();saveBody();saveCh();(d.photos||[]).forEach(p=>PDB.put(p).catch(()=>{}));renderSettings();renderHome();toast("Backup restored")}catch(e){toast("That file isn't a FitJoy backup")}inp.value=""};r.readAsText(f)};
 window.wipeAll=wipeAll=function(){if(!confirm("Delete all workouts, history, body data, photos and settings on this phone? This cannot be undone."))return;["rs2Sessions","rs2Custom","rs2Settings","rs2Active","rs2Daily","rs2Body","rs2Ch","rs2Badges"].forEach(k=>localStorage.removeItem(k));try{indexedDB.deleteDatabase("rsPhotos")}catch(e){}location.reload()};
 
-window.L={openQuiz,closeQuiz,qset,qn,qtog,qday,qmod,unit,qback,qnext,water,openSteps,stepAdd,stepSet,mood,openCh,chStart,chQuit,chDay,chRest,chGo,logWeight,openMeas,saveMeas,openPhotos,delPhoto,openMeals,recipe,ate,openBreath,breathLen,breathGo,breathStop,mod:setMod,su,
+let holdT=null,holdI=null;function stopHold(){clearTimeout(holdT);clearInterval(holdI);holdT=holdI=null}
+['pointerup','pointercancel','blur'].forEach(e=>window.addEventListener(e,stopHold));
+function hold(e,code){e.preventDefault();stopHold();const f=new Function(atob(code));f();holdT=setTimeout(()=>{holdI=setInterval(f,90)},420)}
+window.L={hold,qmulti,openQuiz,closeQuiz,qset,qn,qtog,qday,qmod,unit,qback,qnext,water,openSteps,stepAdd,stepSet,mood,openCh,chStart,chQuit,chDay,chRest,chGo,logWeight,openMeas,saveMeas,openPhotos,delPhoto,openMeals,recipe,ate,openBreath,breathLen,breathGo,breathStop,mod:setMod,su,
  wd(dv){wDraft=Math.max(30,Math.min(250,wDraft+dv));drawWeightSheet()},bu(v){settings.bodyUnit=v;saveSet();drawWeightSheet()},saveW(){addWeight(wDraft);closeModal("lifeModal")},nextTip(){tipOff++;renderLifeToday()}};
 window.D=D;
 PDB.all().then(a=>{photoCount=a.length}).catch(()=>{});
