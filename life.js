@@ -58,6 +58,9 @@ const css=`
 .tile2{border:1px solid var(--line);background:var(--paper);border-radius:20px;padding:14px;text-align:left;color:var(--ink);display:flex;flex-direction:column;gap:4px;min-height:110px}
 .tile2 .em{font-size:28px}.tile2 b{font-size:14px}.tile2 small{color:var(--muted);font-size:12px;line-height:1.3}
 .mcard b{display:block;margin-bottom:6px}
+.icb{width:44px;height:44px;border-radius:14px;background:#1a1a20;border:1px solid #26262e;display:flex;align-items:center;justify-content:center;color:#ff5a6b;flex:none}
+.dring .rg span .ico{color:#fff}
+.tile2 .icb{margin-bottom:4px}
 `;
 const st=document.createElement("style");st.textContent=css;document.head.appendChild(st);
 
@@ -70,6 +73,8 @@ add("#bests","afterend",'<div id="lifeBadges"></div>');
 {const ps=document.getElementById("planSummary");if(ps)ps.closest(".card").insertAdjacentHTML("afterend",'<div id="lifeSettings"></div>')}
 document.body.insertAdjacentHTML("beforeend",'<div id="quiz"></div><div id="breath"></div><div class="modal" id="lifeModal" onclick="if(event.target===this)closeModal(\'lifeModal\')"><div class="sheet" id="lifeSheet"></div></div><input type="file" id="photoIn" accept="image/*" style="display:none">');
 
+const IC={dumb:'<path d="M6.5 6.5v11M17.5 6.5v11M3 9v6M21 9v6M6.5 12h11"/>',drop:'<path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.500 6-11 6-11z"/>',steps:'<path d="M4 16l3-9 4 2 2 4 6 2v3H4z"/><path d="M4 19h15"/>',food:'<path d="M4 11h16a8 8 0 0 1-16 0z"/><path d="M12 3v4M8 4v3M16 4v3"/>',wind:'<path d="M3 8h10a3 3 0 1 0-3-3M3 12h15a3 3 0 1 1-3 3M3 16h7"/>',bulb:'<path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-4 10.500c.7.700 1 1.500 1 2.500h6c0-1 .3-1.800 1-2.500A6 6 0 0 0 12 3z"/>',cup:'<path d="M7 4h10v5a5 5 0 0 1-10 0zM7 6H4v1a3 3 0 0 0 3 3M17 6h3v1a3 3 0 0 1-3 3M12 14v4M8 20h8"/>',spark:'<path d="M12 3l1.800 5.200L19 10l-5.200 1.800L12 17l-1.800-5.200L5 10l5.200-1.800z"/>',ruler:'<path d="M3 17L17 3l4 4L7 21zM8 12l2 2M11 9l2 2M14 6l2 2"/>',cam:'<path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.500"/>',check:'<path d="M5 12.500l4.500 4.500L19 7.500"/>'};
+const ic=(n,sz)=>'<svg class="ico" viewBox="0 0 24 24"'+(sz?' style="width:'+sz+'px;height:'+sz+'px"':'')+'>'+IC[n]+'</svg>';
 /* ---------- data ---------- */
 let daily=store.get("rs2Daily",{}),body=store.get("rs2Body",{w:[],m:[]}),chal=store.get("rs2Ch",{cur:null,fin:[]}),seenBadges=store.get("rs2Badges",null);
 const saveDaily=()=>store.set("rs2Daily",daily),saveBody=()=>store.set("rs2Body",body),saveCh=()=>store.set("rs2Ch",chal);
@@ -181,9 +186,9 @@ function delPhoto(id){if(!confirm("Delete this photo?"))return;PDB.del(id).then(
 
 /* ---------- water and steps ---------- */
 const litres=ml=>(ml/1000).toFixed(2).replace(/\.?0+$/,"")||"0";
-function water(i){const t=targets(),d=D(),g=Math.round(t.water/250),cur=Math.round((d.w||0)/250);d.w=(i===cur-1?i:i+1)*250;saveDaily();if(Math.round(d.w/250)===g&&cur<g){beep(1318,.2);toast("Water goal done 💧")}renderLifeToday()}
+function water(i){const t=targets(),d=D(),g=Math.round(t.water/250),cur=Math.round((d.w||0)/250);d.w=(i===cur-1?i:i+1)*250;saveDaily();if(Math.round(d.w/250)===g&&cur<g){beep(1318,.2);toast("Water goal done")}renderLifeToday()}
 function openSteps(){const d=D(),t=targets();document.getElementById("lifeSheet").innerHTML='<div class="sheet-top"><span class="eyebrow">STEPS TODAY</span><button class="close" onclick="closeModal(\'lifeModal\')">×</button></div><div style="text-align:center;font-size:52px;font-weight:900;letter-spacing:-2px;margin:10px 0 0" id="stepsBig">'+(d.s||0).toLocaleString("en-GB")+'</div><p class="tiny" style="text-align:center;margin:0">Goal '+t.steps.toLocaleString("en-GB")+'</p><div class="bigtap"><button onclick="L.stepAdd(500)">+500</button><button onclick="L.stepAdd(1000)">+1,000</button><button onclick="L.stepAdd(5000)">+5,000</button></div><label for="stepsIn">Or type the number from your phone\'s Health app</label><input id="stepsIn" inputmode="numeric" placeholder="e.g. 7420" style="font-size:18px;text-align:center"><button class="btn full" style="margin-top:12px;background:var(--grad);color:#fff;padding:16px" onclick="L.stepSet()">Save</button><button class="linkbtn" style="display:block;margin:10px auto 0" onclick="L.stepAdd(-(D().s||0))">Reset to 0</button>';openModal("lifeModal")}
-function stepAdd(n){const d=D(),t=targets(),was=d.s||0;d.s=Math.max(0,was+n);saveDaily();const b=document.getElementById("stepsBig");if(b)b.textContent=d.s.toLocaleString("en-GB");if(was<t.steps&&d.s>=t.steps){beep(1318,.2);toast("Step goal done 👟")}renderLifeToday()}
+function stepAdd(n){const d=D(),t=targets(),was=d.s||0;d.s=Math.max(0,was+n);saveDaily();const b=document.getElementById("stepsBig");if(b)b.textContent=d.s.toLocaleString("en-GB");if(was<t.steps&&d.s>=t.steps){beep(1318,.2);toast("Step goal done")}renderLifeToday()}
 function stepSet(){const v=parseInt((document.getElementById("stepsIn").value||"").replace(/[^0-9]/g,""));if(v>=0&&document.getElementById("stepsIn").value!==""){D().s=v;saveDaily()}closeModal("lifeModal");renderLifeToday();afterLife()}
 function mood(v){D().mood=D().mood===v?0:v;saveDaily();renderLifeToday()}
 
@@ -267,7 +272,7 @@ function breathLen(k){document.getElementById("lifeSheet").innerHTML='<div class
 function breathGo(k,secs){closeModal("lifeModal");unlockAudio();keepAwake(true);const el=document.getElementById("breath");el.innerHTML='<div class="q-top"><span style="flex:1"></span><button onclick="L.breathStop()" aria-label="Close">×</button></div><div class="b-wrap"><div class="b-circle" id="bC"><span id="bP">Ready</span></div><div class="b-left" id="bL">'+fmtTime(secs)+'</div></div>';el.classList.add("open");
  B={k:k,total:secs,left:secs,i:-1,phLeft:0,start:Date.now(),int:null};setTimeout(()=>{if(!B)return;bPhase();B.int=setInterval(bTick,1000)},800)}
 function bPhase(){const ph=BREATHS[B.k].ph;B.i=(B.i+1)%ph.length;const p=ph[B.i];B.phLeft=p[1];const c=document.getElementById("bC"),t=document.getElementById("bP");if(!c)return;c.style.transitionDuration=p[1]+"s";c.style.transform=p[0]==="In"?"scale(1)":p[0]==="Out"?"scale(.55)":c.style.transform;t.textContent=p[0];if(settings.voice)say(p[0]==="In"?"In":p[0]==="Out"?"Out":"Hold");else beep(p[0]==="In"?660:520,.06)}
-function bTick(){if(!B)return;B.left--;B.phLeft--;const l=document.getElementById("bL");if(l)l.textContent=fmtTime(B.left);if(B.left<=0){const done=B.total;breathStop(true);D().b=(D().b||0)+done;saveDaily();beep(1046,.3);toast("Nicely done 🌬️");renderLifeToday();return}if(B.phLeft<=0)bPhase()}
+function bTick(){if(!B)return;B.left--;B.phLeft--;const l=document.getElementById("bL");if(l)l.textContent=fmtTime(B.left);if(B.left<=0){const done=B.total;breathStop(true);D().b=(D().b||0)+done;saveDaily();beep(1046,.3);toast("Nicely done");renderLifeToday();return}if(B.phLeft<=0)bPhase()}
 function breathStop(fin){if(!B)return;clearInterval(B.int);const used=B.total-B.left;if(!fin&&used>=30){D().b=(D().b||0)+used;saveDaily()}B=null;keepAwake(false);try{speechSynthesis.cancel()}catch(e){}document.getElementById("breath").classList.remove("open");renderLifeToday()}
 
 /* ---------- tips ---------- */
@@ -279,19 +284,19 @@ function tip(){const n=Math.floor(Date.now()/864e5)+tipOff;return TIPS[((n%TIPS.
 function ring(pct,inner,label,sub,click,id){const C=2*Math.PI*42,v=Math.max(0,Math.min(1,pct));return'<button class="dring" '+(id?'id="'+id+'" ':'')+'onclick="'+click+'"><div class="rg"><svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="42" fill="none" stroke="#1f1f25" stroke-width="10"/>'+(v?'<circle cx="50" cy="50" r="42" fill="none" stroke="'+(v>=1?"#34d27b":"#ff3b4f")+'" stroke-width="10" stroke-linecap="round" stroke-dasharray="'+(C*v).toFixed(1)+' '+C.toFixed(1)+'" transform="rotate(-90 50 50)"/>':'')+'</svg><span>'+inner+'</span></div><b>'+label+'</b><small>'+sub+'</small></button>'}
 function renderLifeToday(){const el=document.getElementById("lifeToday");if(!el)return;const p=prof(),m=mods(),t=targets(),d=D();let h="";
  const hs=document.getElementById("homeStats");if(hs)hs.style.display="none";
- if(!p&&settings.setupDone)h+='<button class="card pcard" onclick="L.openQuiz()"><span style="font-size:28px">✨</span><div><b>Personalise your plan</b><small>One minute of taps. Your goals and daily targets.</small></div><span class="chev">›</span></button>';
+ if(!p&&settings.setupDone)h+='<button class="card pcard" onclick="L.openQuiz()"><span class="icb">'+ic("spark",24)+'</span><div><b>Personalise your plan</b><small>One minute of taps. Your goals and daily targets.</small></div><span class="chev">›</span></button>';
  const tk=today(),doneToday=sessions.some(s=>!isRide(s)&&dayKey(s.date)===tk),rings=[];
- rings.push(ring(doneToday?1:0,doneToday?"✓":"💪","Workout",doneToday?"Done today":"Tap GO above","document.getElementById('heroBtn').click()"));
+ rings.push(ring(doneToday?1:0,doneToday?ic("check",30):ic("dumb",30),"Workout",doneToday?"Done today":"Tap GO above","document.getElementById('heroBtn').click()"));
  if(m.water){const g=Math.round(t.water/250),cur=Math.round((d.w||0)/250);rings.push(ring(cur/g,cur+'<i>/'+g+'</i>',"Water","Tap to add a glass","L.water("+cur+")","ringWater"))}
  if(m.steps){const s=d.s||0;rings.push(ring(s/t.steps,s>=1000?(s/1000).toFixed(1).replace(/\.0$/,"")+"k":s,"Steps","of "+t.steps.toLocaleString("en-GB"),"L.openSteps()"))}
  h+='<div class="section-head"><h2>Your day</h2>'+(m.water&&(d.w||0)>0?'<button class="linkbtn" onclick="L.water('+(Math.round((d.w||0)/250)-1)+')">Undo glass</button>':'')+'</div><div class="card dayrings">'+rings.join("")+'</div>';
- if(chal.cur){const c=chById(chal.cur.id),days=chDays(c),nx=chNext(),dn=Object.keys(chal.cur.done).length,w=days[nx];h+='<div class="card tcard" onclick="L.openCh(\''+c.id+'\')"><div class="ti">🏆</div><div class="tx"><span class="eyebrow">DAY '+(nx+1)+' OF '+days.length+'</span><b>'+esc(c.name)+'</b><small>'+(w===REST?"Rest day":"Today: "+esc(W[w].name))+'</small><div class="hbar"><i style="width:'+(dn/days.length*100)+'%"></i></div></div><button class="btn small" style="background:var(--grad);color:#fff;flex:none" onclick="event.stopPropagation();'+(w===REST?"L.chRest("+nx+")":"L.chGo("+nx+")")+'">'+(w===REST?"✓":"GO")+'</button></div>'}
+ if(chal.cur){const c=chById(chal.cur.id),days=chDays(c),nx=chNext(),dn=Object.keys(chal.cur.done).length,w=days[nx];h+='<div class="card tcard" onclick="L.openCh(\''+c.id+'\')"><div class="icb">'+ic("cup",24)+'</div><div class="tx"><span class="eyebrow">DAY '+(nx+1)+' OF '+days.length+'</span><b>'+esc(c.name)+'</b><small>'+(w===REST?"Rest day":"Today: "+esc(W[w].name))+'</small><div class="hbar"><i style="width:'+(dn/days.length*100)+'%"></i></div></div><button class="btn small" style="background:var(--grad);color:#fff;flex:none" onclick="event.stopPropagation();'+(w===REST?"L.chRest("+nx+")":"L.chGo("+nx+")")+'">'+(w===REST?"✓":"GO")+'</button></div>'}
  const tiles=[];
- if(m.meals){const r=todaysMeal();tiles.push('<button class="tile2" onclick="L.recipe(\''+r.id+'\')"><span class="em">'+r.em+'</span><b>'+MEALS[r.m]+' idea</b><small>'+esc(r.n)+'</small></button>')}
- if(m.mind){const b=d.b||0;tiles.push('<button class="tile2" onclick="L.openBreath()"><span class="em">🌬️</span><b>Breathe</b><small>'+(b?Math.round(b/60)+" min done today":"1 minute to reset")+'</small></button>')}
+ if(m.meals){const r=todaysMeal();tiles.push('<button class="tile2" onclick="L.recipe(\''+r.id+'\')"><span class="icb">'+ic("food",22)+'</span><b>'+MEALS[r.m]+' idea</b><small>'+esc(r.n)+'</small></button>')}
+ if(m.mind){const b=d.b||0;tiles.push('<button class="tile2" onclick="L.openBreath()"><span class="icb">'+ic("wind",22)+'</span><b>Breathe</b><small>'+(b?Math.round(b/60)+" min done today":"1 minute to reset")+'</small></button>')}
  if(tiles.length)h+='<div class="tiles2">'+tiles.join("")+'</div>';
  if(m.mind)h+='<div class="card mcard"><b>How are you feeling?</b><div class="moods">'+["😫","😕","😐","🙂","😄"].map((e,i)=>'<button class="'+(d.mood===i+1?"on":"")+'" onclick="L.mood('+(i+1)+')">'+e+'</button>').join("")+'</div></div>';
- if(m.tips)h+='<button class="card pcard" onclick="L.nextTip()"><span style="font-size:24px">💡</span><div><small style="color:var(--ink2);font-size:14px;line-height:1.4">'+esc(tip())+'</small></div><span class="chev">›</span></button>';
+ if(m.tips)h+='<button class="card pcard" onclick="L.nextTip()"><span class="icb">'+ic("bulb",22)+'</span><div><small style="color:var(--ink2);font-size:14px;line-height:1.4">'+esc(tip())+'</small></div><span class="chev">›</span></button>';
  el.innerHTML=h}
 
 /* ---------- Workouts page: challenges ---------- */
@@ -302,10 +307,10 @@ function renderLifeProgress(){const el=document.getElementById("lifeBody");if(!e
  let h='<div class="card"><div class="row"><h3>Body</h3><button class="btn small" style="background:var(--grad);color:#fff" onclick="L.logWeight()">+ Weight</button></div>';
  h+=s?'<div class="facts3"><div><b>'+wtTxt(s.last)+'</b><small>NOW</small></div><div><b>'+(body.w.length>1?diffTxt(s.change):"·")+'</b><small>SINCE START</small></div><div><b>'+(p&&p.gw&&Math.abs(s.left)>=0.1?diffTxt(-s.left).replace(/^[+−]/,""):p&&p.gw?"✓":"·")+'</b><small>'+(p&&p.gw?"TO GOAL":"NO GOAL SET")+'</small></div></div>':'<p class="tiny">Log your weight to start your chart.</p>';
  h+=weightChart();if(b)h+='<p class="tiny" style="margin:8px 0 0">BMI '+b.toFixed(1)+', '+bmiBand(b)+'. BMI is a rough guide and doesn\'t know about muscle.</p>';
- h+='<div class="row" style="gap:8px;margin-top:12px"><button class="btn soft" style="flex:1" onclick="L.openMeas()">📏 Measurements</button><button class="btn soft" style="flex:1" onclick="L.openPhotos()">📷 Photos</button></div></div>';
+ h+='<div class="row" style="gap:8px;margin-top:12px"><button class="btn soft" style="flex:1" onclick="L.openMeas()">'+ic("ruler")+' Measurements</button><button class="btn soft" style="flex:1" onclick="L.openPhotos()">'+ic("cam")+' Photos</button></div></div>';
  if(m.water||m.steps){const days=[];for(let i=6;i>=0;i--){const dt=new Date();dt.setDate(dt.getDate()-i);days.push({l:DAYS[dow(dt)].slice(0,1),d:daily[dayKey(dt)]||{}})}
   const bar=(v,g)=>'<span style="display:block;height:'+Math.max(4,Math.min(1,v/g)*60)+'px;border-radius:6px;background:'+(v>=g?"var(--grad)":"#2a2a31")+'"></span>';
-  h+='<div class="card"><h3>Last 7 days</h3>'+(m.water?'<div class="tiny" style="margin:10px 0 4px">💧 Water</div><div style="display:grid;grid-template-columns:repeat(7,1fr);gap:6px;align-items:end;height:64px">'+days.map(x=>bar(x.d.w||0,t.water)).join("")+'</div>':'')+(m.steps?'<div class="tiny" style="margin:12px 0 4px">👟 Steps</div><div style="display:grid;grid-template-columns:repeat(7,1fr);gap:6px;align-items:end;height:64px">'+days.map(x=>bar(x.d.s||0,t.steps)).join("")+'</div>':'')+'<div style="display:grid;grid-template-columns:repeat(7,1fr);gap:6px;text-align:center;margin-top:4px">'+days.map(x=>'<small class="tiny">'+x.l+'</small>').join("")+'</div></div>'}
+  h+='<div class="card"><h3>Last 7 days</h3>'+(m.water?'<div class="tiny" style="margin:10px 0 4px">Water</div><div style="display:grid;grid-template-columns:repeat(7,1fr);gap:6px;align-items:end;height:64px">'+days.map(x=>bar(x.d.w||0,t.water)).join("")+'</div>':'')+(m.steps?'<div class="tiny" style="margin:12px 0 4px">Steps</div><div style="display:grid;grid-template-columns:repeat(7,1fr);gap:6px;align-items:end;height:64px">'+days.map(x=>bar(x.d.s||0,t.steps)).join("")+'</div>':'')+'<div style="display:grid;grid-template-columns:repeat(7,1fr);gap:6px;text-align:center;margin-top:4px">'+days.map(x=>'<small class="tiny">'+x.l+'</small>').join("")+'</div></div>'}
  el.innerHTML=h;
  const bl=badgeList(),on=bl.filter(x=>x[3]).length;document.getElementById("lifeBadges").innerHTML='<div class="section-head"><h2>Badges</h2><span class="tiny">'+on+' of '+bl.length+'</span></div><div class="card"><div class="badges">'+bl.map(x=>'<div class="badge'+(x[3]?" on":"")+'"><div class="bx">'+x[1]+'</div><small>'+x[2]+'</small></div>').join("")+'</div></div>'}
 
@@ -314,12 +319,13 @@ function renderLifeSettings(){const el=document.getElementById("lifeSettings");i
  const tog=(k,lbl)=>'<label>'+lbl+'</label><div class="seg"><button class="'+(m[k]?"active":"")+'" onclick="L.mod(\''+k+'\',true)">On</button><button class="'+(!m[k]?"active":"")+'" onclick="L.mod(\''+k+'\',false)">Off</button></div>';
  el.innerHTML='<div class="card"><h3>About you</h3><p class="tiny">'+(p?esc(gn)+" · "+(p.age)+" years · "+htTxt(p.h)+" · goal "+wtTxt(p.gw):"Not set up yet")+'</p><button class="btn soft full" onclick="L.openQuiz()">'+(p?"Retake the quiz":"Personalise my plan")+'</button>'+
  '<label>Body weight in</label><div class="seg"><button class="'+(settings.bodyUnit!=="st"?"active":"")+'" onclick="L.su(\'bodyUnit\',\'kg\')">kg</button><button class="'+(settings.bodyUnit==="st"?"active":"")+'" onclick="L.su(\'bodyUnit\',\'st\')">st and lb</button></div><label>Height in</label><div class="seg"><button class="'+(settings.hUnit!=="ft"?"active":"")+'" onclick="L.su(\'hUnit\',\'cm\')">cm</button><button class="'+(settings.hUnit==="ft"?"active":"")+'" onclick="L.su(\'hUnit\',\'ft\')">ft and in</button></div></div>'+
- '<div class="card"><h3>On your Today screen</h3>'+tog("water","💧 Water")+tog("steps","👟 Steps")+tog("meals","🥗 Meal ideas")+tog("mind","🌬️ Breathing and mood")+tog("tips","💡 Daily tip")+'</div>'}
+ '<div class="card"><h3>On your Today screen</h3>'+tog("water","Water")+tog("steps","Steps")+tog("meals","Meal ideas")+tog("mind","Breathing and mood")+tog("tips","Daily tip")+'</div>'}
 function setMod(k,v){if(!settings.profile)settings.profile={mods:mods()};settings.profile.mods=Object.assign(mods(),{[k]:v});saveSet();renderLifeSettings();renderLifeToday()}
 function su(k,v){settings[k]=v;saveSet();renderLifeSettings();afterLife()}
 
 /* ---------- wiring ---------- */
 function afterLife(){renderLifeToday();if(document.getElementById("progress").classList.contains("active"))renderLifeProgress();if(document.getElementById("train").classList.contains("active"))renderLifeTrain()}
+const _sp=showPage;window.showPage=showPage=function(p){document.body.dataset.page=p;_sp(p)};document.body.dataset.page="home";
 const _rh=renderHome;window.renderHome=renderHome=function(){_rh();renderLifeToday()};
 const _rt=renderTrain;window.renderTrain=renderTrain=function(){_rt();renderLifeTrain()};
 const _rp=renderProgress;window.renderProgress=renderProgress=function(){_rp();renderLifeProgress()};
