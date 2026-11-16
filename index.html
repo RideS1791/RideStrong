@@ -443,10 +443,10 @@ img[src*="anim3"]{filter:invert(1) hue-rotate(180deg) contrast(1.06) brightness(
 <section class="page" id="plan">
  <button class="backbtn" onclick="showPage('home')">‹ Today</button><div class="eyebrow">YOUR 12 WEEK PLAN</div><h2 style="margin-top:5px" id="planTitle">Your plan</h2>
  <div class="card"><div class="row"><div><h3 id="phaseName">Foundation</h3><span class="tiny" id="phaseWeek"></span></div><span class="pill" id="levelPill"></span></div><p class="tiny" id="phaseDesc" style="margin:8px 0 0;display:none"></p><div class="phase" id="phaseBar"></div></div>
- <div class="section-head"><h2>This week</h2><span class="tiny" id="planCount"></span></div>
+ <button class="btn full" style="background:var(--grad);color:#fff;margin:6px 0 4px" onclick="L.myWeek()">Choose my workout for each day</button><div class="section-head"><h2>This week</h2><span class="tiny" id="planCount"></span></div>
  <div class="card" style="padding:4px 14px" id="planWeek"></div>
  <div id="planTips"></div>
- <div class="card"><h3>Change your plan</h3><p class="tiny">Change your level, training days or equipment at any time. Your history is kept.</p><button class="btn soft full" onclick="openSetup()">Edit plan settings</button><button class="btn soft full" style="margin-top:8px" onclick="restartPlan()">Restart from week 1</button></div>
+ <div class="card"><h3>Change your plan</h3><p class="tiny">Change your level, training days or equipment at any time. Your history is kept.</p><button class="btn soft full" onclick="L.myWeek()">Choose my workout for each day</button><button class="btn soft full" style="margin-top:8px" onclick="openSetup()">Edit plan settings</button><button class="btn soft full" style="margin-top:8px" onclick="restartPlan()">Restart from week 1</button></div>
 </section>
 
 <!-- TRAIN -->
@@ -751,7 +751,7 @@ function phaseIndex(){const w=planWeekIndex();return w<4?0:w<8?1:w<12?2:3}
 function planTemplate(){const n=Math.min(6,Math.max(1,settings.days.length));let t=TEMPLATES[n].slice();if(phaseIndex()===2&&settings.level!=="b")t=t.map(x=>x==="w_single"?"w_power":x);return t}
 function planSlots(){const t=planTemplate();return settings.days.slice().sort((a,b)=>a-b).map((d,k)=>({day:d,wid:t[k%t.length]}))}
 function weekSessions(){const m=monday(new Date());return sessions.filter(s=>new Date(s.date)>=m)}
-function planProgress(){const done=weekSessions().filter(s=>!isRide(s)&&!s.legacy&&!(W[s.src]&&W[s.src].cat==="mob")).sort((a,b)=>a.date.localeCompare(b.date));const slots=planSlots();slots.forEach(sl=>{sl.done=done.find(s=>s.src===sl.wid&&!s._used);if(sl.done)sl.done._used=true});done.forEach(s=>delete s._used);
+function planProgress(){const done=weekSessions().filter(s=>!isRide(s)&&!s.legacy&&!(W[s.src]&&W[s.src].cat==="mob"&&!Object.values(settings.dayPlan||{}).includes(s.src))).sort((a,b)=>a.date.localeCompare(b.date));const slots=planSlots();slots.forEach(sl=>{sl.done=done.find(s=>s.src===sl.wid&&!s._used);if(sl.done)sl.done._used=true});done.forEach(s=>delete s._used);
  // anything done for the plan that was not matched by name fills the earliest open slot
  const extra=done.length-slots.filter(s=>s.done).length;let n=extra;slots.forEach(sl=>{if(!sl.done&&n>0){sl.done=true;n--}});return slots}
 function nextSlot(){const slots=planProgress(),today=dow(new Date());return slots.find(s=>!s.done&&s.day===today)||slots.find(s=>!s.done&&s.day>today)||slots.find(s=>!s.done)||null}
@@ -846,7 +846,7 @@ function renderSetup(){const d=setupDraft;const seg=(key,opts)=>'<div class="seg
  
  '<button class="btn lime full" style="margin-top:18px" onclick="saveSetup()">'+(d.first?"Build my plan":"Save plan")+'</button>'}
 function toggleDay(key,i){const a=setupDraft[key],k=a.indexOf(i);if(k>=0)a.splice(k,1);else{if(key==="days"&&a.length>=6){toast("Up to 6 strength days");return}a.push(i)}a.sort((x,y)=>x-y);renderSetup()}
-function saveSetup(){const d=setupDraft;if(!d.days.length){toast("Choose at least one strength day");return}const first=d.first;["level","equip","days","cycling","rideDays"].forEach(k=>settings[k]=d[k]);if(!settings.planStart||first)settings.planStart=monday(new Date()).toISOString();settings.setupDone=true;saveSet();closeModal("setupModal");renderHome();renderSettings();if($("plan").classList.contains("active"))renderPlan();toast(first?"Your plan is ready":"Plan updated")}
+function saveSetup(){const d=setupDraft;if(!d.days.length){toast("Choose at least one workout day");return}const first=d.first;if(settings.dayPlan&&d.days.join()!==settings.days.join()){const dp={};d.days.forEach(x=>{if(settings.dayPlan[x])dp[x]=settings.dayPlan[x]});settings.dayPlan=Object.keys(dp).length===d.days.length?dp:undefined}["level","equip","days","cycling","rideDays"].forEach(k=>settings[k]=d[k]);if(!settings.planStart||first)settings.planStart=monday(new Date()).toISOString();settings.setupDone=true;saveSet();closeModal("setupModal");renderHome();renderSettings();if($("plan").classList.contains("active"))renderPlan();toast(first?"Your plan is ready":"Plan updated")}
 
 /* ============ WORKOUTS ============ */
 function renderTrain(){const cats=[["all","All"]].concat(Object.entries(CATS));$("catChips").innerHTML=cats.map(c=>'<button class="chip'+(catFilter===c[0]?" active":"")+'" onclick="catFilter=\''+c[0]+'\';renderTrain()">'+c[1]+'</button>').join("");
