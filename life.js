@@ -4,48 +4,48 @@ const css=`
 #quiz,#breath{position:fixed;inset:0;z-index:70;background:var(--bg);display:none;flex-direction:column}
 #quiz.open,#breath.open{display:flex}
 .q-top{display:flex;align-items:center;gap:12px;padding:calc(env(safe-area-inset-top) + 14px) 18px 6px}
-.q-top button{border:0;background:#17171c;color:#fff;width:40px;height:40px;border-radius:50%;font-size:20px}
-.q-bar{flex:1;height:6px;border-radius:6px;background:#1d1d22;overflow:hidden}.q-bar i{display:block;height:100%;background:var(--grad);transition:width .3s}
+.q-top button{border:0;background:#ffffff;color:#15161c;width:40px;height:40px;border-radius:50%;font-size:20px}
+.q-bar{flex:1;height:6px;border-radius:6px;background:#efeff3;overflow:hidden}.q-bar i{display:block;height:100%;background:var(--grad);transition:width .3s}
 .q-body{flex:1;overflow:auto;padding:18px 18px 24px;max-width:560px;width:100%;margin:0 auto;box-sizing:border-box}
 .q-body h2{font-size:27px;line-height:1.15;letter-spacing:-.6px;margin:6px 0 18px}
 .q-foot{padding:10px 18px calc(env(safe-area-inset-bottom) + 16px);max-width:560px;width:100%;margin:0 auto;box-sizing:border-box}
 .qopt{display:flex;align-items:center;gap:14px;width:100%;text-align:left;border:1px solid var(--line);background:var(--paper);color:var(--ink);border-radius:18px;padding:19px 16px;min-height:72px;margin-bottom:10px;font-size:16px;font-weight:800}
 .qopt .em{font-size:26px;width:34px;text-align:center}.qopt small{display:block;font-weight:600;color:var(--muted);font-size:12px;margin-top:2px}
-.qopt.on{border-color:var(--lime);background:#1c0c10}
+.qopt.on{border-color:var(--lime);background:#ffeef0}
 .qgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.qgrid .qopt{flex-direction:column;justify-content:center;text-align:center;margin:0;min-height:96px;gap:6px}
 .stepper{display:flex;align-items:center;justify-content:center;gap:18px;margin:30px 0 10px}
-.stepper button{width:76px;height:76px;border-radius:50%;border:0;background:#17171c;color:#fff;font-size:30px;font-weight:700}
+.stepper button{width:76px;height:76px;border-radius:50%;border:0;background:#ffffff;color:#15161c;font-size:30px;font-weight:700}
 .stepper .v{white-space:nowrap;font-size:58px;font-weight:900;letter-spacing:-2px;min-width:150px;text-align:center}.stepper .v.long{font-size:40px;letter-spacing:-1px;min-width:0;flex:1}.stepper .v small{font-size:18px;color:var(--muted);letter-spacing:0;margin-left:4px}
 .ready-row{display:flex;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}.ready-row:last-child{border:0}.ready-row .em{font-size:24px;width:32px;text-align:center}.ready-row b{display:block;font-size:15px}.ready-row small{color:var(--muted);font-size:12px}
-.spin{width:90px;height:90px;border-radius:50%;border:6px solid #1d1d22;border-top-color:var(--lime);margin:60px auto 20px;animation:rot 1s linear infinite}@keyframes rot{to{transform:rotate(360deg)}}
+.spin{width:90px;height:90px;border-radius:50%;border:6px solid #efeff3;border-top-color:var(--lime);margin:60px auto 20px;animation:rot 1s linear infinite}@keyframes rot{to{transform:rotate(360deg)}}
 .habit{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}.habit:last-child{border:0}
-.habit .ic{width:42px;height:42px;border-radius:14px;background:#17171c;display:flex;align-items:center;justify-content:center;font-size:21px;flex:none}
+.habit .ic{width:42px;height:42px;border-radius:14px;background:#ffffff;display:flex;align-items:center;justify-content:center;font-size:21px;flex:none}
 .habit .tx{flex:1;min-width:0}.habit .tx b{display:block;font-size:14px}.habit .tx small{display:block;color:var(--muted);font-size:12px;margin-top:2px}
-.habit .tick{width:26px;height:26px;border-radius:50%;border:2px solid #2a2a31;flex:none;display:flex;align-items:center;justify-content:center;font-size:13px;color:#fff}.habit .tick.on{background:var(--lime);border-color:var(--lime)}
-.glasses{display:flex;gap:5px;margin-top:8px;flex-wrap:wrap}.glasses button{width:26px;height:32px;border:0;border-radius:6px 6px 9px 9px;background:#1d1d22;padding:0;position:relative;overflow:hidden}.glasses button.on{background:linear-gradient(#5ab0ff,#2f7bff)}
-.hbar{height:6px;border-radius:6px;background:#1d1d22;margin-top:7px;overflow:hidden}.hbar i{display:block;height:100%;background:var(--grad)}
-.moods{display:flex;gap:6px;margin-top:6px}.moods button{flex:1;border:1px solid var(--line);background:#141418;border-radius:14px;font-size:26px;padding:10px 0;min-height:52px}.moods button.on{border-color:var(--lime);background:#1c0c10}
+.habit .tick{width:26px;height:26px;border-radius:50%;border:2px solid #efeff3;flex:none;display:flex;align-items:center;justify-content:center;font-size:13px;color:#15161c}.habit .tick.on{background:var(--lime);border-color:var(--lime)}
+.glasses{display:flex;gap:5px;margin-top:8px;flex-wrap:wrap}.glasses button{width:26px;height:32px;border:0;border-radius:6px 6px 9px 9px;background:#efeff3;padding:0;position:relative;overflow:hidden}.glasses button.on{background:linear-gradient(#5ab0ff,#2f7bff)}
+.hbar{height:6px;border-radius:6px;background:#efeff3;margin-top:7px;overflow:hidden}.hbar i{display:block;height:100%;background:var(--grad)}
+.moods{display:flex;gap:6px;margin-top:6px}.moods button{flex:1;border:1px solid var(--line);background:#ffffff;border-radius:14px;font-size:26px;padding:10px 0;min-height:52px}.moods button.on{border-color:var(--lime);background:#ffeef0}
 .chcard{flex:none;width:200px;border-radius:20px;overflow:hidden;background:var(--paper);border:1px solid var(--line);cursor:pointer;scroll-snap-align:start}
-.chcard .tile{height:110px;position:relative;background:#121216;display:flex;align-items:center;justify-content:center}.chcard .tile img{height:100%;width:100%;object-fit:contain}
+.chcard .tile{height:110px;position:relative;background:#ffffff;display:flex;align-items:center;justify-content:center}.chcard .tile img{height:100%;width:100%;object-fit:contain}
 .chcard .tile .pill{position:absolute;left:8px;top:8px}.chcard .tx{padding:10px 12px 12px}.chcard b{display:block;font-size:14px;line-height:1.25}.chcard small{color:var(--muted);font-size:11px}
 .cal{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin:12px 0}
-.cal button{aspect-ratio:1;border-radius:12px;border:1px solid var(--line);background:#121216;color:var(--muted);font-weight:900;font-size:13px;padding:0}
-.cal button.done{background:var(--grad);color:#fff;border:0}.cal button.next{border:2px solid #fff;color:#fff}.cal button.rest{font-size:15px}
-.badges{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.badge{text-align:center}.badge .bx{width:58px;height:58px;margin:0 auto 6px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:26px;background:#17171c;filter:grayscale(1);opacity:.35}
-.badge.on .bx{filter:none;opacity:1;background:radial-gradient(circle at 30% 30%,#3a1820,#1a0b0f);box-shadow:0 0 0 2px var(--lime)}.badge small{font-size:10px;line-height:1.25;display:block;color:var(--muted)}.badge.on small{color:var(--ink)}
+.cal button{aspect-ratio:1;border-radius:12px;border:1px solid var(--line);background:#ffffff;color:var(--muted);font-weight:900;font-size:13px;padding:0}
+.cal button.done{background:var(--grad);color:#fff;border:0}.cal button.next{border:2px solid #fff;color:#15161c}.cal button.rest{font-size:15px}
+.badges{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.badge{text-align:center}.badge .bx{width:58px;height:58px;margin:0 auto 6px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:26px;background:#ffffff;filter:grayscale(1);opacity:.35}
+.badge.on .bx{filter:none;opacity:1;background:radial-gradient(circle at 30% 30%,#ffeef0,#ffeef0);box-shadow:0 0 0 2px var(--lime)}.badge small{font-size:10px;line-height:1.25;display:block;color:var(--muted)}.badge.on small{color:var(--ink)}
 .wchart{width:100%;height:150px;display:block;margin-top:8px}
-.photos{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}.photos div{position:relative;aspect-ratio:3/4;border-radius:12px;overflow:hidden;background:#17171c}.photos img{width:100%;height:100%;object-fit:cover}.photos span{position:absolute;left:6px;bottom:6px;font-size:10px;font-weight:800;background:#000a;padding:3px 6px;border-radius:8px}
-.photos button{position:absolute;right:4px;top:4px;border:0;background:#000a;color:#fff;border-radius:50%;width:24px;height:24px}
+.photos{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}.photos div{position:relative;aspect-ratio:3/4;border-radius:12px;overflow:hidden;background:#ffffff}.photos img{width:100%;height:100%;object-fit:cover}.photos span{position:absolute;left:6px;bottom:6px;font-size:10px;font-weight:800;background:#000a;padding:3px 6px;border-radius:8px}
+.photos button{position:absolute;right:4px;top:4px;border:0;background:#000a;color:#15161c;border-radius:50%;width:24px;height:24px}
 .compare{display:grid;grid-template-columns:1fr 1fr;gap:8px}.compare div{text-align:center}.compare img{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:14px}.compare small{color:var(--muted);font-size:11px}
-.recipe{display:flex;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line);cursor:pointer}.recipe:last-child{border:0}.recipe .em{width:52px;height:52px;border-radius:14px;background:#17171c;display:flex;align-items:center;justify-content:center;font-size:26px;flex:none}.recipe b{display:block;font-size:14px}.recipe small{color:var(--muted);font-size:12px}
+.recipe{display:flex;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line);cursor:pointer}.recipe:last-child{border:0}.recipe .em{width:52px;height:52px;border-radius:14px;background:#ffffff;display:flex;align-items:center;justify-content:center;font-size:26px;flex:none}.recipe b{display:block;font-size:14px}.recipe small{color:var(--muted);font-size:12px}
 .recipe .eaten{margin-left:auto;font-size:11px;font-weight:900;color:var(--lime)}
-.facts3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0}.facts3 div{background:#17171c;border-radius:14px;padding:10px;text-align:center}.facts3 b{display:block;font-size:16px;white-space:nowrap}.facts3 small{color:var(--muted);font-size:10px}
+.facts3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0}.facts3 div{background:#ffffff;border-radius:14px;padding:10px;text-align:center}.facts3 b{display:block;font-size:16px;white-space:nowrap}.facts3 small{color:var(--muted);font-size:10px}
 .ol{padding-left:20px;margin:6px 0}.ol li{margin:6px 0;line-height:1.45}
 .b-wrap{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:26px;padding:20px}
 .b-circle{width:min(70vw,300px);height:min(70vw,300px);border-radius:50%;background:radial-gradient(circle,#ff3b4f55 0%,#ff3b4f22 55%,transparent 72%);display:flex;align-items:center;justify-content:center;transform:scale(.55);transition:transform 4s ease-in-out}
 .b-circle span{width:46%;height:46%;border-radius:50%;background:var(--grad);display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:900;color:#fff;letter-spacing:1px}
 .b-left{font-size:44px;font-weight:900;letter-spacing:-1px}
-.bigtap{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0}.bigtap button{border:0;border-radius:14px;padding:20px 0;background:#17171c;color:#fff;font-weight:900;font-size:16px}
+.bigtap{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0}.bigtap button{border:0;border-radius:14px;padding:20px 0;background:#ffffff;color:#15161c;font-weight:900;font-size:16px}
 
 .dayrings{display:flex;justify-content:space-around;gap:6px;padding:16px 8px}
 .dring{flex:1;border:0;background:none;color:var(--ink);display:flex;flex-direction:column;align-items:center;gap:4px;padding:0}
@@ -58,8 +58,8 @@ const css=`
 .tile2{border:1px solid var(--line);background:var(--paper);border-radius:20px;padding:14px;text-align:left;color:var(--ink);display:flex;flex-direction:column;gap:4px;min-height:110px}
 .tile2 .em{font-size:28px}.tile2 b{font-size:14px}.tile2 small{color:var(--muted);font-size:12px;line-height:1.3}
 .mcard b{display:block;margin-bottom:6px}
-.icb{width:44px;height:44px;border-radius:14px;background:#1a1a20;border:1px solid #26262e;display:flex;align-items:center;justify-content:center;color:#ff5a6b;flex:none}
-.dring .rg span .ico{color:#fff}
+.icb{width:44px;height:44px;border-radius:14px;background:#ffffff;border:1px solid #efeff3;display:flex;align-items:center;justify-content:center;color:#e8304a;flex:none}
+.dring .rg span .ico{color:#15161c}
 .tile2 .icb{margin-bottom:4px}
 `;
 const st=document.createElement("style");st.textContent=css;document.head.appendChild(st);
@@ -206,7 +206,7 @@ const chById=id=>CH.find(c=>c.id===id);
 function chNext(){const cur=chal.cur;if(!cur)return-1;const days=chDays(chById(cur.id));for(let i=0;i<days.length;i++)if(!cur.done[i])return i;return-1}
 function chCard(c){const days=chDays(c),wo=days.filter(x=>x!==REST).length,isCur=chal.cur&&chal.cur.id===c.id;return'<div class="chcard" onclick="L.openCh(\''+c.id+'\')"><div class="tile">'+media(heroEx(c.hero),"clear",true)+'<span class="pill">'+(isCur?"IN PROGRESS":c.pill.toUpperCase())+'</span></div><div class="tx"><b>'+esc(c.name)+'</b><small>'+wo+' workouts · '+days.length+' days</small></div></div>'}
 function openCh(id){const c=chById(id),days=chDays(c),isCur=chal.cur&&chal.cur.id===id,nx=isCur?chNext():-1,done=isCur?Object.keys(chal.cur.done).length:0,times=chal.fin.filter(f=>f.id===id).length;
- let html='<div class="sheet-top"><span class="eyebrow">CHALLENGE</span><button class="close" onclick="closeModal(\'lifeModal\')">×</button></div><div class="ex-fig" style="height:170px;background:#121216">'+media(heroEx(c.hero),"clear",true)+'</div><h2 style="margin:0 0 4px">'+esc(c.name)+'</h2><p class="tiny" style="margin:0">'+esc(c.desc)+(times?" · Completed "+times+"×":"")+'</p>';
+ let html='<div class="sheet-top"><span class="eyebrow">CHALLENGE</span><button class="close" onclick="closeModal(\'lifeModal\')">×</button></div><div class="ex-fig" style="height:170px;background:#ffffff">'+media(heroEx(c.hero),"clear",true)+'</div><h2 style="margin:0 0 4px">'+esc(c.name)+'</h2><p class="tiny" style="margin:0">'+esc(c.desc)+(times?" · Completed "+times+"×":"")+'</p>';
  if(isCur)html+='<div class="hbar" style="margin-top:12px"><i style="width:'+(done/days.length*100)+'%"></i></div><p class="tiny" style="margin:6px 0 0">'+done+' of '+days.length+' days done</p>';
  html+='<div class="cal">'+days.map((w,i)=>{const d=isCur&&chal.cur.done[i];return'<button class="'+(d?"done ":"")+(i===nx?"next ":"")+(w===REST?"rest":"")+'" onclick="L.chDay(\''+id+'\','+i+')">'+(w===REST&&!d?"😴":(i+1))+'</button>'}).join("")+'</div>';
  if(isCur&&nx>=0){const w=days[nx];html+=w===REST?'<button class="btn full" style="background:var(--grad);color:#fff;padding:16px" onclick="L.chRest('+nx+')">Day '+(nx+1)+' · Rest day done ✓</button><button class="btn soft full" style="margin-top:8px" onclick="closeModal(\'lifeModal\');previewWorkout(\'w_post\')">Do a gentle stretch instead</button>':'<button class="btn full" style="background:var(--grad);color:#fff;padding:16px" onclick="L.chGo('+nx+')">GO · Day '+(nx+1)+' · '+esc(W[w].name)+'</button>';html+='<button class="linkbtn" style="display:block;margin:12px auto 0;color:var(--muted)" onclick="L.chQuit()">Leave this challenge</button>'}
@@ -222,7 +222,7 @@ function chCheckEnd(){if(!chal.cur)return;const c=chById(chal.cur.id);if(Object.
 /* hook workouts so challenge days tick themselves */
 const _start=startWorkout;window.startWorkout=startWorkout=function(o){_start(o);if(o&&o.ch&&active){active.ch=o.ch;saveActive()}};
 const _finish=finishSession;window.finishSession=finishSession=function(){const a=active;if(!a)return;const id=a.id,ch=a.ch;_finish();const s=sessions.find(x=>x.id===id);if(!s)return;
- if(ch){s.ch=ch;saveSessions();if(chal.cur&&chal.cur.id===ch.id&&!chal.cur.done[ch.day]){chal.cur.done[ch.day]=id;saveCh();const c=chById(ch.id),n=chDays(c).length,dn=Object.keys(chal.cur.done).length;const sb=document.getElementById("summaryBody");if(sb)sb.insertAdjacentHTML("afterbegin",'<div class="card" style="background:#1c0c10;border-color:var(--lime);text-align:center;margin-bottom:10px"><b>'+esc(c.name)+'</b><div class="tiny">Day '+(ch.day+1)+' done · '+dn+' of '+n+'</div></div>');chCheckEnd()}}
+ if(ch){s.ch=ch;saveSessions();if(chal.cur&&chal.cur.id===ch.id&&!chal.cur.done[ch.day]){chal.cur.done[ch.day]=id;saveCh();const c=chById(ch.id),n=chDays(c).length,dn=Object.keys(chal.cur.done).length;const sb=document.getElementById("summaryBody");if(sb)sb.insertAdjacentHTML("afterbegin",'<div class="card" style="background:#ffeef0;border-color:var(--lime);text-align:center;margin-bottom:10px"><b>'+esc(c.name)+'</b><div class="tiny">Day '+(ch.day+1)+' done · '+dn+' of '+n+'</div></div>');chCheckEnd()}}
  else if(chal.cur){const c=chById(chal.cur.id),nx=chNext();if(nx>=0&&chDays(c)[nx]===s.src){chal.cur.done[nx]=id;saveCh();chCheckEnd()}}
  setTimeout(newBadges,900);afterLife()};
 
@@ -281,7 +281,7 @@ let tipOff=0;
 function tip(){const n=Math.floor(Date.now()/864e5)+tipOff;return TIPS[((n%TIPS.length)+TIPS.length)%TIPS.length]}
 
 /* ---------- Today ---------- */
-function ring(pct,inner,label,sub,click,id){const C=2*Math.PI*42,v=Math.max(0,Math.min(1,pct));return'<button class="dring" '+(id?'id="'+id+'" ':'')+'onclick="'+click+'"><div class="rg"><svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="42" fill="none" stroke="#1f1f25" stroke-width="10"/>'+(v?'<circle cx="50" cy="50" r="42" fill="none" stroke="'+(v>=1?"#34d27b":"#ff3b4f")+'" stroke-width="10" stroke-linecap="round" stroke-dasharray="'+(C*v).toFixed(1)+' '+C.toFixed(1)+'" transform="rotate(-90 50 50)"/>':'')+'</svg><span>'+inner+'</span></div><b>'+label+'</b><small>'+sub+'</small></button>'}
+function ring(pct,inner,label,sub,click,id){const C=2*Math.PI*42,v=Math.max(0,Math.min(1,pct));return'<button class="dring" '+(id?'id="'+id+'" ':'')+'onclick="'+click+'"><div class="rg"><svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="42" fill="none" stroke="#efeff3" stroke-width="10"/>'+(v?'<circle cx="50" cy="50" r="42" fill="none" stroke="'+(v>=1?"#34d27b":"#ff3b4f")+'" stroke-width="10" stroke-linecap="round" stroke-dasharray="'+(C*v).toFixed(1)+' '+C.toFixed(1)+'" transform="rotate(-90 50 50)"/>':'')+'</svg><span>'+inner+'</span></div><b>'+label+'</b><small>'+sub+'</small></button>'}
 function renderLifeToday(){const el=document.getElementById("lifeToday");if(!el)return;const p=prof(),m=mods(),t=targets(),d=D();let h="";
  const hs=document.getElementById("homeStats");if(hs)hs.style.display="none";
  if(!p&&settings.setupDone)h+='<button class="card pcard" onclick="L.openQuiz()"><span class="icb">'+ic("spark",24)+'</span><div><b>Personalise your plan</b><small>One minute of taps. Your goals and daily targets.</small></div><span class="chev">›</span></button>';
@@ -309,7 +309,7 @@ function renderLifeProgress(){const el=document.getElementById("lifeBody");if(!e
  h+=weightChart();if(b)h+='<p class="tiny" style="margin:8px 0 0">BMI '+b.toFixed(1)+', '+bmiBand(b)+'. BMI is a rough guide and doesn\'t know about muscle.</p>';
  h+='<div class="row" style="gap:8px;margin-top:12px"><button class="btn soft" style="flex:1" onclick="L.openMeas()">'+ic("ruler")+' Measurements</button><button class="btn soft" style="flex:1" onclick="L.openPhotos()">'+ic("cam")+' Photos</button></div></div>';
  if(m.water||m.steps){const days=[];for(let i=6;i>=0;i--){const dt=new Date();dt.setDate(dt.getDate()-i);days.push({l:DAYS[dow(dt)].slice(0,1),d:daily[dayKey(dt)]||{}})}
-  const bar=(v,g)=>'<span style="display:block;height:'+Math.max(4,Math.min(1,v/g)*60)+'px;border-radius:6px;background:'+(v>=g?"var(--grad)":"#2a2a31")+'"></span>';
+  const bar=(v,g)=>'<span style="display:block;height:'+Math.max(4,Math.min(1,v/g)*60)+'px;border-radius:6px;background:'+(v>=g?"var(--grad)":"#efeff3")+'"></span>';
   h+='<div class="card"><h3>Last 7 days</h3>'+(m.water?'<div class="tiny" style="margin:10px 0 4px">Water</div><div style="display:grid;grid-template-columns:repeat(7,1fr);gap:6px;align-items:end;height:64px">'+days.map(x=>bar(x.d.w||0,t.water)).join("")+'</div>':'')+(m.steps?'<div class="tiny" style="margin:12px 0 4px">Steps</div><div style="display:grid;grid-template-columns:repeat(7,1fr);gap:6px;align-items:end;height:64px">'+days.map(x=>bar(x.d.s||0,t.steps)).join("")+'</div>':'')+'<div style="display:grid;grid-template-columns:repeat(7,1fr);gap:6px;text-align:center;margin-top:4px">'+days.map(x=>'<small class="tiny">'+x.l+'</small>').join("")+'</div></div>'}
  el.innerHTML=h;
  const bl=badgeList(),on=bl.filter(x=>x[3]).length;document.getElementById("lifeBadges").innerHTML='<div class="section-head"><h2>Badges</h2><span class="tiny">'+on+' of '+bl.length+'</span></div><div class="card"><div class="badges">'+bl.map(x=>'<div class="badge'+(x[3]?" on":"")+'"><div class="bx">'+x[1]+'</div><small>'+x[2]+'</small></div>').join("")+'</div></div>'}
@@ -345,7 +345,7 @@ setTimeout(newBadges,1500);
 })();
 /* ---------- one exercise, as and when ---------- */
 (function(){
-const st=document.createElement("style");st.textContent=".qgrid2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}.qx{border:1px solid #1c1c22;background:#101014;border-radius:18px;overflow:hidden;padding:0;color:var(--ink);text-align:left}.qx .im{height:104px;background:#fff;display:flex;align-items:center;justify-content:center}.qx .im img{height:100%;width:100%;object-fit:contain}.qx b{display:block;padding:10px 12px 12px;font-size:14px;line-height:1.25}.onecard{display:flex;align-items:center;gap:14px;width:100%;text-align:left;color:var(--ink);margin:4px 0 14px}.onecard div{flex:1}.onecard b{display:block;font-size:17px}.onecard small{display:block;color:var(--muted);font-size:13px;margin-top:2px}";document.head.appendChild(st);
+const st=document.createElement("style");st.textContent=".qgrid2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}.qx{border:1px solid #efeff3;background:#ffffff;border-radius:18px;overflow:hidden;padding:0;color:var(--ink);text-align:left}.qx .im{height:104px;background:#fff;display:flex;align-items:center;justify-content:center}.qx .im img{height:100%;width:100%;object-fit:contain}.qx b{display:block;padding:10px 12px 12px;font-size:14px;line-height:1.25}.onecard{display:flex;align-items:center;gap:14px;width:100%;text-align:left;color:var(--ink);margin:4px 0 14px}.onecard div{flex:1}.onecard b{display:block;font-size:17px}.onecard small{display:block;color:var(--muted);font-size:13px;margin-top:2px}";document.head.appendChild(st);
 let qf="";
 const AREAS=[["","All"],["back","Back"],["abdominals","Core"],["legs","Legs"],["arms","Arms and shoulders"],["stretch","Stretches"]];
 function match(e){if(!qf)return true;const m=e.pm.concat(e.sm).join(" ");if(qf==="back")return /back|lats/.test(m);if(qf==="legs")return /quadriceps|hamstrings|glutes|calves/.test(m);if(qf==="arms")return /shoulders|biceps|triceps|chest|forearms/.test(m);if(qf==="stretch")return e.cat==="stretching";return m.includes(qf)}
@@ -358,7 +358,7 @@ const _rt2=renderTrain;window.renderTrain=renderTrain=function(){_rt2();const el
 })();
 /* ---------- choose my workout for each day ---------- */
 (function(){
-const st=document.createElement("style");st.textContent=".wkrow{display:flex;align-items:center;gap:14px;width:100%;border:1px solid #1c1c22;background:#101014;border-radius:18px;padding:14px;margin-bottom:10px;color:var(--ink);text-align:left;min-height:72px}.wkrow .dn{width:54px;flex:none;font-weight:900;font-size:17px}.wkrow .dn small{display:block;font-size:11px;color:var(--muted);font-weight:700;margin-top:2px}.wkrow .tx{flex:1;min-width:0}.wkrow .tx b{display:block;font-size:16px}.wkrow .tx small{display:block;color:var(--muted);font-size:13px;margin-top:2px}.wkrow.rest .tx b{color:var(--muted)}.wkrow .chg{font-size:14px;font-weight:800;color:#ff5a6b;flex:none}.wkpick{display:flex;align-items:center;gap:12px;width:100%;border:1px solid #1c1c22;background:#101014;border-radius:16px;padding:12px;margin-bottom:8px;color:var(--ink);text-align:left;min-height:64px}.wkpick.on{border-color:var(--lime);background:#1c0c10}.wkpick img{width:48px;height:48px;border-radius:12px;object-fit:contain;flex:none}.wkpick b{display:block;font-size:15px}.wkpick small{display:block;color:var(--muted);font-size:12px;margin-top:2px}.wkpick .wtick{margin-left:auto;color:var(--lime);font-weight:900;font-size:18px}.wkgrp{font-size:11px;letter-spacing:1.6px;font-weight:800;color:#8b8d98;margin:16px 2px 8px}";document.head.appendChild(st);
+const st=document.createElement("style");st.textContent=".wkrow{display:flex;align-items:center;gap:14px;width:100%;border:1px solid #efeff3;background:#ffffff;border-radius:18px;padding:14px;margin-bottom:10px;color:var(--ink);text-align:left;min-height:72px}.wkrow .dn{width:54px;flex:none;font-weight:900;font-size:17px}.wkrow .dn small{display:block;font-size:11px;color:var(--muted);font-weight:700;margin-top:2px}.wkrow .tx{flex:1;min-width:0}.wkrow .tx b{display:block;font-size:16px}.wkrow .tx small{display:block;color:var(--muted);font-size:13px;margin-top:2px}.wkrow.rest .tx b{color:var(--muted)}.wkrow .chg{font-size:14px;font-weight:800;color:#e8304a;flex:none}.wkpick{display:flex;align-items:center;gap:12px;width:100%;border:1px solid #efeff3;background:#ffffff;border-radius:16px;padding:12px;margin-bottom:8px;color:var(--ink);text-align:left;min-height:64px}.wkpick.on{border-color:var(--lime);background:#ffeef0}.wkpick img{width:48px;height:48px;border-radius:12px;object-fit:contain;flex:none}.wkpick b{display:block;font-size:15px}.wkpick small{display:block;color:var(--muted);font-size:12px;margin-top:2px}.wkpick .wtick{margin-left:auto;color:var(--lime);font-weight:900;font-size:18px}.wkgrp{font-size:11px;letter-spacing:1.6px;font-weight:800;color:#8b8d98;margin:16px 2px 8px}";document.head.appendChild(st);
 const FULL=["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"];
 function current(){const m={};const sl=_ps();sl.forEach(x=>m[x.day]=x.wid);return m}
 const _ps=planSlots;
@@ -378,4 +378,62 @@ function setDay(i,wid){const m=Object.assign({},settings.dayPlan&&Object.keys(se
 function resetWeek(){delete settings.dayPlan;saveSet();renderHome();if(document.getElementById("plan").classList.contains("active"))renderPlan();toast("Back to the suggested plan");myWeek()}
 Object.assign(window.L,{myWeek,pickDay,setDay,resetWeek});
 const _rt3=renderTrain;window.renderTrain=renderTrain=function(){_rt3();const one=document.getElementById("oneCard");if(one&&!document.getElementById("weekCard"))one.insertAdjacentHTML("afterend",'<button class="card onecard" id="weekCard" onclick="L.myWeek()"><span class="icb"><svg class="ico" viewBox="0 0 24 24" style="width:24px;height:24px"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></span><div><b>My week</b><small>Choose which workout you do on each day.</small></div><span style="color:var(--muted);font-size:22px">›</span></button>')};
+})();
+
+/* ---------- line icons in place of emojis ---------- */
+(function(){
+const P={
+dumb:'<path d="M6.5 6.5v11M17.5 6.5v11M3 9v6M21 9v6M6.5 12h11"/>',
+flame:'<path d="M12 3c1 3.5 5 5.5 5 10a5 5 0 0 1-10 0c0-2.5 1.5-4 2.5-5 .3 1.5 1 2.5 2 3 0-3 .5-5.5.5-8z"/>',
+spark:'<path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/>',
+target:'<circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r=".8"/>',
+person:'<circle cx="12" cy="6" r="2.5"/><path d="M12 9v6M8 11h8M12 15l-3 6M12 15l3 6"/>',
+walk:'<circle cx="13" cy="4.5" r="2"/><path d="M11 9l-2 5 3 2 1 5M11 9l3 1 2 3M9 14l-2 7"/>',
+run:'<circle cx="15" cy="4.5" r="2"/><path d="M8 10l4-2 3 3 3 1M12 8l-2 6 4 2-1 5M10 14l-4 3"/>',
+lvl1:'<path d="M5 19v-4"/><path d="M12 19v-8" opacity=".25"/><path d="M19 19V5" opacity=".25"/>',
+lvl2:'<path d="M5 19v-4M12 19v-8"/><path d="M19 19V5" opacity=".25"/>',
+lvl3:'<path d="M5 19v-4M12 19v-8M19 19V5"/>',
+chair:'<path d="M7 3v10h10M7 13v8M17 13v8M17 3v10"/>',
+drop:'<path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z"/>',
+steps:'<path d="M4 16l3-9 4 2 2 4 6 2v3H4z"/><path d="M4 19h15"/>',
+food:'<path d="M4 11h16a8 8 0 0 1-16 0z"/><path d="M12 3v4M8 4v3M16 4v3"/>',
+wind:'<path d="M3 8h10a3 3 0 1 0-3-3M3 12h15a3 3 0 1 1-3 3M3 16h7"/>',
+bulb:'<path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-4 10.5c.7.7 1 1.5 1 2.5h6c0-1 .3-1.8 1-2.5A6 6 0 0 0 12 3z"/>',
+cup:'<path d="M7 4h10v5a5 5 0 0 1-10 0zM7 6H4v1a3 3 0 0 0 3 3M17 6h3v1a3 3 0 0 1-3 3M12 14v4M8 20h8"/>',
+chest:'<path d="M4 7c3-2 5-2 8 0 3-2 5-2 8 0v6c-3 3-5 3-8 1-3 2-5 2-8-1z"/>',
+circle:'<circle cx="12" cy="12" r="7"/>',
+leg:'<path d="M10 3v9l-2 8h6M14 3v9"/>',
+bolt:'<path d="M13 3L5 13h6l-1 8 8-10h-6z"/>',
+cal:'<rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/>',
+cam:'<path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/>',
+moon:'<path d="M19 14A8 8 0 1 1 10 5a6 6 0 0 0 9 9z"/>',
+heart:'<path d="M12 20s-7-4.5-7-10a4 4 0 0 1 7-2.5A4 4 0 0 1 19 10c0 5.5-7 10-7 10z"/>',
+bell:'<path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4zM10 21h4"/>',
+door:'<path d="M6 21V3h12v18M4 21h16M14 12h.01"/>',
+star:'<path d="M12 3l2.6 5.6 6 .7-4.5 4.1 1.2 6L12 16.5 6.7 19.4l1.2-6L3.4 9.3l6-.7z"/>',
+down:'<path d="M3 6l6 6 4-4 8 8M21 11v5h-5"/>',
+ruler:'<path d="M3 17L17 3l4 4L7 21zM8 12l2 2M11 9l2 2M14 6l2 2"/>',
+play:'<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M10 9l5 3-5 3z"/>',
+hand:'<path d="M7 12V6a1.5 1.5 0 0 1 3 0v5M10 11V4a1.5 1.5 0 0 1 3 0v7M13 11V5a1.5 1.5 0 0 1 3 0v7M16 12V8a1.5 1.5 0 0 1 3 0v6a7 7 0 0 1-12 5l-3-4a1.5 1.5 0 0 1 2.5-1.5L7 15"/>',
+ten:'<rect x="3" y="5" width="18" height="14" rx="3"/><path d="M8 9v6M12 10a2 2 0 0 1 4 0v4a2 2 0 0 1-4 0z"/>',
+medal:'<circle cx="12" cy="15" r="5"/><path d="M8 3l3 7M16 3l-3 7"/>',
+crown:'<path d="M4 18h16M4 8l4 4 4-7 4 7 4-4-1 10H5z"/>',
+scale:'<path d="M12 4v16M6 20h12M4 8h16M7 8l-3 6a3 3 0 0 0 6 0zM17 8l-3 6a3 3 0 0 0 6 0z"/>',
+sun:'<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4 12H2M22 12h-2M5 5l1.5 1.5M17.5 17.5L19 19M5 19l1.5-1.5M17.5 6.5L19 5"/>',
+leaf:'<path d="M5 19C5 10 10 5 20 4c-1 10-6 15-15 15zM5 19l8-8"/>',
+check:'<path d="M5 12.5l4.5 4.5L19 7.5"/>',
+face1:'<circle cx="12" cy="12" r="9"/><path d="M8 16c2.5-2 5.5-2 8 0M8.5 9.5l2 1M15.5 9.5l-2 1"/>',
+face2:'<circle cx="12" cy="12" r="9"/><path d="M8.5 15.5c2-1 5-1 7 0M9 10h.01M15 10h.01"/>',
+face3:'<circle cx="12" cy="12" r="9"/><path d="M8.5 15h7M9 10h.01M15 10h.01"/>',
+face4:'<circle cx="12" cy="12" r="9"/><path d="M8.5 14c2 2 5 2 7 0M9 10h.01M15 10h.01"/>',
+face5:'<circle cx="12" cy="12" r="9"/><path d="M8 13.5c2 3.5 6 3.5 8 0zM9 9.5h.01M15 9.5h.01"/>'};
+const M={"💪":"dumb","🏋":"dumb","🔥":"flame","✨":"spark","🎯":"target","👨":"person","👩":"person","🧍":"person","🚶":"walk","🏃":"run","🚴":"run","🌱":"lvl1","🌿":"lvl2","🌳":"lvl3","🪑":"chair","💧":"drop","👟":"steps","🥗":"food","🥣":"food","🍳":"food","🍲":"food","🍛":"food","🌯":"food","🌬":"wind","💡":"bulb","🏆":"cup","🫁":"chest","🍑":"circle","🦵":"leg","⚡":"bolt","🗓":"cal","📅":"cal","📷":"cam","🌙":"moon","😴":"moon","❤":"heart","🔔":"bell","🚪":"door","🤸":"star","🎉":"check","📉":"down","📏":"ruler","🎬":"play","🖐":"hand","🔟":"ten","🥇":"medal","🥈":"medal","🥉":"medal","👑":"crown","⚖":"scale","🌅":"sun","🍌":"leaf","🥑":"leaf","🐟":"leaf","🐠":"leaf","🌶":"leaf","➰":"star","😫":"face1","😕":"face2","😐":"face3","🙂":"face4","😄":"face5"};
+const RE=new RegExp("("+Object.keys(M).join("|")+")\\uFE0F?","gu");
+const svg=n=>'<svg class="ico ei" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">'+P[n]+'</svg>';
+function walk(root){const tw=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode:n=>{RE.lastIndex=0;return n.parentNode&&!/^(SCRIPT|STYLE|TEXTAREA|INPUT|OPTION|TITLE)$/.test(n.parentNode.nodeName)&&RE.test(n.nodeValue)?1:2}});const list=[];while(tw.nextNode())list.push(tw.currentNode);
+ list.forEach(t=>{const sp=document.createElement("span");sp.className="eiw";RE.lastIndex=0;sp.innerHTML=t.nodeValue.replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c])).replace(RE,(m,e)=>svg(M[e]));t.parentNode.replaceChild(sp,t)})}
+let busy=false;const mo=new MutationObserver(ms=>{if(busy)return;busy=true;try{ms.forEach(m=>{m.addedNodes.forEach(n=>{if(n.nodeType===1)walk(n);else if(n.nodeType===3&&n.parentNode)walk(n.parentNode)});if(m.type==="characterData"&&m.target.parentNode)walk(m.target.parentNode)})}finally{busy=false}});
+function start(){walk(document.body);mo.observe(document.body,{childList:true,subtree:true,characterData:true})}
+if(document.body)start();else document.addEventListener("DOMContentLoaded",start);
+const st=document.createElement("style");st.textContent=".ei{width:1.15em;height:1.15em;vertical-align:-.2em;display:inline-block}.eiw{display:contents}.moods .ei{width:30px;height:30px;color:#6b6e7b}.moods button.on .ei{color:var(--lime)}.qgrid .ei,.qopt .ei{width:26px;height:26px;color:var(--lime)}.bx .ei{width:26px;height:26px}";document.head.appendChild(st);
 })();
