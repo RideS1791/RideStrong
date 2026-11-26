@@ -83,7 +83,7 @@ const D=k=>daily[k||today()]||(daily[k||today()]={});
 const prof=()=>settings.profile||null;
 const goalsOf=p=>p?(p.goals&&p.goals.length?p.goals:(p.goal?[p.goal]:[])):[];
 const hasGoal=g=>goalsOf(prof()).includes(g);
-const mods=()=>(prof()&&prof().mods)||{water:true,steps:true,meals:false,mind:false,tips:false};
+const mods=()=>(prof()&&prof().mods)||{water:false,steps:false,meals:false,mind:false,tips:false,body:false};
 
 /* ---------- units ---------- */
 const kgToLb=k=>k*2.20462;
@@ -92,7 +92,7 @@ function diffTxt(kg){const s=kg>0?"+":kg<0?"−":"";const a=Math.abs(kg);if(sett
 function htTxt(cm){if(settings.hUnit==="ft"){const i=Math.round(cm/2.54);return Math.floor(i/12)+" ft "+(i%12)+" in"}return Math.round(cm)+" cm"}
 
 /* ---------- targets ---------- */
-function targets(){const p=prof();if(!p)return{water:2000,steps:8000,kcal:0};
+function targets(){const p=prof();if(!p||!p.wt)return{water:2000,steps:8000,kcal:0};
  const water=Math.min(3500,Math.max(1500,Math.round(p.wt*33/250)*250));
  const steps=[6000,8000,10000,10000][p.act||0]+(goalsOf(p).includes("lose")?1000:0);
  const base=10*p.wt+6.25*p.h-5*p.age+(p.sex==="m"?5:p.sex==="f"?-161:-78),tdee=base*[1.2,1.375,1.55,1.725][p.act||0]*1.05;
@@ -111,7 +111,7 @@ window.planTemplate=planTemplate=function(){const p=prof(),gs=goalsOf(p);if(!gs.
 /* ---------- quiz ---------- */
 let Q=null;
 const QSTEPS=["goal","sex","age","height","weight","goalw","act","focus","level","equip","days","mods"];
-function openQuiz(){const p=prof()||{};Q={i:0,d:{goals:goalsOf(p).slice(),kit:(p.kit||(settings.setupDone?(settings.equip==="bw"?["none"]:["db"]):[])).slice(),goal:p.goal||"",sex:p.sex||"",age:p.age||40,h:p.h||175,wt:p.wt||latestWeight()||80,gw:p.gw||null,act:p.act!=null?p.act:null,focus:(p.focus||[]).slice(),level:settings.setupDone?settings.level:"",equip:settings.setupDone?settings.equip:"",days:settings.setupDone?settings.days.slice():[0,2,4],mods:Object.assign({water:true,steps:true,meals:false,mind:false,tips:false},p.mods||{})}};document.getElementById("quiz").classList.add("open");renderQuiz()}
+function openQuiz(){const p=prof()||{};Q={i:0,d:{goals:goalsOf(p).slice(),kit:(p.kit||(settings.setupDone?(settings.equip==="bw"?["none"]:["db"]):[])).slice(),goal:p.goal||"",sex:p.sex||"",age:p.age||40,h:p.h||175,wt:p.wt||latestWeight()||80,gw:p.gw||null,act:p.act!=null?p.act:null,focus:(p.focus||[]).slice(),level:settings.setupDone?settings.level:"",equip:settings.setupDone?settings.equip:"",days:settings.setupDone?settings.days.slice():[0,2,4],mods:Object.assign({water:false,steps:false,meals:false,mind:false,tips:false,body:false},p.mods||{})}};document.getElementById("quiz").classList.add("open");renderQuiz()}
 function closeQuiz(){document.getElementById("quiz").classList.remove("open")}
 function opt(on,em,t,sub,click){return'<button class="qopt'+(on?" on":"")+'" onclick="'+click+'"><span class="em">'+em+'</span><span>'+t+(sub?'<small>'+sub+'</small>':'')+'</span></button>'}
 function stepper(val,unit,minus,plus){return'<div class="stepper"><button onpointerdown="L.hold(event,\''+btoa(minus)+'\')">−</button><div class="v'+(String(val).length>4?" long":"")+'">'+val+'<small>'+unit+'</small></div><button onpointerdown="L.hold(event,\''+btoa(plus)+'\')">+</button></div>'}
@@ -157,7 +157,7 @@ function planReady(first){const p=prof(),t=targets(),b=bmi(),gl=GOALS.filter(x=>
  if(p.mods.meals)rows.push(["🥗","About "+t.kcal.toLocaleString("en-GB")+" kcal a day","An estimate to guide your meals"]);
  document.getElementById("quiz").innerHTML='<div class="q-body"><div class="eyebrow" style="text-align:center">YOUR PLAN IS READY</div><h2 style="text-align:center">'+(settings.name?esc(settings.name)+", here's":"Here's")+' your plan</h2><div class="card">'+rows.map(r=>'<div class="ready-row"><span class="em">'+r[0]+'</span><div><b>'+esc(r[1])+'</b><small>'+esc(r[2])+'</small></div></div>').join("")+'</div><p class="tiny" style="text-align:center">General guidance, not medical advice. Change any of this in Settings.</p></div><div class="q-foot"><button class="btn lime full" style="padding:17px;font-size:16px;background:var(--grad);color:#fff" onclick="L.closeQuiz();showPage(\'home\')">Start my plan</button></div>';
  renderHome();if(document.getElementById("settings").classList.contains("active"))renderSettings()}
-window.openSetup=openSetup=(function(orig){return function(first){if(first)openQuiz();else orig(first)}})(openSetup);
+window.openSetup=openSetup=(function(orig){return function(first){if(first){settings.setupDone=true;if(!settings.days||!settings.days.length)settings.days=[0,2,4];if(!settings.planStart)settings.planStart=monday(new Date()).toISOString();saveSet();renderHome();setTimeout(()=>L.progPick&&L.progPick(),300)}else orig(first)}})(openSetup);
 
 /* ---------- weight and measurements ---------- */
 function addWeight(kg,quiet){const k=today();body.w=body.w.filter(x=>dayKey(x.d)!==k);body.w.push({d:new Date().toISOString(),kg:Math.round(kg*10)/10});body.w.sort((a,b)=>a.d.localeCompare(b.d));saveBody();if(!quiet){toast("Weight saved");afterLife()}}
@@ -284,12 +284,11 @@ function tip(){const n=Math.floor(Date.now()/864e5)+tipOff;return TIPS[((n%TIPS.
 function ring(pct,inner,label,sub,click,id){const C=2*Math.PI*42,v=Math.max(0,Math.min(1,pct));return'<button class="dring" '+(id?'id="'+id+'" ':'')+'onclick="'+click+'"><div class="rg"><svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="42" fill="none" stroke="#efeff3" stroke-width="10"/>'+(v?'<circle cx="50" cy="50" r="42" fill="none" stroke="'+(v>=1?"#34d27b":"#ff3b4f")+'" stroke-width="10" stroke-linecap="round" stroke-dasharray="'+(C*v).toFixed(1)+' '+C.toFixed(1)+'" transform="rotate(-90 50 50)"/>':'')+'</svg><span>'+inner+'</span></div><b>'+label+'</b><small>'+sub+'</small></button>'}
 function renderLifeToday(){const el=document.getElementById("lifeToday");if(!el)return;const p=prof(),m=mods(),t=targets(),d=D();let h="";
  const hs=document.getElementById("homeStats");if(hs)hs.style.display="none";
- if(!p&&settings.setupDone)h+='<button class="card pcard" onclick="L.openQuiz()"><span class="icb">'+ic("spark",24)+'</span><div><b>Personalise your plan</b><small>One minute of taps. Your goals and daily targets.</small></div><span class="chev">›</span></button>';
- const tk=today(),doneToday=sessions.some(s=>!isRide(s)&&dayKey(s.date)===tk),rings=[];
+  const tk=today(),doneToday=sessions.some(s=>!isRide(s)&&dayKey(s.date)===tk),rings=[];
  rings.push(ring(doneToday?1:0,doneToday?ic("check",30):ic("dumb",30),"Workout",doneToday?"Done today":"Tap GO above","document.getElementById('heroBtn').click()"));
  if(m.water){const g=Math.round(t.water/250),cur=Math.round((d.w||0)/250);rings.push(ring(cur/g,cur+'<i>/'+g+'</i>',"Water","Tap to add a glass","L.water("+cur+")","ringWater"))}
  if(m.steps){const s=d.s||0;rings.push(ring(s/t.steps,s>=1000?(s/1000).toFixed(1).replace(/\.0$/,"")+"k":s,"Steps","of "+t.steps.toLocaleString("en-GB"),"L.openSteps()"))}
- h+='<div class="section-head"><h2>Your day</h2>'+(m.water&&(d.w||0)>0?'<button class="linkbtn" onclick="L.water('+(Math.round((d.w||0)/250)-1)+')">Undo glass</button>':'')+'</div><div class="card dayrings">'+rings.join("")+'</div>';
+ if(rings.length>1)h+='<div class="section-head"><h2>Your day</h2>'+(m.water&&(d.w||0)>0?'<button class="linkbtn" onclick="L.water('+(Math.round((d.w||0)/250)-1)+')">Undo glass</button>':'')+'</div><div class="card dayrings">'+rings.join("")+'</div>';
  if(chal.cur){const c=chById(chal.cur.id),days=chDays(c),nx=chNext(),dn=Object.keys(chal.cur.done).length,w=days[nx];h+='<div class="card tcard" onclick="L.openCh(\''+c.id+'\')"><div class="icb">'+ic("cup",24)+'</div><div class="tx"><span class="eyebrow">DAY '+(nx+1)+' OF '+days.length+'</span><b>'+esc(c.name)+'</b><small>'+(w===REST?"Rest day":"Today: "+esc(W[w].name))+'</small><div class="hbar"><i style="width:'+(dn/days.length*100)+'%"></i></div></div><button class="btn small" style="background:var(--grad);color:#fff;flex:none" onclick="event.stopPropagation();'+(w===REST?"L.chRest("+nx+")":"L.chGo("+nx+")")+'">'+(w===REST?"✓":"GO")+'</button></div>'}
  const tiles=[];
  if(m.meals){const r=todaysMeal();tiles.push('<button class="tile2" onclick="L.recipe(\''+r.id+'\')"><span class="icb">'+ic("food",22)+'</span><b>'+MEALS[r.m]+' idea</b><small>'+esc(r.n)+'</small></button>')}
@@ -303,7 +302,7 @@ function renderLifeToday(){const el=document.getElementById("lifeToday");if(!el)
 function renderLifeTrain(){const el=document.getElementById("lifeChallenges");if(!el)return;el.innerHTML='<div class="section-head" style="margin-top:6px"><h2>Challenges</h2></div><div class="hscroll" style="display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:6px;margin-bottom:8px">'+CH.slice().sort((a,b)=>(chal.cur&&b.id===chal.cur.id)-(chal.cur&&a.id===chal.cur.id)).map(chCard).join("")+'</div>'}
 
 /* ---------- Progress page: body, habits, badges ---------- */
-function renderLifeProgress(){const el=document.getElementById("lifeBody");if(!el)return;const s=bodyStats(),p=prof(),b=bmi(),t=targets(),m=mods();
+function renderLifeProgress(){const el=document.getElementById("lifeBody");if(!el)return;if(!mods().body){el.innerHTML="";return}const s=bodyStats(),p=prof(),b=bmi(),t=targets(),m=mods();
  let h='<div class="card"><div class="row"><h3>Body</h3><button class="btn small" style="background:var(--grad);color:#fff" onclick="L.logWeight()">+ Weight</button></div>';
  h+=s?'<div class="facts3"><div><b>'+wtTxt(s.last)+'</b><small>NOW</small></div><div><b>'+(body.w.length>1?diffTxt(s.change):"·")+'</b><small>SINCE START</small></div><div><b>'+(p&&p.gw&&Math.abs(s.left)>=0.1?diffTxt(-s.left).replace(/^[+−]/,""):p&&p.gw?"✓":"·")+'</b><small>'+(p&&p.gw?"TO GOAL":"NO GOAL SET")+'</small></div></div>':'<p class="tiny">Log your weight to start your chart.</p>';
  h+=weightChart();if(b)h+='<p class="tiny" style="margin:8px 0 0">BMI '+b.toFixed(1)+', '+bmiBand(b)+'. BMI is a rough guide and doesn\'t know about muscle.</p>';
@@ -317,9 +316,9 @@ function renderLifeProgress(){const el=document.getElementById("lifeBody");if(!e
 /* ---------- Settings ---------- */
 function renderLifeSettings(){const el=document.getElementById("lifeSettings");if(!el)return;const p=prof(),m=mods(),gn=p?GOALS.filter(x=>goalsOf(p).includes(x[0])).map(x=>x[2]).join(", "):"";
  const tog=(k,lbl)=>'<label>'+lbl+'</label><div class="seg"><button class="'+(m[k]?"active":"")+'" onclick="L.mod(\''+k+'\',true)">On</button><button class="'+(!m[k]?"active":"")+'" onclick="L.mod(\''+k+'\',false)">Off</button></div>';
- el.innerHTML='<div class="card"><h3>About you</h3><p class="tiny">'+(p?esc(gn)+" · "+(p.age)+" years · "+htTxt(p.h)+" · goal "+wtTxt(p.gw):"Not set up yet")+'</p><button class="btn soft full" onclick="L.openQuiz()">'+(p?"Retake the quiz":"Personalise my plan")+'</button>'+
+ el.innerHTML='<div class="card"><h3>Units</h3>'+
  '<label>Body weight in</label><div class="seg"><button class="'+(settings.bodyUnit!=="st"?"active":"")+'" onclick="L.su(\'bodyUnit\',\'kg\')">kg</button><button class="'+(settings.bodyUnit==="st"?"active":"")+'" onclick="L.su(\'bodyUnit\',\'st\')">st and lb</button></div><label>Height in</label><div class="seg"><button class="'+(settings.hUnit!=="ft"?"active":"")+'" onclick="L.su(\'hUnit\',\'cm\')">cm</button><button class="'+(settings.hUnit==="ft"?"active":"")+'" onclick="L.su(\'hUnit\',\'ft\')">ft and in</button></div></div>'+
- '<div class="card"><h3>On your Today screen</h3>'+tog("water","Water")+tog("steps","Steps")+tog("meals","Meal ideas")+tog("mind","Breathing and mood")+tog("tips","Daily tip")+'</div>'}
+ '<div class="card"><h3>Extras</h3><p class="tiny" style="margin:0 0 6px">Switch on anything you want to use.</p>'+tog("body","Body tracking")+tog("water","Water")+tog("steps","Steps")+tog("meals","Meal ideas")+tog("mind","Breathing and mood")+tog("tips","Daily tip")+'</div>'}
 function setMod(k,v){if(!settings.profile)settings.profile={mods:mods()};settings.profile.mods=Object.assign(mods(),{[k]:v});saveSet();renderLifeSettings();renderLifeToday()}
 function su(k,v){settings[k]=v;saveSet();renderLifeSettings();afterLife()}
 
@@ -437,3 +436,61 @@ function start(){walk(document.body);mo.observe(document.body,{childList:true,su
 if(document.body)start();else document.addEventListener("DOMContentLoaded",start);
 const st=document.createElement("style");st.textContent=".ei{width:1.15em;height:1.15em;vertical-align:-.2em;display:inline-block}.eiw{display:contents}.moods .ei{width:30px;height:30px;color:#6b6e7b}.moods button.on .ei{color:var(--lime)}.qgrid .ei,.qopt .ei{width:26px;height:26px;color:var(--lime)}.bx .ei{width:26px;height:26px}";document.head.appendChild(st);
 })();
+
+/* ---------- 30, 60 and 90 day programmes ---------- */
+(function(){
+const PROGS={
+ abs:{n:"Flat Stomach",d:"Core and abs, a little harder each phase.",r:["w_core","w_abs","w_obliques","w_core10"],hx:"w_abs"},
+ strength:{n:"Strength",d:"Full body, legs and upper body with dumbbells.",r:["w_full","w_legs","w_upcore","w_power","w_lean","w_single"],hx:"w_full"},
+ posture:{n:"Posture",d:"Upper back, shoulders and core to stand taller.",r:["w_upper","w_back","w_core"],hx:"w_upper"},
+ mobility:{n:"Mobility",d:"Looser hips, hamstrings and spine.",r:["w_mob","w_post"],hx:"w_mob"},
+ back:{n:"Back Care",d:"Gentle moves to ease and strengthen your back.",r:["w_back","w_back","w_mob"],hx:"w_back"},
+ knee:{n:"Knee Care",d:"Wall moves to build the muscles around your knees.",r:["w_knee","w_knee","w_post"],hx:"w_knee"},
+ stretch:{n:"Stretching",d:"Short daily stretches for the whole body.",r:["w_post","w_mob"],hx:"w_post"}};
+const PAT={3:[0,2,4],4:[0,1,3,4],5:[0,1,2,3,4],7:[0,1,2,3,4,5,6]};
+const DAYMS=864e5;
+const day0=d=>{const x=new Date(d);x.setHours(0,0,0,0);return x};
+function P(){const p=settings.prog;return p&&PROGS[p.f]?p:null}
+function dayNo(p,d){return Math.floor((day0(d)-day0(p.start))/DAYMS)}
+function isTrain(p,d){const n=dayNo(p,d);return n>=0&&n<p.len&&PAT[p.dpw].includes(dow(d))}
+function wkIndex(p,d){let k=0;for(let i=0;i<dayNo(p,d);i++){const x=new Date(day0(p.start).getTime()+i*DAYMS+3600e3*12);if(isTrain(p,x))k++}return k}
+function widOn(p,d){const r=PROGS[p.f].r;return r[wkIndex(p,d)%r.length]}
+function lvlOn(p,d){const f=dayNo(p,d)/p.len;return f<1/3?"b":f<2/3?"i":"a"}
+function totalTrain(p){let k=0;for(let i=0;i<p.len;i++){const x=new Date(day0(p.start).getTime()+i*DAYMS+3600e3*12);if(isTrain(p,x))k++}return k}
+function doneCount(p){const st=day0(p.start);return sessions.filter(s=>!s.legacy&&new Date(s.date)>=st&&PROGS[p.f].r.includes(s.src)).length}
+window.progState=function(){const p=P();if(!p)return null;const n=dayNo(p,new Date());return{p:p,day:n+1,len:p.len,over:n>=p.len,name:PROGS[p.f].n,lv:lvlOn(p,new Date()),done:doneCount(p),total:totalTrain(p)}};
+const _ps2=planSlots;
+window.planSlots=planSlots=function(){const p=P();if(!p||dayNo(p,new Date())>=p.len)return _ps2();const m=monday(new Date()),out=[];for(let i=0;i<7;i++){const d=new Date(m.getTime()+i*DAYMS+3600e3*12);if(isTrain(p,d))out.push({day:i,wid:widOn(p,d)})}return out};
+const _rh2=renderHome;
+window.renderHome=renderHome=function(){const st=progState();if(st&&!st.over)settings.level=st.lv;_rh2();
+ const pill=document.getElementById("heroPill");if(st&&pill)pill.textContent=st.over?"PROGRAMME COMPLETE":"DAY "+Math.max(1,st.day)+" OF "+st.len+" · "+st.name.toUpperCase();
+ const el=document.getElementById("lifeToday");if(!el)return;let c=document.getElementById("progCard");if(c)c.remove();
+ const h=st?'<button class="card onecard" id="progCard" onclick="L.progPick()"><span class="icb">'+ICO.cal+'</span><div style="flex:1;min-width:0"><b>'+esc(st.name)+' · '+st.len+' days</b><small>'+(st.over?"Finished. Tap to choose your next programme.":"Day "+Math.max(1,st.day)+" of "+st.len+" · "+st.done+" of "+st.total+" workouts done · "+LEVELS[st.lv])+'</small><div class="hbar"><i style="width:'+Math.min(100,st.done/Math.max(1,st.total)*100)+'%"></i></div></div><span style="color:var(--muted);font-size:22px">›</span></button>'
+ :'<button class="card onecard" id="progCard" onclick="L.progPick()"><span class="icb">'+ICO.cal+'</span><div><b>Start a 30, 60 or 90 day programme</b><small>Flat stomach, strength, posture, mobility, back, knees or stretching.</small></div><span style="color:var(--muted);font-size:22px">›</span></button>';
+ el.insertAdjacentHTML("afterbegin",h)};
+const ICO={cal:'<svg class="ico" viewBox="0 0 24 24" style="width:24px;height:24px" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>'};
+let draft={f:"abs",len:30,dpw:3};
+function progPick(){const st=progState();if(st&&!st.over&&!progPick._new)return progView();progPick._new=false;
+ const S=document.getElementById("lifeSheet");
+ let h='<div class="sheet-top"><span class="eyebrow">PROGRAMMES</span><button class="close" onclick="closeModal(\'lifeModal\')">×</button></div><h2 style="margin:0 0 4px">Choose your programme</h2><p class="tiny" style="margin:0 0 12px">Pick a focus, how long and how many days a week. It gets harder as you go.</p>';
+ h+=Object.entries(PROGS).map(([k,v])=>{const g=GIF(heroEx(v.hx));return'<button class="wkpick'+(draft.f===k?" on":"")+'" onclick="L.progSet(\'f\',\''+k+'\')"><img src="'+g+'" alt=""><div><b>'+v.n+'</b><small>'+v.d+'</small></div>'+(draft.f===k?'<span class="wtick">✓</span>':'')+'</button>'}).join("");
+ h+='<div class="wkgrp">HOW LONG</div><div class="pv-lv">'+[30,60,90].map(n=>'<button class="'+(draft.len===n?"on":"")+'" onclick="L.progSet(\'len\','+n+')">'+n+' days</button>').join("")+'</div>';
+ h+='<div class="wkgrp">DAYS A WEEK</div><div class="pv-lv">'+[3,4,5,7].map(n=>'<button class="'+(draft.dpw===n?"on":"")+'" onclick="L.progSet(\'dpw\','+n+')">'+(n===7?"Every day":n)+'</button>').join("")+'</div>';
+ h+='<p class="tiny" style="margin:4px 2px 12px">'+PAT[draft.dpw].map(i=>DAYS[i]).join(", ")+'. Beginner for the first third, then Intermediate, then Advanced.</p><button class="btn lime full big-start" style="min-height:56px;font-size:17px" onclick="L.progStart()">Start '+PROGS[draft.f].n+' · '+draft.len+' days</button>';
+ S.innerHTML=h;openModal("lifeModal");S.scrollTop=0}
+function progView(){const st=progState(),p=st.p,S=document.getElementById("lifeSheet"),m=monday(new Date());
+ let h='<div class="sheet-top"><span class="eyebrow">MY PROGRAMME</span><button class="close" onclick="closeModal(\'lifeModal\')">×</button></div><h2 style="margin:0 0 4px">'+esc(st.name)+' · '+st.len+' days</h2><p class="tiny" style="margin:0 0 12px">Day '+Math.max(1,st.day)+' of '+st.len+' · '+st.done+' of '+st.total+' workouts done · now at '+LEVELS[st.lv]+'</p><div class="hbar" style="margin:0 0 16px"><i style="width:'+Math.min(100,st.done/Math.max(1,st.total)*100)+'%"></i></div><div class="wkgrp">THIS WEEK</div>';
+ for(let i=0;i<7;i++){const d=new Date(m.getTime()+i*DAYMS+3600e3*12),tr=isTrain(p,d),w=tr&&W[widOn(p,d)];h+='<div class="wkrow'+(w?"":" rest")+'"'+(w?' onclick="closeModal(\'lifeModal\');previewWorkout(\''+widOn(p,d)+'\')"':'')+'><div class="dn">'+DAYS[i]+'</div><div class="tx"><b>'+(w?esc(w.name):"Rest day")+'</b><small>'+(w?LEVELS[lvlOn(p,d)]+" · about "+estMins(resolve(widOn(p,d),lvlOn(p,d)))+" min":dayNo(p,d)<0||dayNo(p,d)>=p.len?"Outside your programme":"Recover and recharge")+'</small></div>'+(w?'<span class="chg">View</span>':'')+'</div>'}
+ h+='<button class="btn soft full" style="margin-top:10px" onclick="L.progNew()">Change programme</button><button class="btn soft full" style="margin-top:8px;color:#e8304a!important" onclick="L.progEnd()">End programme</button>';
+ S.innerHTML=h;openModal("lifeModal");S.scrollTop=0}
+function progSet(k,v){draft[k]=v;progPick._new=true;progPick()}
+function progNew(){const p=P();if(p)draft={f:p.f,len:p.len,dpw:p.dpw};progPick._new=true;progPick()}
+function progStart(){const p=P();if(p&&dayNo(p,new Date())<p.len&&!confirm("Replace your current programme?"))return;settings.prog={f:draft.f,len:draft.len,dpw:draft.dpw,start:day0(new Date()).toISOString()};settings.days=PAT[draft.dpw].slice();delete settings.dayPlan;saveSet();closeModal("lifeModal");renderHome();if(typeof renderTrain==="function"&&document.getElementById("train").classList.contains("active"))renderTrain();toast(PROGS[draft.f].n+" programme started")}
+function progEnd(){if(!confirm("End this programme? Your workouts stay saved."))return;delete settings.prog;saveSet();closeModal("lifeModal");renderHome();toast("Programme ended")}
+Object.assign(window.L,{progPick,progSet,progStart,progEnd,progNew});
+const _rt4=renderTrain;window.renderTrain=renderTrain=function(){_rt4();const one=document.getElementById("oneCard");if(one&&!document.getElementById("progTrain")){const st=progState();one.insertAdjacentHTML("beforebegin",'<button class="card onecard" id="progTrain" onclick="L.progPick()"><span class="icb">'+ICO.cal+'</span><div><b>'+(st&&!st.over?esc(st.name)+" · day "+Math.max(1,st.day)+" of "+st.len:"Programmes")+'</b><small>'+(st&&!st.over?"See this week or change programme.":"30, 60 or 90 days. Flat stomach, strength, posture and more.")+'</small></div><span style="color:var(--muted);font-size:22px">›</span></button>')}
+ const wk=document.getElementById("weekCard");if(wk)wk.style.display=progState()&&!progState().over?"none":""};
+})();
+
+/* ---------- one time switch to the simple setup ---------- */
+(function(){if(settings.simple1)return;if(settings.profile&&settings.profile.mods)Object.assign(settings.profile.mods,{water:false,steps:false,meals:false,mind:false,tips:false,body:false});settings.simple1=true;saveSet();try{renderHome()}catch(e){}})();
