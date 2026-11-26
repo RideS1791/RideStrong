@@ -578,7 +578,7 @@ input,select,textarea{background:#fff!important;color:var(--ink)!important;borde
 const IMG_REMOTE="https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/";
 // names tidied for the app
 const NAMES={"Kettlebell_One-Legged_Deadlift":"Single Leg Romanian Deadlift","Vertical_Swing":"Dumbbell Swing","Freehand_Jump_Squat":"Jump Squat","Split_Squat_with_Dumbbells":"Rear Foot Elevated Split Squat","Split_Squats":"Split Squat","Butt_Lift_Bridge":"Glute Bridge","Bent-Arm_Dumbbell_Pullover":"Dumbbell Pullover","External_Rotation":"Side Lying External Rotation","Farmers_Walk":"Farmer's Carry","Reverse_Flyes":"Bent Over Reverse Fly","Side_Bridge":"Side Plank","Pushups":"Push Up","Incline_Push-Up":"Incline Push Up","Dumbbell_Step_Ups":"Dumbbell Step Up","Dumbbell_Rear_Lunge":"Dumbbell Reverse Lunge","Standing_Dumbbell_Calf_Raise":"Dumbbell Calf Raise","IT_Band_and_Glute_Stretch":"Glute and ITB Stretch","Worlds_Greatest_Stretch":"World's Greatest Stretch","Childs_Pose":"Child's Pose Reach","Kneeling_Hip_Flexor":"Kneeling Quad and Hip Flexor Stretch","Calf_Stretch_Hands_Against_Wall":"Wall Calf Stretch","Chest_And_Front_Of_Shoulder_Stretch":"Chest and Shoulder Stretch","Cat_Stretch":"Seated Spine Stretch","Standing_Hip_Circles":"Standing Hip Circles","Knee_Tuck_Jump":"Tuck Jump","Superman":"Superman Back Extension","Bodyweight_Squat":"Squat to Overhead Reach","Lateral_Bound":"Skater Hops","Side_Bridge":"Side Plank","Quad_Stretch":"Lying Side Quad Stretch","IT_Band_and_Glute_Stretch":"Seated Glute Stretch","Vertical_Swing":"Dumbbell Swing","Plank":"Plank","Bodyweight_Walking_Lunge":"Walking Lunge","One-Arm_Dumbbell_Row":"Single Arm Dumbbell Row","Stiff-Legged_Dumbbell_Deadlift":"Dumbbell Romanian Deadlift"};
-const CATS={legs:"Legs",power:"Power",core:"Core and abs",upper:"Upper body",full:"Full body",mob:"Mobility",back:"Back care",knee:"Knee care"};
+const CATS={complete:"Complete",legs:"Legs",power:"Power",core:"Core and abs",upper:"Upper body",full:"Full body",mob:"Mobility",back:"Back care",knee:"Knee care"};
 /* item: id, t (weight|reps|time), b/i/a = [sets,target] for beginner/intermediate/advanced,
    lv:{b:id,a:id} swaps the exercise at that level, bw: swap when you only have bodyweight (bwt = its type), why: what it does for your riding */
 const W={
@@ -661,6 +661,64 @@ const W={
   {id:"Bent-Arm_Dumbbell_Pullover",t:"weight",b:[2,10],i:[3,10],a:[3,12],bw:"Superman",bwt:"reps"},
   {id:"Superman",t:"reps",b:[2,8],i:[3,10],a:[3,12]},
   {id:"Farmers_Walk",t:"time",b:[2,30],i:[3,40],a:[3,45],bw:"Plank",why:"Walk tall holding heavy dumbbells."}]},
+ w_total30:{name:"Complete 30",cat:"complete",rest:40,max:40,desc:"Everything in half an hour: loosen up, legs, push, pull, core and a stretch.",why:"Covers every part of your body in one session, ideal when time is short.",items:[
+  {id:"Cat_Stretch",t:"time",b:[1,30],i:[1,30],a:[1,30]},
+  {id:"Worlds_Greatest_Stretch",t:"time",b:[1,30],i:[1,30],a:[1,30]},
+  {id:"Goblet_Squat",t:"weight",b:[2,10],i:[3,10],a:[3,8],bw:"Bodyweight_Squat",bwt:"reps"},
+  {id:"Pushups",t:"reps",b:[2,8],i:[3,10],a:[3,12],lv:{b:"Incline_Push-Up"}},
+  {id:"One-Arm_Dumbbell_Row",t:"weight",b:[2,10],i:[3,10],a:[3,10],bw:"Superman",bwt:"reps"},
+  {id:"Dumbbell_Rear_Lunge",t:"weight",b:[2,8],i:[2,8],a:[2,10],bw:"Bodyweight_Walking_Lunge",bwt:"reps"},
+  {id:"Dumbbell_Shoulder_Press",t:"weight",b:[2,10],i:[2,10],a:[2,10]},
+  {id:"Butt_Lift_Bridge",t:"reps",b:[2,12],i:[2,12],a:[2,15]},
+  {id:"Plank",t:"time",b:[2,20],i:[2,30],a:[2,40]},
+  {id:"Dead_Bug",t:"reps",b:[2,8],i:[2,10],a:[2,12]},
+  {id:"Hamstring_Stretch",t:"time",b:[1,40],i:[1,40],a:[1,40]},
+  {id:"Childs_Pose",t:"time",b:[1,45],i:[1,45],a:[1,45]}]},
+ w_total45:{name:"Complete 45",cat:"complete",rest:45,max:40,desc:"A full session: mobility, strength for every muscle group, core, back care and stretching.",why:"The best all round workout when you have three quarters of an hour.",items:[
+  {id:"Cat_Stretch",t:"time",b:[1,30],i:[1,30],a:[1,30]},
+  {id:"Worlds_Greatest_Stretch",t:"time",b:[1,30],i:[1,30],a:[1,30]},
+  {id:"edb_pelvic_tilt",t:"reps",b:[1,12],i:[2,12],a:[2,15]},
+  {id:"Goblet_Squat",t:"weight",b:[2,10],i:[3,10],a:[3,8],bw:"Bodyweight_Squat",bwt:"reps"},
+  {id:"Pushups",t:"reps",b:[2,8],i:[3,10],a:[3,12],lv:{b:"Incline_Push-Up"}},
+  {id:"Kettlebell_One-Legged_Deadlift",t:"weight",b:[2,8],i:[3,8],a:[3,10],lv:{b:"Stiff-Legged_Dumbbell_Deadlift"}},
+  {id:"One-Arm_Dumbbell_Row",t:"weight",b:[2,10],i:[3,10],a:[3,10],bw:"Superman",bwt:"reps"},
+  {id:"Dumbbell_Rear_Lunge",t:"weight",b:[2,8],i:[2,8],a:[2,10],bw:"Bodyweight_Walking_Lunge",bwt:"reps"},
+  {id:"Dumbbell_Shoulder_Press",t:"weight",b:[2,10],i:[2,10],a:[2,10]},
+  {id:"Reverse_Flyes",t:"weight",b:[2,12],i:[2,12],a:[2,15]},
+  {id:"Standing_Dumbbell_Calf_Raise",t:"weight",b:[2,15],i:[2,15],a:[2,15],bw:"edb_heel_raise",bwt:"reps"},
+  {id:"Plank",t:"time",b:[2,20],i:[2,30],a:[2,40]},
+  {id:"Side_Bridge",t:"time",b:[2,20],i:[2,25],a:[2,30]},
+  {id:"edb_bicycle_crunch",t:"reps",b:[2,16],i:[2,20],a:[2,20]},
+  {id:"Dead_Bug",t:"reps",b:[2,8],i:[2,10],a:[2,12]},
+  {id:"Kneeling_Hip_Flexor",t:"time",b:[1,40],i:[1,40],a:[1,40]},
+  {id:"Hamstring_Stretch",t:"time",b:[1,40],i:[1,40],a:[1,40]},
+  {id:"Childs_Pose",t:"time",b:[1,45],i:[1,45],a:[1,45]}]},
+ w_total60:{name:"Complete 60",cat:"complete",rest:35,max:40,desc:"The full hour: mobility, legs, back, chest, shoulders, arms, core, back care and a long stretch.",why:"Everything the app covers in one complete session.",items:[
+  {id:"Cat_Stretch",t:"time",b:[1,30],i:[1,30],a:[1,30]},
+  {id:"Worlds_Greatest_Stretch",t:"time",b:[1,30],i:[1,30],a:[1,30]},
+  {id:"edb_pelvic_tilt",t:"reps",b:[1,12],i:[2,12],a:[2,15]},
+  {id:"Goblet_Squat",t:"weight",b:[2,10],i:[3,10],a:[3,8],bw:"Bodyweight_Squat",bwt:"reps"},
+  {id:"Pushups",t:"reps",b:[2,8],i:[3,10],a:[3,12],lv:{b:"Incline_Push-Up"}},
+  {id:"Kettlebell_One-Legged_Deadlift",t:"weight",b:[2,8],i:[3,8],a:[3,10],lv:{b:"Stiff-Legged_Dumbbell_Deadlift"}},
+  {id:"One-Arm_Dumbbell_Row",t:"weight",b:[2,10],i:[3,10],a:[3,10],bw:"Superman",bwt:"reps"},
+  {id:"Dumbbell_Step_Ups",t:"weight",b:[2,8],i:[3,8],a:[3,10],bw:"Dumbbell_Step_Ups",bwt:"reps"},
+  {id:"Dumbbell_Shoulder_Press",t:"weight",b:[2,10],i:[2,10],a:[2,10]},
+  {id:"Dumbbell_Rear_Lunge",t:"weight",b:[2,8],i:[2,8],a:[2,10],bw:"Bodyweight_Walking_Lunge",bwt:"reps"},
+  {id:"Reverse_Flyes",t:"weight",b:[2,12],i:[2,12],a:[2,15]},
+  {id:"edb_dumbbell_lateral_raise",t:"weight",b:[2,12],i:[3,12],a:[3,15]},
+  {id:"edb_dumbbell_hammer_curl",t:"weight",b:[2,12],i:[2,12],a:[2,12]},
+  {id:"edb_dumbbell_triceps_kickback",t:"weight",b:[2,12],i:[2,12],a:[2,12]},
+  {id:"Standing_Dumbbell_Calf_Raise",t:"weight",b:[2,15],i:[2,15],a:[2,15],bw:"edb_heel_raise",bwt:"reps"},
+  {id:"edb_wall_sit_march",t:"time",b:[1,30],i:[2,30],a:[2,40]},
+  {id:"Plank",t:"time",b:[2,20],i:[2,30],a:[2,40]},
+  {id:"Side_Bridge",t:"time",b:[2,20],i:[2,25],a:[2,30]},
+  {id:"edb_bicycle_crunch",t:"reps",b:[2,16],i:[2,20],a:[2,20]},
+  {id:"Dead_Bug",t:"reps",b:[2,8],i:[2,10],a:[2,12]},
+  {id:"Superman",t:"reps",b:[2,10],i:[2,10],a:[2,12]},
+  {id:"Kneeling_Hip_Flexor",t:"time",b:[1,40],i:[1,40],a:[1,40]},
+  {id:"Hamstring_Stretch",t:"time",b:[1,40],i:[1,40],a:[1,40]},
+  {id:"Childs_Pose",t:"time",b:[1,45],i:[1,45],a:[1,45]},
+  {id:"edb_legs_up_wall",t:"time",b:[1,60],i:[1,60],a:[1,60]}]},
  w_full:{name:"Full Body",cat:"full",rest:75,max:6,desc:"Everything in one session, with core to finish.",why:"Legs, back, shoulders and core in about 40 minutes.",items:[
   {id:"Goblet_Squat",alt:["edb_dumbbell_squat"],t:"weight",b:[2,10],i:[3,8],a:[4,6],bw:"Bodyweight_Squat",bwt:"reps"},
   {id:"Pushups",t:"reps",b:[2,8],i:[3,10],a:[3,12],lv:{b:"Incline_Push-Up"}},
@@ -794,7 +852,7 @@ function resolve(wid,level,opts){opts=opts||{};const w=W[wid],lv=level||settings
   if(it.lv&&it.lv[lv]){id=it.lv[lv];t=typeOf(ex(id))}else if(id!==it.id){t=typeOf(ex(id))}
   if(bwOnly&&t==="weight"){if(it.bw){id=it.bw;t=it.bwt||typeOf(ex(id))}else return}
   if(seen.has(id))return;seen.add(id);let[sets,target]=it[lv]||it.i;if(it.t==="time"&&t!=="time")target=Math.max(8,Math.round(target/3));else if(it.t!=="time"&&t==="time")target=30;
-  if(w.cat!=="mob"&&w.cat!=="back"&&w.cat!=="knee"&&!w.lean){if(ph===1||ph===3){if(t!=="time"&&sets<5&&!it.core)sets++}if(ph===2&&!it.core){if(t==="weight")target=Math.max(5,target-2);else if(t==="reps")target+=2;else target+=10}}
+  if(w.cat!=="mob"&&w.cat!=="back"&&w.cat!=="knee"&&w.cat!=="complete"&&!w.lean){if(ph===1||ph===3){if(t!=="time"&&sets<5&&!it.core)sets++}if(ph===2&&!it.core){if(t==="weight")target=Math.max(5,target-2);else if(t==="reps")target+=2;else target+=10}}
   if(w.lean&&ph>=1&&!it.core){if(t==="time")target+=10;else target+=2}
   if(t==="time"&&target>90)target=60;
   out.push({id:id,type:t,sets:sets,target:target,rest:it.rest||(w.cat==="power"&&!it.core?120:it.core?Math.min(w.rest,45):t==="time"?Math.min(w.rest,45):w.rest),why:it.why||"",core:!!it.core})});
@@ -834,7 +892,7 @@ function renderHome(){
  $("heroFig").innerHTML="";if(active){const ci=active.items.find(i=>i.sets.some(s=>!s.done))||active.items[0];if(ci)$("heroFig").innerHTML=media(ci.id,"clear",true);$("heroTag").textContent="IN PROGRESS";$("heroPill").textContent=fmtTime((Date.now()-active.startedAt)/1000);$("heroTitle").textContent=active.name;$("heroDesc").textContent="You have a workout open. Pick up where you left off.";$("heroMeta").innerHTML="";$("heroBtn").textContent="RESUME";$("heroBtn").onclick=()=>{openSession();if(settings.guided)openGuide()};$("heroAlt").style.display="none"}
  else{const sl=nextSlot();$("heroAlt").style.display="";
   if(sl){const w=W[sl.wid],items=resolve(sl.wid),today=sl.day===dow(now);$("heroTag").textContent=today?"TODAY":"NEXT · "+DAYS[sl.day].toUpperCase();$("heroPill").textContent="WEEK "+(planWeekIndex()+1)+" · "+PHASES[phaseIndex()].name.toUpperCase();$("heroTitle").textContent=w.name;$("heroDesc").textContent="";
-   $("heroMeta").innerHTML='<span><b>'+estMins(items.concat(settings.warmup&&!["mob","back","knee"].includes(w.cat)?warmupItems():[]))+'</b> min</span><span><b>'+items.length+'</b> exercises</span>';
+   $("heroMeta").innerHTML='<span><b>'+estMins(items.concat(settings.warmup&&!["mob","back","knee","complete"].includes(w.cat)?warmupItems():[]))+'</b> min</span><span><b>'+items.length+'</b> exercises</span>';
    $("heroBtn").textContent="GO";$("heroFig").innerHTML=media(items[0].id,"clear",true);$("heroBtn").onclick=()=>startWorkout({wid:sl.wid,plan:true});$("heroAlt").onclick=()=>previewWorkout(sl.wid,true)}
   else{$("heroTag").textContent="WEEK COMPLETE";$("heroPill").textContent="✓ "+slots.length+" OF "+slots.length;$("heroTitle").textContent="Plan done for this week";$("heroFig").innerHTML=media("Childs_Pose","clear",true);$("heroDesc").textContent="Great work. Recovery is when you get stronger. A mobility or stretch session is plenty if you want to do something.";$("heroMeta").innerHTML="";$("heroBtn").textContent="GO";$("heroBtn").onclick=()=>previewWorkout("w_mob");$("heroAlt").textContent="Stretch";$("heroAlt").onclick=()=>previewWorkout("w_post")}
   if(sl)$("heroAlt").textContent="Exercises"}
@@ -881,11 +939,11 @@ function saveSetup(){const d=setupDraft;if(!d.days.length){toast("Choose at leas
 function renderTrain(){const cats=[["all","All"]].concat(Object.entries(CATS));$("catChips").innerHTML=cats.map(c=>'<button class="chip'+(catFilter===c[0]?" active":"")+'" onclick="catFilter=\''+c[0]+'\';renderTrain()">'+c[1]+'</button>').join("");
  $("goalList").innerHTML='<div class="tiles">'+Object.keys(W).filter(id=>catFilter==="all"||W[id].cat===catFilter).map(id=>tileCard(id)).join("")+'</div>';
  $("myList").innerHTML=custom.length?'<div class="tiles">'+custom.map(c=>'<div class="tilecard" onclick="previewCustom(\''+c.id+'\')"><div class="tile bg-mine">'+(c.items[0]?media(c.items[0].id,"clear",true):"")+'<span class="pill">Mine</span></div><div class="tx"><b>'+esc(c.name)+'</b><small>'+c.items.length+' exercises</small></div></div>').join("")+'</div>':'<div class="card empty">Build your own routine from any exercise in the library.<br><br><button class="btn small" onclick="openBuilder(null)">Create a workout</button></div>'}
-function heroEx(id){const r=resolve(id);const pref={w_legs:"Goblet_Squat",w_single:"Dumbbell_Step_Ups",w_power:"Freehand_Jump_Squat",w_core:"Dead_Bug",w_core10:"Mountain_Climbers",w_upcore:"Pushups",w_upper:"One-Arm_Dumbbell_Row",w_full:"Kettlebell_One-Legged_Deadlift",w_bw:"Bodyweight_Walking_Lunge",w_mob:"Worlds_Greatest_Stretch",w_post:"Kneeling_Hip_Flexor",w_back:"edb_pelvic_tilt",w_knee:"edb_wall_knee_lift"}[id];return r.some(i=>i.id===pref)?pref:r[0].id}
+function heroEx(id){const r=resolve(id);const pref={w_legs:"Goblet_Squat",w_single:"Dumbbell_Step_Ups",w_power:"Freehand_Jump_Squat",w_core:"Dead_Bug",w_core10:"Mountain_Climbers",w_upcore:"Pushups",w_upper:"One-Arm_Dumbbell_Row",w_full:"Kettlebell_One-Legged_Deadlift",w_bw:"Bodyweight_Walking_Lunge",w_mob:"Worlds_Greatest_Stretch",w_post:"Kneeling_Hip_Flexor",w_back:"edb_pelvic_tilt",w_total30:"Goblet_Squat",w_total45:"Pushups",w_total60:"Dumbbell_Shoulder_Press",w_knee:"edb_wall_knee_lift"}[id];return r.some(i=>i.id===pref)?pref:r[0].id}
 function tileCard(id){const w=W[id],items=resolve(id);return'<div class="tilecard" onclick="previewWorkout(\''+id+'\')"><div class="tile bg-'+w.cat+'">'+media(heroEx(id),"clear",true)+'<span class="pill">'+CATS[w.cat]+'</span></div><div class="tx"><b>'+esc(w.name)+'</b><small>'+estMins(items)+' min · '+items.length+' exercises</small></div></div>'}
 function wcard(id){const w=W[id],items=resolve(id);return'<div class="wcard" onclick="previewWorkout(\''+id+'\')"><div class="band cat-'+w.cat+'"></div><div class="in"><div class="row"><h3>'+esc(w.name)+'</h3><span class="pill">'+CATS[w.cat]+'</span></div><p class="tiny" style="margin:4px 0 0">'+esc(w.desc)+'</p><div class="facts"><span>⏱ '+estMins(items)+' min</span><span>'+items.length+' exercises</span><span>'+LEVELS[settings.level]+'</span></div><div class="thumbs">'+items.slice(0,4).map(i=>media(i.id,"wthumb")).join("")+'</div></div></div>'}
 function previewWorkout(wid,plan,lv){previewState={wid:wid,plan:!!plan,lv:lv||settings.level,ver:verOf(wid)};renderPreview();openModal("previewModal");$("previewModal").querySelector(".sheet").scrollTop=0}
-function renderPreview(){const p=previewState,w=W[p.wid],items=resolve(p.wid,p.lv,{ver:p.ver}),warm=settings.warmup&&!["mob","back","knee"].includes(w.cat);$("previewTag").textContent=CATS[w.cat];
+function renderPreview(){const p=previewState,w=W[p.wid],items=resolve(p.wid,p.lv,{ver:p.ver}),warm=settings.warmup&&!["mob","back","knee","complete"].includes(w.cat);$("previewTag").textContent=CATS[w.cat];
  const startBtn='<button class="btn lime full big-start" onclick="closeModal(\'previewModal\');startWorkout({wid:previewState.wid,plan:previewState.plan,lv:previewState.lv,ver:previewState.ver})">▶ Start</button>';
  $("previewBody").innerHTML='<h2 style="margin-bottom:4px">'+esc(w.name)+'</h2><div class="pv-facts"><span>⏱ '+estMins(items.concat(warm?warmupItems():[]))+' min</span><span>'+items.length+' exercises</span></div><div class="pv-lv">'+Object.entries(LEVELS).map(([k,n])=>'<button class="'+(p.lv===k?"on":"")+'" onclick="previewState.lv=\''+k+'\';renderPreview()">'+n+'</button>').join("")+'</div>'+startBtn+
  '<div class="pv-grid">'+items.map(i=>'<div class="pv-tile" onclick="openDetail(\''+i.id+'\',true)">'+media(i.id,"",true)+'<b>'+esc(exName(i.id))+'</b><small>'+i.sets+' × '+i.target+(i.type==="time"?" s":"")+'</small></div>').join("")+'</div>'+
@@ -930,7 +988,7 @@ function confirmPicker(){if(picker.target==="session")addToSession(picker.sel);e
 /* ============ LIVE SESSION ============ */
 function makeItem(p){const type=p.type||typeOf(ex(p.id)),n=Math.max(1,p.sets||3);return{id:p.id,type:type,target:p.target||defTarget(type),rest:p.rest||defRest(type),warm:!!p.warm,core:!!p.core,why:p.why||"",sets:Array.from({length:n},()=>({kg:"",reps:"",secs:"",done:false}))}}
 function startWorkout(o){if(active){if(!confirm("You already have a workout open. Replace it? It will not be saved."))return;stopRest()}let name,items=[],src="";
- if(o.wid){const w=W[o.wid];name=w.name+(nVersions(o.wid)>1?" "+"ABC"[(o.ver!=null?o.ver:verOf(o.wid))]:"");src=o.wid;items=resolve(o.wid,o.lv,{ver:o.ver});if(settings.warmup&&!["mob","back","knee"].includes(w.cat))items=warmupItems().concat(items)}
+ if(o.wid){const w=W[o.wid];name=w.name+(nVersions(o.wid)>1?" "+"ABC"[(o.ver!=null?o.ver:verOf(o.wid))]:"");src=o.wid;items=resolve(o.wid,o.lv,{ver:o.ver});if(settings.warmup&&!["mob","back","knee","complete"].includes(w.cat))items=warmupItems().concat(items)}
  else if(o.cid){const c=custom.find(x=>x.id===o.cid);name=c.name;src=o.cid;items=c.items.map(i=>({id:i.id,sets:i.sets,target:i.target,type:i.type||typeOf(ex(i.id))}))}
  else{const h=new Date().getHours();name=(h<12?"Morning":h<18?"Afternoon":"Evening")+" workout";items=(o.ids||[]).map(id=>({id:id}))}
  active={id:uid(),name:name,src:src,plan:!!o.plan,level:o.lv||settings.level,startedAt:Date.now(),items:items.map(makeItem)};saveActive();openSession();if(!items.length)setTimeout(()=>openPicker("session"),250);else if(settings.guided)openGuide()}
